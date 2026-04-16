@@ -172,5 +172,68 @@
 
   "CRIMSONSCEPTER_ANGELINA_MOD-ENERGY_CYCLE.title": "Energy Cycle",
   "CRIMSONSCEPTER_ANGELINA_MOD-ENERGY_CYCLE.description": "Each turn, when you play an [gold]Attack[/gold], [gold]Skill[/gold], or [gold]Power[/gold] card that costs at least 2 Energy, gain {Energy:energyIcons()}. Each type can trigger up to {EnergyCyclePower} times.",
-  "CRIMSONSCEPTER_ANGELINA_MOD-ENERGY_CYCLE.upgraded_description": "Each turn, when you play an [gold]Attack[/gold], [gold]Skill[/gold], or [gold]Power[/gold] card that costs at least 2 Energy, gain {Energy:energyIcons()}. Each type can trigger up to {EnergyCyclePower} times."
+  "CRIMSONSCEPTER_ANGELINA_MOD-ENERGY_CYCLE.upgraded_description": "Each turn, when you play an [gold]Attack[/gold], [gold]Skill[/gold], or [gold]Power[/gold] card that costs at least 2 Energy, gain {Energy:energyIcons()}. Each type can trigger up to {EnergyCyclePower} times.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-FAST_CHARGE_MODE.title": "Fast Charge Mode",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FAST_CHARGE_MODE.description": "This turn, double the [gold]Imbalance[/gold] you apply.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FAST_CHARGE_MODE.upgraded_description": "This turn, double the [gold]Imbalance[/gold] you apply.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-DECEL_BINDER.title": "Decel Binder",
+  "CRIMSONSCEPTER_ANGELINA_MOD-DECEL_BINDER.description": "Whenever you play an Attack, apply 1 [gold]Stagger[/gold] to its target.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-DECEL_BINDER.upgraded_description": "Whenever you play an Attack, apply 1 [gold]Stagger[/gold] to its target.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-INERTIA.title": "Inertia",
+  "CRIMSONSCEPTER_ANGELINA_MOD-INERTIA.description": "Whenever an enemy becomes [gold]Weightless[/gold], or before drawing if any enemy is [gold]Weightless[/gold], draw {InertiaPower:diff()} card(s).",
+  "CRIMSONSCEPTER_ANGELINA_MOD-INERTIA.upgraded_description": "Whenever an enemy becomes [gold]Weightless[/gold], or before drawing if any enemy is [gold]Weightless[/gold], draw {InertiaPower:diff()} card(s).",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-NATURAL_BURST.title": "Natural Burst",
+  "CRIMSONSCEPTER_ANGELINA_MOD-NATURAL_BURST.description": "Whenever you deal [gold]Spell[/gold] damage to an enemy, apply {NaturalBurstPower:diff()} [gold]Poison[/gold] to all enemies.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-NATURAL_BURST.upgraded_description": "Whenever you deal [gold]Spell[/gold] damage to an enemy, apply {NaturalBurstPower:diff()} [gold]Poison[/gold] to all enemies.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-REALITY_MANIPULATION.title": "Reality Manipulation",
+  "CRIMSONSCEPTER_ANGELINA_MOD-REALITY_MANIPULATION.description": "Whenever a card enters or leaves your [gold]Exhaust[/gold] pile, gain {RealityManipulationPower:diff()} Block.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-REALITY_MANIPULATION.upgraded_description": "Whenever a card enters or leaves your [gold]Exhaust[/gold] pile, gain {RealityManipulationPower:diff()} Block.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-INVERSION_SYMMETRY.title": "Inversion Symmetry",
+  "CRIMSONSCEPTER_ANGELINA_MOD-INVERSION_SYMMETRY.description": "Spend X Energy. Play the most recent X other cards in your discard pile in order.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-INVERSION_SYMMETRY.upgraded_description": "[gold]Retain[/gold]. Spend X Energy. Play the most recent X other cards in your discard pile in order.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-SCEPTER_ANTIGRAVITY_MODE.title": "Scepter Antigravity Mode",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SCEPTER_ANTIGRAVITY_MODE.description": "Apply {ImbalancePower:diff()} [gold]Imbalance[/gold] to all enemies, deal {DisplayedDamage} [gold]Spell[/gold] damage, and give them {TemporaryFlyPower:diff()} Temporary Flight.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SCEPTER_ANTIGRAVITY_MODE.upgraded_description": "Apply {ImbalancePower:diff()} [gold]Imbalance[/gold] to all enemies, deal {DisplayedDamage} [gold]Spell[/gold] damage, and give them {TemporaryFlyPower:diff()} Temporary Flight.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-ULTIMATE_BIG_BANG.title": "Ultimate Big Bang",
+  "CRIMSONSCEPTER_ANGELINA_MOD-ULTIMATE_BIG_BANG.description": "[gold]Retain[/gold]. Lose 1 Relic. Deal {DisplayedDamage} [gold]Spell[/gold] damage to all enemies. This card costs 1 more this combat.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-ULTIMATE_BIG_BANG.upgraded_description": "[gold]Retain[/gold]. Lose 1 Relic. Deal {DisplayedDamage} [gold]Spell[/gold] damage to all enemies. This card costs 1 more this combat.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-SPECIAL_GRAVITY_MODULE.title": "Special Gravity Module",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SPECIAL_GRAVITY_MODULE.description": "Whenever you play an [gold]Attack[/gold], if its target does not have [gold]Flight[/gold], give it {FlyPower:diff()} [gold]Flight[/gold]. Whenever you play a card, enemies with Flight take 2 damage.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SPECIAL_GRAVITY_MODULE.upgraded_description": "[gold]Innate[/gold]. Whenever you play an [gold]Attack[/gold], if its target does not have [gold]Flight[/gold], give it {FlyPower:diff()} [gold]Flight[/gold]. Whenever you play a card, enemies with Flight take 2 damage.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-PARTICLE_MODE.title": "Particle Mode",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PARTICLE_MODE.description": "[gold]Ethereal[/gold]. Your Attacks deal half damage. The first time each Attack is played each turn, return it to your hand and make it free to play once this turn.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PARTICLE_MODE.upgraded_description": "Your Attacks deal half damage. The first time each Attack is played each turn, return it to your hand and make it free to play once this turn.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-QUALITY_VISITOR.title": "Quality Visitor",
+  "CRIMSONSCEPTER_ANGELINA_MOD-QUALITY_VISITOR.description": "At the start of the next {QualityVisitorPower} turns, gain 1 [gold]Strength[/gold], 1 [gold]Dexterity[/gold], and 1 [gold]Focus[/gold].",
+  "CRIMSONSCEPTER_ANGELINA_MOD-QUALITY_VISITOR.upgraded_description": "At the start of the next {QualityVisitorPower} turns, gain 1 [gold]Strength[/gold], 1 [gold]Dexterity[/gold], and 1 [gold]Focus[/gold].",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-SECURITY_CHECK.title": "Security Check",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SECURITY_CHECK.description": "Whenever you [gold]Deliver[/gold] a Status or Curse, [gold]Exhaust[/gold] it instead and apply {SecurityCheckPower} [gold]Imbalance[/gold] to all enemies.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SECURITY_CHECK.upgraded_description": "Whenever you [gold]Deliver[/gold] a Status or Curse, [gold]Exhaust[/gold] it instead and apply {SecurityCheckPower} [gold]Imbalance[/gold] to all enemies.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-BANDAGE.title": "Bandage",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BANDAGE.description": "Gain {Block:diff()} Block. Add an enchantment to a card in your hand: Upgrade it when delivered.{IfUpgraded:show:\nThis affects all valid cards in your hand instead.}",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BANDAGE.upgraded_description": "Gain {Block:diff()} Block. Add an enchantment to all valid cards in your hand: Upgrade them when delivered.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BANDAGE.selectPrompt": "Choose a card to gain delivered upgrade",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-CHAIN_TECHNIQUE.title": "Chain Technique",
+  "CRIMSONSCEPTER_ANGELINA_MOD-CHAIN_TECHNIQUE.description": "Apply {ImbalancePower} [gold]Imbalance[/gold] to a target. Gain {HotfixPower} [gold]Temporary Focus[/gold]. If this card causes the target to become [gold]Weightless[/gold], gain {FocusPower} [gold]Focus[/gold] instead.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-CHAIN_TECHNIQUE.upgraded_description": "Apply {ImbalancePower} [gold]Imbalance[/gold] to a target. Gain {HotfixPower} [gold]Temporary Focus[/gold]. If this card causes the target to become [gold]Weightless[/gold], gain {FocusPower} [gold]Focus[/gold] instead.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-FUTURE_OBSERVATION.title": "Future Observation",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FUTURE_OBSERVATION.description": "Choose 5 cards in your deck. They will appear on top of your draw pile next combat.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FUTURE_OBSERVATION.upgraded_description": "Choose 5 cards in your deck. They will appear on top of your draw pile next combat.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FUTURE_OBSERVATION.multiplayerWarningTitle": "Multiplayer Warning",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FUTURE_OBSERVATION.multiplayerWarningDescription": "This card may cause desyncs or other issues in multiplayer. Use or pick it with caution in multiplayer games!"
 }

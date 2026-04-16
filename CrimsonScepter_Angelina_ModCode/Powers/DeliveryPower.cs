@@ -27,26 +27,32 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
 /// </summary>
 public sealed class DeliveryPower : AngelinaPower
 {
-    // 内部数据：
-    // QueuedCards = 当前所有被寄送的牌
+    /// <summary>
+    /// 内部数据：
+    /// QueuedCards = 当前所有被寄送的牌
+    /// </summary>
     private sealed class Data
     {
-        public List<CardModel> QueuedCards = new();
+        public List<CardModel> QueuedCards { get; set; } = new();
     }
 
-    // 当前按Buff显示
     public override PowerType Type => PowerType.Buff;
 
-    // 单实例Power：所有寄送牌都合并到这一个Power里
+    /// <summary>
+    /// 单实例Power：所有寄送牌都合并到这一个Power里
+    /// </summary>
     public override bool IsInstanced => false;
 
-    // 使用计数层数显示当前寄送牌数量
+    /// <summary>
+    /// 使用计数层数显示当前寄送牌数量
+    /// </summary>
     public override PowerStackType StackType => PowerStackType.Counter;
 
     public override bool ShouldScaleInMultiplayer => false;
 
-    // 动态变量：
-    // Cards = 当前所有寄送牌的完整名字列表
+    /// <summary>
+    /// Cards = 当前所有寄送牌的完整名字列表
+    /// </summary>
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
         new StringVar("Cards")
@@ -57,9 +63,14 @@ public sealed class DeliveryPower : AngelinaPower
         return new Data();
     }
 
-    // 在抽牌前，把当前所有寄送牌全部送回手牌
+    /// <summary>
+    /// 在抽牌前，把当前所有寄送牌全部送回手牌
+    /// </summary>
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
     {
+        _ = choiceContext;
+        _ = combatState;
+
         if (player != base.Owner.Player)
         {
             return;
@@ -103,6 +114,15 @@ public sealed class DeliveryPower : AngelinaPower
     /// </summary>
     public async Task EnqueueCard(CardModel card)
     {
+        SecurityCheckPower? securityCheckPower = base.Owner.GetPower<SecurityCheckPower>();
+        if (securityCheckPower != null && await securityCheckPower.TryInterceptDelivery(this, card))
+        {
+            CleanupQueue();
+            RefreshQueueDisplay();
+            await RemoveSelfIfEmpty();
+            return;
+        }
+
         Data data = GetInternalData<Data>();
 
         if (!data.QueuedCards.Contains(card))
@@ -112,8 +132,6 @@ public sealed class DeliveryPower : AngelinaPower
 
         CleanupQueue();
         RefreshQueueDisplay();
-
-        await Task.CompletedTask;
     }
 
     /// <summary>
@@ -136,15 +154,69 @@ public sealed class DeliveryPower : AngelinaPower
     }
 
     /// <summary>
+    /// 随机选择1张已寄送的牌，立即送达。
+    /// 给 QuickDispatch 未升级版使用。
+    /// </summary>
+    public async Task DeliverRandom(PlayerChoiceContext choiceContext, CardModel source)
+    {
+        _ = choiceContext;
+        _ = source;
+
+        List<CardModel> queuedCards = GetQueuedCards().ToList();
+        if (queuedCards.Count == 0)
+        {
+            return;
+        }
+
+        int randomIndex = System.Random.Shared.Next(queuedCards.Count);
+        CardModel selectedCard = queuedCards[randomIndex];
+        await DeliverCardNow(selectedCard);
+    }
+
+    /// <summary>
+    /// 选择1张已寄送的牌，立即送达。
+    /// 给 QuickDispatch 升级版使用。
+    /// </summary>
+    public async Task DeliverChosen(PlayerChoiceContext choiceContext, CardModel source)
+    {
+        _ = source;
+
+        List<CardModel> queuedCards = GetQueuedCards().ToList();
+        if (queuedCards.Count == 0 || base.Owner.Player == null)
+        {
+            return;
+        }
+
+        if (queuedCards.Count == 1)
+        {
+            await DeliverCardNow(queuedCards[0]);
+            return;
+        }
+
+        CardModel? selectedCard = (await CardSelectCmd.FromSimpleGrid(
+            choiceContext,
+            queuedCards,
+            base.Owner.Player,
+            new CardSelectorPrefs(new LocString("cards", "QUICK_DISPATCH.selectPrompt"), 1)))
+            .FirstOrDefault();
+
+        if (selectedCard == null)
+        {
+            return;
+        }
+
+        await DeliverCardNow(selectedCard);
+    }
+
+    /// <summary>
     /// 立刻送回指定的一张寄送牌。
     /// 成功返回 true，失败返回 false。
     /// </summary>
     public async Task<bool> DeliverCardNow(CardModel card)
     {
-        Data data = GetInternalData<Data>();
-
         CleanupQueue();
 
+        Data data = GetInternalData<Data>();
         if (!data.QueuedCards.Contains(card) || card.Pile?.Type != PileType.Exhaust)
         {
             return false;
@@ -153,12 +225,9 @@ public sealed class DeliveryPower : AngelinaPower
         await CardPileCmd.Add(card, PileType.Hand, source: this);
 
         data.QueuedCards.Remove(card);
+        CleanupQueue();
         RefreshQueueDisplay();
-
-        if (data.QueuedCards.Count == 0)
-        {
-            await PowerCmd.Remove(this);
-        }
+        await RemoveSelfIfEmpty();
 
         return true;
     }
@@ -198,70 +267,11 @@ public sealed class DeliveryPower : AngelinaPower
 
         CleanupQueue();
         RefreshQueueDisplay();
-
-        if (GetInternalData<Data>().QueuedCards.Count == 0)
-        {
-            await PowerCmd.Remove(this);
-        }
+        await RemoveSelfIfEmpty();
 
         return deliveredCount;
     }
-    
-    public async Task DeliverRandom(PlayerChoiceContext choiceContext, CardModel source)
-    {
-        _ = choiceContext;
-        _ = source;
 
-        List<CardModel> queuedCards = GetQueuedCards().ToList();
-        if (queuedCards.Count == 0 || base.Owner.Player == null)
-        {
-            return;
-        }
-
-        int index = System.Random.Shared.Next(queuedCards.Count);
-        CardModel selectedCard = queuedCards[index];
-
-        await DeliverSpecific(choiceContext, selectedCard, source);
-    }
-
-    public async Task DeliverChosen(PlayerChoiceContext choiceContext, CardModel source)
-    {
-        List<CardModel> queuedCards = GetQueuedCards().ToList();
-        if (queuedCards.Count == 0 || base.Owner.Player == null)
-        {
-            return;
-        }
-
-        if (queuedCards.Count == 1)
-        {
-            await DeliverSpecific(choiceContext, queuedCards[0], source);
-            return;
-        }
-
-        CardModel? selectedCard = (await CardSelectCmd.FromSimpleGrid(
-            choiceContext,
-            queuedCards,
-            base.Owner.Player,
-            new CardSelectorPrefs(new LocString("cards", "QUICK_DISPATCH.selectPrompt"), 1)))
-            .FirstOrDefault();
-
-        if (selectedCard == null)
-        {
-            return;
-        }
-
-        await DeliverSpecific(choiceContext, selectedCard, source);
-    }
-
-    private async Task DeliverSpecific(PlayerChoiceContext choiceContext, CardModel selectedCard, CardModel source)
-    {
-        _ = choiceContext;
-        _ = source;
-
-        await DeliverCardNow(selectedCard);
-    }
-    
-    
     /// <summary>
     /// 清理无效寄送牌：
     /// - null
@@ -287,9 +297,21 @@ public sealed class DeliveryPower : AngelinaPower
 
         base.Amount = data.QueuedCards.Count;
 
-        // 按你的要求：不截断，不写“等X张”，而是把所有寄送牌完整列出来
-        string fullCardList = string.Join("\n", data.QueuedCards.Select(card => $"• {card.Title}"));
+        string fullCardList = data.QueuedCards.Count == 0
+            ? "无"
+            : string.Join("\n", data.QueuedCards.Select(card => $"• {card.Title}"));
 
         ((StringVar)base.DynamicVars["Cards"]).StringValue = fullCardList;
+    }
+
+    /// <summary>
+    /// 当寄送队列为空时，移除自身。
+    /// </summary>
+    private async Task RemoveSelfIfEmpty()
+    {
+        if (GetInternalData<Data>().QueuedCards.Count == 0)
+        {
+            await PowerCmd.Remove(this);
+        }
     }
 }

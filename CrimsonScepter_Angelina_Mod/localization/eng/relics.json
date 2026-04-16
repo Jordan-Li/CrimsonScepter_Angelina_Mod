@@ -1,5 +1,10 @@
 {
-  "CRIMSONSCEPTER_ANGELINA_MOD-CRIMSON_SCEPTER.description": "",
-  "CRIMSONSCEPTER_ANGELINA_MOD-CRIMSON_SCEPTER.flavor": "",
-  "CRIMSONSCEPTER_ANGELINA_MOD-CRIMSON_SCEPTER.title": "CrimsonScepter"
+  "CRIMSONSCEPTER_ANGELINA_MOD-CRIMSON_SCEPTER.title": "Crimson Scepter",
+  "CRIMSONSCEPTER_ANGELINA_MOD-CRIMSON_SCEPTER.description": "Whenever an enemy goes from [gold]Airborne[/gold] to not [gold]Airborne[/gold], apply {ImbalancePower} [gold]Imbalance[/gold] to it.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-CRIMSON_SCEPTER.flavor": "\"Feeling a little light?\"",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-WISHING_STAR.title": "Wishing Star",
+  "CRIMSONSCEPTER_ANGELINA_MOD-WISHING_STAR.description": "When obtained, choose 5 cards. At the start of your next combat, place those cards on top of your draw pile in the chosen order, then lose this relic.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-WISHING_STAR.selectionScreenPrompt": "Choose 5 cards to place on top of your draw pile next combat",
+  "CRIMSONSCEPTER_ANGELINA_MOD-WISHING_STAR.flavor": "The stars remember the future you once wished for."
 }

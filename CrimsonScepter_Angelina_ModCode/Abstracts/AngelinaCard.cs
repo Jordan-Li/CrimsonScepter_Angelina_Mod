@@ -12,40 +12,64 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 public abstract class AngelinaCard(int cost, CardType type, CardRarity rarity, TargetType target) :
     CustomCardModel(cost, type, rarity, target)
 {
-    // 大图：优先找具体卡图，找不到就回退到默认图
-    public override string CustomPortraitPath
-    {
-        get
-        {
-            var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigCardImagePath();
-            return ResourceLoader.Exists(path) ? path : "card.png".BigCardImagePath();
-        }
-    }
+    private const string FallbackTestCard = "TestCardBase.png";
 
-    // 小图：优先找具体卡图，找不到就回退到默认图
+    private string CardFileName => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png";
+
+    private string SmallPortraitPath => CardFileName.CardImagePath();
+    private string BigPortraitFilePath => CardFileName.BigCardImagePath();
+
+    // beta 默认按 images/card_portraits/beta/<id>.png 读取
+    private string BetaSmallPortraitPath => $"beta/{CardFileName}".CardImagePath();
+
+    // 如果你以后想单独给 beta 大图，也支持 images/card_portraits/big/beta/<id>.png
+    private string BetaBigPortraitPath => $"beta/{CardFileName}".BigCardImagePath();
+
+    private static bool Exists(string path) => ResourceLoader.Exists(path);
+
     public override string PortraitPath
     {
         get
         {
-            var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
-            return ResourceLoader.Exists(path) ? path : "card.png".CardImagePath();
+            if (Exists(SmallPortraitPath))
+                return SmallPortraitPath;
+
+            if (Exists(BetaSmallPortraitPath))
+                return BetaSmallPortraitPath;
+
+            return FallbackTestCard.CardImagePath();
         }
     }
 
-    // beta 图：优先 beta 图；没有就回退普通图；再没有就回退默认图
+    public override string CustomPortraitPath
+    {
+        get
+        {
+            if (Exists(BigPortraitFilePath))
+                return BigPortraitFilePath;
+
+            if (Exists(BetaBigPortraitPath))
+                return BetaBigPortraitPath;
+
+            // 没有大图时，允许直接拿 beta 小图顶上
+            if (Exists(BetaSmallPortraitPath))
+                return BetaSmallPortraitPath;
+
+            return FallbackTestCard.BigCardImagePath();
+        }
+    }
+
     public override string BetaPortraitPath
     {
         get
         {
-            var betaPath = $"beta/{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
-            if (ResourceLoader.Exists(betaPath))
-                return betaPath;
+            if (Exists(BetaSmallPortraitPath))
+                return BetaSmallPortraitPath;
 
-            var normalPath = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
-            if (ResourceLoader.Exists(normalPath))
-                return normalPath;
+            if (Exists(SmallPortraitPath))
+                return SmallPortraitPath;
 
-            return "card.png".CardImagePath();
+            return FallbackTestCard.CardImagePath();
         }
     }
 }

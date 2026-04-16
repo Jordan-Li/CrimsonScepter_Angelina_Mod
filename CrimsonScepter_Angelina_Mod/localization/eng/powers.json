@@ -68,5 +68,49 @@
 
   "CRIMSONSCEPTER_ANGELINA_MOD-ENERGY_CYCLE_POWER.title": "Energy Cycle",
   "CRIMSONSCEPTER_ANGELINA_MOD-ENERGY_CYCLE_POWER.description": "Each turn, when you play an Attack, Skill, or Power card costing at least 2 Energy, each type can trigger at most once: gain 1 Energy.",
-  "CRIMSONSCEPTER_ANGELINA_MOD-ENERGY_CYCLE_POWER.smartDescription": "Each turn, when you play an Attack, Skill, or Power card costing at least 2 Energy, each type can trigger at most {Amount} times: gain 1 Energy."
+  "CRIMSONSCEPTER_ANGELINA_MOD-ENERGY_CYCLE_POWER.smartDescription": "Each turn, when you play an Attack, Skill, or Power card costing at least 2 Energy, each type can trigger at most {Amount} times: gain 1 Energy.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-FAST_CHARGE_MODE_POWER.title": "Fast Charge Mode",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FAST_CHARGE_MODE_POWER.description": "This turn, double the [gold]Imbalance[/gold] you apply.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FAST_CHARGE_MODE_POWER.smartDescription": "This turn, double the [gold]Imbalance[/gold] you apply.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-DECEL_BINDER_POWER.title": "Decel Binder",
+  "CRIMSONSCEPTER_ANGELINA_MOD-DECEL_BINDER_POWER.description": "Whenever you play an Attack, apply [gold]Stagger[/gold] to its target.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-DECEL_BINDER_POWER.smartDescription": "Whenever you play an Attack, apply {Amount} [gold]Stagger[/gold] to its target.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-INERTIA_POWER.title": "Inertia",
+  "CRIMSONSCEPTER_ANGELINA_MOD-INERTIA_POWER.description": "Whenever an enemy becomes [gold]Weightless[/gold], or before drawing if any enemy is [gold]Weightless[/gold], draw cards.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-INERTIA_POWER.smartDescription": "Whenever an enemy becomes [gold]Weightless[/gold], or before drawing if any enemy is [gold]Weightless[/gold], draw {Amount} card(s).",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-NATURAL_BURST_POWER.title": "Natural Burst",
+  "CRIMSONSCEPTER_ANGELINA_MOD-NATURAL_BURST_POWER.description": "Whenever you deal [gold]Spell[/gold] damage to an enemy, apply [gold]Poison[/gold] to all enemies.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-NATURAL_BURST_POWER.smartDescription": "Whenever you deal [gold]Spell[/gold] damage to an enemy, apply {Amount} [gold]Poison[/gold] to all enemies.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-REALITY_MANIPULATION_POWER.title": "Reality Manipulation",
+  "CRIMSONSCEPTER_ANGELINA_MOD-REALITY_MANIPULATION_POWER.description": "Whenever a card enters or leaves your [gold]Exhaust[/gold] pile, gain Block.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-REALITY_MANIPULATION_POWER.smartDescription": "Whenever a card enters or leaves your [gold]Exhaust[/gold] pile, gain {Amount} Block.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-STAGGER_POWER.title": "Stagger",
+  "CRIMSONSCEPTER_ANGELINA_MOD-STAGGER_POWER.description": "Take 10% more damage. Remove at end of turn.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-STAGGER_POWER.smartDescription": "Take 10% more damage. Remove at end of turn.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-SPECIAL_GRAVITY_MODULE_POWER.title": "Special Gravity Module",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SPECIAL_GRAVITY_MODULE_POWER.description": "Whenever you play an [gold]Attack[/gold], if its target does not have [gold]Flight[/gold], give it Flight. Whenever you play a card, enemies with Flight take 2 damage.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SPECIAL_GRAVITY_MODULE_POWER.smartDescription": "Whenever you play an [gold]Attack[/gold], if its target does not have [gold]Flight[/gold], give it {Amount} [gold]Flight[/gold]. Whenever you play a card, enemies with Flight take 2 damage.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-PARTICLE_MODE_POWER.title": "Particle Mode",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PARTICLE_MODE_POWER.description": "Your Attacks deal half damage. The first time each Attack is played each turn, return it to your hand and make it free to play once this turn.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PARTICLE_MODE_POWER.smartDescription": "Your Attacks deal half damage. The first time each Attack is played each turn, return it to your hand and make it free to play once this turn.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-QUALITY_VISITOR_POWER.title": "Quality Visitor",
+  "CRIMSONSCEPTER_ANGELINA_MOD-QUALITY_VISITOR_POWER.description": "At the start of upcoming turns, gain 1 [gold]Strength[/gold], 1 [gold]Dexterity[/gold], and 1 [gold]Focus[/gold].",
+  "CRIMSONSCEPTER_ANGELINA_MOD-QUALITY_VISITOR_POWER.smartDescription": "At the start of the next {Amount} turns, gain 1 [gold]Strength[/gold], 1 [gold]Dexterity[/gold], and 1 [gold]Focus[/gold].",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-QUALITY_VISITOR_SECRET_POWER.title": "Quality Visitor?",
+  "CRIMSONSCEPTER_ANGELINA_MOD-QUALITY_VISITOR_SECRET_POWER.description": "You triggered the easter egg! While [gold]Quality Visitor[/gold] is active, Attacks have a 10% chance to be played an additional time.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-QUALITY_VISITOR_SECRET_POWER.smartDescription": "You triggered the easter egg! While [gold]Quality Visitor[/gold] is active, Attacks have a 10% chance to be played an additional time.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-SECURITY_CHECK_POWER.title": "Security Check",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SECURITY_CHECK_POWER.description": "Whenever you [gold]Deliver[/gold] a Status or Curse, [gold]Exhaust[/gold] it instead and apply [gold]Imbalance[/gold] to all enemies.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SECURITY_CHECK_POWER.smartDescription": "Whenever you [gold]Deliver[/gold] a Status or Curse, [gold]Exhaust[/gold] it instead and apply {Amount} [gold]Imbalance[/gold] to all enemies."
 }

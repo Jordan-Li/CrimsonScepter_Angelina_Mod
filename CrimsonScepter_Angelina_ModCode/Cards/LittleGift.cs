@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
+﻿using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Helpers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -17,9 +14,9 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 /// 卡牌类型：攻击牌
 /// 稀有度：基础
 /// 费用：0费
-/// 效果：造成法术伤害，并获得法术格挡
-/// 升级后效果：伤害和格挡各提高1点
-/// 备注：基础法术牌
+/// 卡牌效果：造成3点法术伤害并获得3点法术格挡。
+/// 升级后效果：造成4点法术伤害并获得4点法术格挡。
+/// 备注：初始卡牌
 /// </summary>
 public sealed class LittleGift : AngelinaCard
 {

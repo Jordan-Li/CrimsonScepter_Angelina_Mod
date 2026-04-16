@@ -1,5 +1,10 @@
 ﻿{
   "CRIMSONSCEPTER_ANGELINA_MOD-CRIMSON_SCEPTER.title": "绯红权杖",
-  "CRIMSONSCEPTER_ANGELINA_MOD-CRIMSON_SCEPTER.description": "安洁莉娜的初始遗物。",
-  "CRIMSONSCEPTER_ANGELINA_MOD-CRIMSON_SCEPTER.flavor": "承载着重力之力的法杖。"
+  "CRIMSONSCEPTER_ANGELINA_MOD-CRIMSON_SCEPTER.description": "当敌方角色从[gold]浮空[/gold]状态变为非[gold]浮空[/gold]状态时，使其获得{ImbalancePower}点[gold]失衡[/gold]。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-CRIMSON_SCEPTER.flavor": "“是不是感觉轻飘飘的？”",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-WISHING_STAR.title": "祈愿星",
+  "CRIMSONSCEPTER_ANGELINA_MOD-WISHING_STAR.description": "获得此遗物时，选择5张牌。下次战斗开始时，将这些牌（若仍在牌组中）按选择顺序置于抽牌堆顶，然后失去此遗物。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-WISHING_STAR.selectionScreenPrompt": "选择5张牌，在下次战斗开始时置于抽牌堆顶",
+  "CRIMSONSCEPTER_ANGELINA_MOD-WISHING_STAR.flavor": "群星会记住你曾经祈愿的未来。"
 }

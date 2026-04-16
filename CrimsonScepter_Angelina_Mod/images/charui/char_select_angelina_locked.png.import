@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp8v0ai42glm3"
-path="res://.godot/imported/card.png-e55283b8d1a43c0f49f18ced83550655.ctex"
+uid="uid://c2or2afadhqp8"
+path="res://.godot/imported/char_select_angelina_locked.png-bbc247857d2c8a47dbd7b6eb660423a6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CrimsonScepter_Angelina_Mod/images/card_portraits/card.png"
-dest_files=["res://.godot/imported/card.png-e55283b8d1a43c0f49f18ced83550655.ctex"]
+source_file="res://CrimsonScepter_Angelina_Mod/images/charui/char_select_angelina_locked.png"
+dest_files=["res://.godot/imported/char_select_angelina_locked.png-bbc247857d2c8a47dbd7b6eb660423a6.ctex"]
 
 [params]
 

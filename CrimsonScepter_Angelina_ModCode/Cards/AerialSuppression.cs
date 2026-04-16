@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
+﻿using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -16,10 +13,11 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 /// 卡牌名：浮空压制
 /// 卡牌类型：技能牌
 /// 稀有度：非凡
-/// 费用：1费
-/// 效果：给予目标飞行，并使其本回合失去力量。
-/// 升级后效果：提高失去力量的数值。
+/// 费用：1
+/// 效果：给予目标 1 层飞行，并使其本回合失去 8 点力量。
+/// 升级后效果：给予目标 1 层飞行，并使其本回合失去 10 点力量。
 /// </summary>
+
 public sealed class AerialSuppression : AngelinaCard
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
