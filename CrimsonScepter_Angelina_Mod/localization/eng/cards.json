@@ -25,7 +25,14 @@
 
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_NODE.title": "Gravity Node",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_NODE.description": "Apply{ImbalancePower}[gold]Imbalance[/gold], then deal{Damage}damage. If this card makes the target enter[gold]Weightless[/gold]/kills the target, permanently increase this card's applied[gold]Imbalance[/gold]/damage by{ImbalanceIncrease}/{DamageIncrease}.",
-  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_NODE.upgraded_description": "Apply{ImbalancePower}[gold]Imbalance[/gold], then deal{Damage}damage. If this card makes the target enter[gold]Weightless[/gold]/kills the target, permanently increase this card's applied[gold]Imbalance[/gold]/damage by{ImbalanceIncrease}/{DamageIncrease}."
+  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_NODE.upgraded_description": "Apply{ImbalancePower}[gold]Imbalance[/gold], then deal{Damage}damage. If this card makes the target enter[gold]Weightless[/gold]/kills the target, permanently increase this card's applied[gold]Imbalance[/gold]/damage by{ImbalanceIncrease}/{DamageIncrease}.",
 
-  
+  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.title": "Delivery Flow",
+  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.description": "Deal{Damage:diff()}damage. Choose1card in your hand and send it.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.upgraded_description": "Deal{Damage:diff()}damage. Choose1card in your hand and send it.",
+  "DELIVERY_FLOW.selectPrompt": "Choose a card to send.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-PACKAGE_PREVIEW.title": "Package Preview",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PACKAGE_PREVIEW.description": "Deal{Damage:diff()}damage. Gain the most recently sent card, then put it on top of your draw pile.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PACKAGE_PREVIEW.upgraded_description": "Deal{Damage:diff()}damage. Gain the most recently sent card, then put it on top of your draw pile."
 }

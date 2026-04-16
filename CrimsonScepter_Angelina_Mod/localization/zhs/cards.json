@@ -25,6 +25,14 @@
 
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_NODE.title": "重力节点",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_NODE.description": "施加{ImbalancePower}点[gold]失衡[/gold]，造成{Damage}点伤害。若此牌使目标进入[gold]失重[/gold]/斩杀目标，永久使此牌施加的[gold]失衡[/gold]/造成的伤害增加{ImbalanceIncrease}/{DamageIncrease}。",
-  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_NODE.upgraded_description": "施加{ImbalancePower}点[gold]失衡[/gold]，造成{Damage}点伤害。若此牌使目标进入[gold]失重[/gold]/斩杀目标，永久使此牌施加的[gold]失衡[/gold]/造成的伤害增加{ImbalanceIncrease}/{DamageIncrease}。"
+  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_NODE.upgraded_description": "施加{ImbalancePower}点[gold]失衡[/gold]，造成{Damage}点伤害。若此牌使目标进入[gold]失重[/gold]/斩杀目标，永久使此牌施加的[gold]失衡[/gold]/造成的伤害增加{ImbalanceIncrease}/{DamageIncrease}。",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.title": "寄送流程",
+  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.description": "造成{Damage:diff()}点伤害。然后从手牌中选择1张牌，将其寄送。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.upgraded_description": "造成{Damage:diff()}点伤害。然后从手牌中选择1张牌，将其寄送。",
+  "DELIVERY_FLOW.selectPrompt": "选择一张要寄送的牌。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-PACKAGE_PREVIEW.title": "预览",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PACKAGE_PREVIEW.description": "造成{Damage:diff()}点伤害。获得最近的[gold]寄送[/gold]牌，而后将其置于抽牌堆顶。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PACKAGE_PREVIEW.upgraded_description": "造成{Damage:diff()}点伤害。获得最近的[gold]寄送[/gold]牌，而后将其置于抽牌堆顶。"
 }
