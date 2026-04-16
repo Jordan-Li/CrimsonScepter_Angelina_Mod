@@ -83,9 +83,6 @@ public sealed class DeliveryFlow : AngelinaCard
         {
             await deliveryPower.SetSelectedCard(selectedCard);
         }
-
-        // 第五步：把这张牌移到 Exhaust，等待下回合开始时送回
-        await CardCmd.Exhaust(choiceContext, selectedCard);
     }
 
     // 升级后，将动态变量 DynamicVars 的伤害提高4点（8 -> 12）

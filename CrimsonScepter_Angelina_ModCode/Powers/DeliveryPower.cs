@@ -2,12 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
@@ -204,7 +206,62 @@ public sealed class DeliveryPower : AngelinaPower
 
         return deliveredCount;
     }
+    
+    public async Task DeliverRandom(PlayerChoiceContext choiceContext, CardModel source)
+    {
+        _ = choiceContext;
+        _ = source;
 
+        List<CardModel> queuedCards = GetQueuedCards().ToList();
+        if (queuedCards.Count == 0 || base.Owner.Player == null)
+        {
+            return;
+        }
+
+        int index = System.Random.Shared.Next(queuedCards.Count);
+        CardModel selectedCard = queuedCards[index];
+
+        await DeliverSpecific(choiceContext, selectedCard, source);
+    }
+
+    public async Task DeliverChosen(PlayerChoiceContext choiceContext, CardModel source)
+    {
+        List<CardModel> queuedCards = GetQueuedCards().ToList();
+        if (queuedCards.Count == 0 || base.Owner.Player == null)
+        {
+            return;
+        }
+
+        if (queuedCards.Count == 1)
+        {
+            await DeliverSpecific(choiceContext, queuedCards[0], source);
+            return;
+        }
+
+        CardModel? selectedCard = (await CardSelectCmd.FromSimpleGrid(
+            choiceContext,
+            queuedCards,
+            base.Owner.Player,
+            new CardSelectorPrefs(new LocString("cards", "QUICK_DISPATCH.selectPrompt"), 1)))
+            .FirstOrDefault();
+
+        if (selectedCard == null)
+        {
+            return;
+        }
+
+        await DeliverSpecific(choiceContext, selectedCard, source);
+    }
+
+    private async Task DeliverSpecific(PlayerChoiceContext choiceContext, CardModel selectedCard, CardModel source)
+    {
+        _ = choiceContext;
+        _ = source;
+
+        await DeliverCardNow(selectedCard);
+    }
+    
+    
     /// <summary>
     /// 清理无效寄送牌：
     /// - null

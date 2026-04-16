@@ -27,5 +27,46 @@
 
   "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT_POWER.title": "Updraft",
   "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT_POWER.description": "At the start of your turn, gain 1 Temporary Fly. If you become grounded by an attack, shuffle a Dazed into your draw pile.",
-  "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT_POWER.smartDescription": "At the start of your turn, gain {Amount} Temporary Fly. If you become grounded by an attack, shuffle a Dazed into your draw pile."
+  "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT_POWER.smartDescription": "At the start of your turn, gain {Amount} Temporary Fly. If you become grounded by an attack, shuffle a Dazed into your draw pile.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_BARRIER_POWER.title": "Gravity Barrier",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_BARRIER_POWER.description": "This turn, whenever damage from an enemy is fully blocked, apply [gold]Imbalance[/gold] to the source.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_BARRIER_POWER.smartDescription": "This turn, whenever damage from an enemy is fully blocked, apply {Amount} [gold]Imbalance[/gold] to the source.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.title": "Precision Adjustment",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.description": "At the start of next turn, lose [gold]Imbalance[/gold].",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.smartDescription": "At the start of next turn, lose {Amount} [gold]Imbalance[/gold].",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-CHANT.title": "Chant",
+  "CRIMSONSCEPTER_ANGELINA_MOD-CHANT.description": "Gain {DisplayedBlock} [gold]spell[/gold] Block. Next turn, gain {ChantTemporaryFocusNextTurnPower:diff()} Focus.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-CHANT.upgraded_description": "Gain {DisplayedBlock} [gold]spell[/gold] Block. Next turn, gain {ChantTemporaryFocusNextTurnPower:diff()} Focus.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-PART_TIME_JOB.title": "Part-Time Job",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PART_TIME_JOB.description": "At end of turn, if you did not play an Attack this turn, heal {Heal}.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PART_TIME_JOB.upgraded_description": "At end of turn, if you did not play an Attack this turn, heal {Heal}.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-MESSENGER_CODE.title": "Messenger Code",
+  "CRIMSONSCEPTER_ANGELINA_MOD-MESSENGER_CODE.description": "Draw 1 additional card each turn, then [gold]deliver[/gold] 1 card.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-MESSENGER_CODE.upgraded_description": "Draw 1 additional card each turn, then [gold]deliver[/gold] 1 card.",
+  "MESSENGER_CODE.selectPrompt": "Choose a card to deliver",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-CHANT_TEMPORARY_FOCUS_NEXT_TURN_POWER.title": "Chant",
+  "CRIMSONSCEPTER_ANGELINA_MOD-CHANT_TEMPORARY_FOCUS_NEXT_TURN_POWER.description": "At the start of next turn, gain Focus.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-CHANT_TEMPORARY_FOCUS_NEXT_TURN_POWER.smartDescription": "At the start of next turn, gain {Amount} Focus.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-PART_TIME_JOB_POWER.title": "Part-Time Job",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PART_TIME_JOB_POWER.description": "At end of turn, if you did not play an Attack this turn, heal.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PART_TIME_JOB_POWER.smartDescription": "At end of turn, if you did not play an Attack this turn, heal {Amount}.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-MESSENGER_CODE_POWER.title": "Messenger Code",
+  "CRIMSONSCEPTER_ANGELINA_MOD-MESSENGER_CODE_POWER.description": "Draw 1 additional card each turn, then [gold]deliver[/gold] 1 card.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-MESSENGER_CODE_POWER.smartDescription": "Draw 1 additional card each turn, then [gold]deliver[/gold] 1 card.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-COURIER_TRAINING_POWER.title": "Courier Training",
+  "CRIMSONSCEPTER_ANGELINA_MOD-COURIER_TRAINING_POWER.description": "At the start of each turn, gain Fly.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-COURIER_TRAINING_POWER.smartDescription": "At the start of each turn, gain {Amount} Fly.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-ENERGY_CYCLE_POWER.title": "Energy Cycle",
+  "CRIMSONSCEPTER_ANGELINA_MOD-ENERGY_CYCLE_POWER.description": "Each turn, when you play an Attack, Skill, or Power card costing at least 2 Energy, each type can trigger at most once: gain 1 Energy.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-ENERGY_CYCLE_POWER.smartDescription": "Each turn, when you play an Attack, Skill, or Power card costing at least 2 Energy, each type can trigger at most {Amount} times: gain 1 Energy."
 }
