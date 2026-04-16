@@ -1,4 +1,7 @@
 ﻿{
+  "DELIVERED.title": "送达",
+  "DELIVERED.description": "当此牌被[gold]寄送[/gold]返回手牌时，会触发额外效果。",
+  
   "CRIMSONSCEPTER_ANGELINA_MOD-STRIKE_ANGELINA.title": "打击",
   "CRIMSONSCEPTER_ANGELINA_MOD-STRIKE_ANGELINA.description": "造成{Damage:diff()}点伤害。",
   "CRIMSONSCEPTER_ANGELINA_MOD-STRIKE_ANGELINA.upgraded_description": "造成{Damage:diff()}点伤害。",
@@ -8,13 +11,13 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-DEFEND_ANGELINA.upgraded_description": "获得{Block:diff()}点[gold]格挡[/gold]。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_GIFT.title": "小礼物",
-  "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_GIFT.description": "造成{Damage:diff()}点伤害，并获得{Block:diff()}点[gold]格挡[/gold]。",
-  "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_GIFT.upgraded_description": "造成{Damage:diff()}点伤害，并获得{Block:diff()}点[gold]格挡[/gold]。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_GIFT.description": "造成{DisplayedDamage}点[gold]法术[/gold]伤害并获得{DisplayedBlock}点[gold]法术[/gold]格挡。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_GIFT.upgraded_description": "造成{DisplayedDamage}点[gold]法术[/gold]伤害并获得{DisplayedBlock}点[gold]法术[/gold]格挡。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-ANTI_GRAVITY.title": "反重力",
-  "CRIMSONSCEPTER_ANGELINA_MOD-ANTI_GRAVITY.description": "施加12点[gold]失衡[/gold]。然后造成{Damage:diff()}点法术伤害。",
-  "CRIMSONSCEPTER_ANGELINA_MOD-ANTI_GRAVITY.upgraded_description": "施加12点[gold]失衡[/gold]。然后造成{Damage:diff()}点法术伤害。",
-
+  "CRIMSONSCEPTER_ANGELINA_MOD-ANTI_GRAVITY.description": "施加{ImbalancePower:diff()}点失衡值，造成{DisplayedDamage}点[gold]法术[/gold]伤害，并使目标获得{TemporaryFlyPower:diff()}层临时飞行。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-ANTI_GRAVITY.upgraded_description": "施加{ImbalancePower:diff()}点失衡值，造成{DisplayedDamage}点[gold]法术[/gold]伤害，并使目标获得{TemporaryFlyPower:diff()}层临时飞行。",
+  
   "CRIMSONSCEPTER_ANGELINA_MOD-BALANCED_STRIKE.title": "平衡打击",
   "CRIMSONSCEPTER_ANGELINA_MOD-BALANCED_STRIKE.description": "造成{Damage:diff()}点伤害。施加8点[gold]失衡[/gold]。",
   "CRIMSONSCEPTER_ANGELINA_MOD-BALANCED_STRIKE.upgraded_description": "造成{Damage:diff()}点伤害。施加10点[gold]失衡[/gold]。",
@@ -60,11 +63,53 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-SUPPLY_PACKAGE.title": "补给包裹",
   "CRIMSONSCEPTER_ANGELINA_MOD-SUPPLY_PACKAGE.description": "施加{ImbalancePower:diff()}点[gold]失衡[/gold]。[gold]送达[/gold]：回复{EnergyGain:energyIcons()}。",
   "CRIMSONSCEPTER_ANGELINA_MOD-SUPPLY_PACKAGE.upgraded_description": "施加{ImbalancePower:diff()}点[gold]失衡[/gold]。[gold]送达[/gold]：回复{EnergyGain:energyIcons()}。",
-  
-  "DELIVERED.title": "送达",
-  "DELIVERED.description": "当此牌被[gold]寄送[/gold]返回手牌时，会触发额外效果。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.title": "捎带",
   "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.description": "获得{Block:diff()}点[gold]格挡[/gold]。[gold]寄送[/gold]此牌。",
-  "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.upgraded_description": "获得{Block:diff()}点[gold]格挡[/gold]。[gold]寄送[/gold]此牌。"
+  "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.upgraded_description": "获得{Block:diff()}点[gold]格挡[/gold]。[gold]寄送[/gold]此牌。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_TRICK.title": "小戏法",
+  "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_TRICK.description": "选择一张牌。[gold]寄送[/gold]其复制品。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_TRICK.upgraded_description": "选择一张牌。[gold]寄送[/gold]其复制品。",
+  "LITTLE_TRICK.selectPrompt": "选择一张要复制并寄送的牌",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-BUBBLE_WRAP.title": "泡沫纸",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BUBBLE_WRAP.description": "造成{DisplayedDamage}点[gold]法术[/gold]伤害。[gold]寄送[/gold]这张牌的复制品。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BUBBLE_WRAP.upgraded_description": "造成{DisplayedDamage}点[gold]法术[/gold]伤害。[gold]寄送[/gold]这张牌的复制品。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-HOVER.title": "悬停",
+  "CRIMSONSCEPTER_ANGELINA_MOD-HOVER.description": "获得{TemporaryFlyPower:diff()}层临时飞行。抽{Cards}张牌。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-HOVER.upgraded_description": "获得{TemporaryFlyPower:diff()}层临时飞行。抽{Cards}张牌。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-CHARGED_IMPACT.title": "蓄能冲击",
+  "CRIMSONSCEPTER_ANGELINA_MOD-CHARGED_IMPACT.description": "施加{ImbalancePower:diff()}点[gold]失衡值[/gold]。造成{DisplayedDamage}点[gold]法术[/gold]伤害。\n[gold]送达[/gold]：随机化本场战斗的耗能。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-CHARGED_IMPACT.upgraded_description": "施加{ImbalancePower:diff()}点[gold]失衡值[/gold]。造成{DisplayedDamage}点[gold]法术[/gold]伤害。\n[gold]送达[/gold]：随机化本场战斗的耗能。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-HORIZON_LINE.title": "水平线",
+  "CRIMSONSCEPTER_ANGELINA_MOD-HORIZON_LINE.description": "使所有单位获得{FlyPower:diff()}层[gold]飞行[/gold]。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-HORIZON_LINE.upgraded_description": "使所有单位获得{FlyPower:diff()}层[gold]飞行[/gold]。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-SUSPENDED.title": "滞空",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SUSPENDED.description": "获得{FlyPower:diff()}层[gold]飞行[/gold]。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SUSPENDED.upgraded_description": "获得{FlyPower:diff()}层[gold]飞行[/gold]。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-STARBEAM.title": "星芒",
+  "CRIMSONSCEPTER_ANGELINA_MOD-STARBEAM.description": "造成{DisplayedDamage}点[gold]法术[/gold]伤害。若目标处于[gold]浮空[/gold]，再造成{DisplayedDamage}点[gold]法术[/gold]伤害。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-STARBEAM.upgraded_description": "造成{DisplayedDamage}点[gold]法术[/gold]伤害。若目标处于[gold]浮空[/gold]，再造成{DisplayedDamage}点[gold]法术[/gold]伤害。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-AERIAL_SUPPRESSION.title": "浮空压制",
+  "CRIMSONSCEPTER_ANGELINA_MOD-AERIAL_SUPPRESSION.description": "给予目标{FlyPower:diff()}层[gold]飞行[/gold]，并使其本回合失去{StrengthLoss:diff()}点力量。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-AERIAL_SUPPRESSION.upgraded_description": "给予目标{FlyPower:diff()}层[gold]飞行[/gold]，并使其本回合失去{StrengthLoss:diff()}点力量。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-LIME_STORM.title": "酸橙风暴",
+  "CRIMSONSCEPTER_ANGELINA_MOD-LIME_STORM.description": "对目标造成{DisplayedDamage}点[gold]法术[/gold]伤害。对敌方全体造成{SplashDamage}点伤害。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-LIME_STORM.upgraded_description": "对目标造成{DisplayedDamage}点[gold]法术[/gold]伤害。对敌方全体造成{SplashDamage}点伤害。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-UP_THERE.title": "在上面！",
+  "CRIMSONSCEPTER_ANGELINA_MOD-UP_THERE.description": "获得{DisplayedBlock}点[gold]法术[/gold]格挡。若你处于[gold]浮空[/gold]，则对所有不处于[gold]浮空[/gold]的敌方施加{ImbalancePower:diff()}点[gold]失衡值[/gold]。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-UP_THERE.upgraded_description": "获得{DisplayedBlock}点[gold]法术[/gold]格挡。若你处于[gold]浮空[/gold]，则对所有不处于[gold]浮空[/gold]的敌方施加{ImbalancePower:diff()}点[gold]失衡值[/gold]。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-DOWN_HERE.title": "在下面！",
+  "CRIMSONSCEPTER_ANGELINA_MOD-DOWN_HERE.description": "若你不处于[gold]浮空[/gold]，则对所有处于[gold]浮空[/gold]的敌方施加{WeakPower:diff()}层[gold]虚弱[/gold]，并施加{ImbalancePower}点[gold]失衡值[/gold]。造成{Damage:diff()}点伤害。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-DOWN_HERE.upgraded_description": "若你不处于[gold]浮空[/gold]，则对所有处于[gold]浮空[/gold]的敌方施加{WeakPower:diff()}层[gold]虚弱[/gold]，并施加{ImbalancePower}点[gold]失衡值[/gold]。造成{Damage:diff()}点伤害。"
 }

@@ -9,5 +9,23 @@
 
   "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_POWER.title": "寄送",
   "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_POWER.description": "被寄送的牌会在下个回合开始时回到手牌。",
-  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_POWER.smartDescription": "当前寄送{Amount}张牌。下个回合开始时，这些牌会回到手牌：\n{Cards}"
+  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_POWER.smartDescription": "当前寄送{Amount}张牌。下个回合开始时，这些牌会回到手牌：\n{Cards}",
+
+  "SPELL.title": "法术",
+  "SPELL.description": "法术伤害与法术格挡无视力量、敏捷、易伤、虚弱、脆弱等修正，但会受到[gold]集中[/gold]的影响。",
+
+  "AIRBORNE.title": "浮空",
+  "AIRBORNE.description": "若目标处于[gold]飞行[/gold]状态时，视为[gold]浮空[/gold]。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-FLY_POWER.title": "飞行",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FLY_POWER.description": "受到的攻击伤害减半。每次受到未被格挡的攻击伤害时，失去1层。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FLY_POWER.smartDescription": "受到的攻击伤害减半。每次受到未被格挡的攻击伤害时，失去1层。剩余{Amount}层。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-TEMPORARY_FLY_POWER.title": "临时飞行",
+  "CRIMSONSCEPTER_ANGELINA_MOD-TEMPORARY_FLY_POWER.description": "获得等量的飞行。于下个自身回合开始时失去这些飞行。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-TEMPORARY_FLY_POWER.smartDescription": "获得{Amount}层飞行。于下个自身回合开始时失去这些飞行。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT_POWER.title": "上升气流",
+  "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT_POWER.description": "回合开始时，获得1层临时飞行。若自身因受到攻击解除浮空，向抽牌堆内添加一张眩晕。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT_POWER.smartDescription": "回合开始时，获得{Amount}层临时飞行。若自身因受到攻击解除浮空，向抽牌堆内添加一张眩晕。"
 }

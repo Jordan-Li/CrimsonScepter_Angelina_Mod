@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Helpers;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -15,91 +14,69 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 
 /// <summary>
-/// 卡牌名：反重力
+/// 卡牌名：星芒
 /// 卡牌类型：攻击牌
-/// 稀有度：基础
-/// 费用：2费
-/// 效果：施加12点失衡值，造成8点法术伤害，并使目标获得1层临时飞行。
-/// 升级后效果：失衡值和法术伤害提高
-/// 备注：基础牌 法术攻击牌
+/// 稀有度：普通
+/// 费用：1费
+/// 效果：造成法术伤害。若目标处于浮空，再造成一次同样的法术伤害。
+/// 升级后效果：伤害提高。
 /// </summary>
-public sealed class AntiGravity : AngelinaCard
+public sealed class Starbeam : AngelinaCard
 {
-    // 额外悬浮提示：
-    // 1. 失衡
-    // 2. 临时飞行
-    // 3. 法术
     protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
     {
-        HoverTipFactory.FromPower<ImbalancePower>(),
-        HoverTipFactory.FromPower<TemporaryFlyPower>(),
+        HoverTipFactory.FromPower<FlyPower>(),
         new HoverTip(
             new LocString("powers", "SPELL.title"),
             new LocString("powers", "SPELL.description"))
     };
 
-    // 动态变量：
-    // 1. 失衡值
-    // 2. 法术伤害
-    // 3. 临时飞行层数
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new PowerVar<ImbalancePower>(12m),
-        new DamageVar(8m, ValueProp.Unpowered | ValueProp.Move),
-        new PowerVar<TemporaryFlyPower>(1m)
+        new DamageVar(8m, ValueProp.Unpowered | ValueProp.Move)
     };
 
-    // 费用：2费，类型：攻击牌，稀有度：基础，目标：任意敌人
-    public AntiGravity()
-        : base(2, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
+    public Starbeam()
+        : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
     }
 
-    // 打出时的效果
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
 
-        // 第一步：施加失衡
-        await PowerCmd.Apply<ImbalancePower>(
-            cardPlay.Target,
-            base.DynamicVars["ImbalancePower"].BaseValue,
-            base.Owner.Creature,
-            this
-        );
+        decimal damage = SpellHelper.ModifySpellValue(base.Owner.Creature, base.DynamicVars.Damage.BaseValue);
 
-        // 第二步：造成法术伤害
         await SpellHelper.Damage(
             choiceContext,
             base.Owner.Creature,
             cardPlay.Target,
-            SpellHelper.ModifySpellValue(base.Owner.Creature, base.DynamicVars.Damage.BaseValue),
+            damage,
             this
         );
 
-        // 第三步：给予目标临时飞行
-        await PowerCmd.Apply<TemporaryFlyPower>(
-            cardPlay.Target,
-            base.DynamicVars["TemporaryFlyPower"].BaseValue,
-            base.Owner.Creature,
-            this
-        );
+        if (cardPlay.Target.GetPower<FlyPower>() != null)
+        {
+            await SpellHelper.Damage(
+                choiceContext,
+                base.Owner.Creature,
+                cardPlay.Target,
+                damage,
+                this
+            );
+        }
     }
 
-    // 升级后：失衡值+3，法术伤害+4
     protected override void OnUpgrade()
     {
-        base.DynamicVars["ImbalancePower"].UpgradeValueBy(3m);
-        base.DynamicVars.Damage.UpgradeValueBy(4m);
+        base.DynamicVars.Damage.UpgradeValueBy(2m);
     }
 
-    // 给描述补充法术修正后的显示伤害
     protected override void AddExtraArgsToDescription(LocString description)
     {
         base.AddExtraArgsToDescription(description);
 
         decimal displayedDamage = base.DynamicVars.Damage.BaseValue;
-
         if (base.IsMutable && base.Owner?.Creature != null)
         {
             displayedDamage = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedDamage);
