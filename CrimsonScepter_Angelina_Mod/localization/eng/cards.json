@@ -195,16 +195,16 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-REALITY_MANIPULATION.upgraded_description": "Whenever a card enters or leaves your [gold]Exhaust[/gold] pile, gain {RealityManipulationPower:diff()} Block.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-INVERSION_SYMMETRY.title": "Inversion Symmetry",
-  "CRIMSONSCEPTER_ANGELINA_MOD-INVERSION_SYMMETRY.description": "Spend X Energy. Play the most recent X other cards in your discard pile in order.",
-  "CRIMSONSCEPTER_ANGELINA_MOD-INVERSION_SYMMETRY.upgraded_description": "[gold]Retain[/gold]. Spend X Energy. Play the most recent X other cards in your discard pile in order.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-INVERSION_SYMMETRY.description": "Spend up to X Energy. Play the differently named cards among the top X cards of your discard pile from top to bottom. Unspent Energy is retained.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-INVERSION_SYMMETRY.upgraded_description": ". Spend up to X Energy. Play the differently named cards among the top X cards of your discard pile from top to bottom. Unspent Energy is retained.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-SCEPTER_ANTIGRAVITY_MODE.title": "Scepter Antigravity Mode",
   "CRIMSONSCEPTER_ANGELINA_MOD-SCEPTER_ANTIGRAVITY_MODE.description": "Apply {ImbalancePower:diff()} [gold]Imbalance[/gold] to all enemies, deal {DisplayedDamage} [gold]Spell[/gold] damage, and give them {TemporaryFlyPower:diff()} Temporary Flight.",
   "CRIMSONSCEPTER_ANGELINA_MOD-SCEPTER_ANTIGRAVITY_MODE.upgraded_description": "Apply {ImbalancePower:diff()} [gold]Imbalance[/gold] to all enemies, deal {DisplayedDamage} [gold]Spell[/gold] damage, and give them {TemporaryFlyPower:diff()} Temporary Flight.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-ULTIMATE_BIG_BANG.title": "Ultimate Big Bang",
-  "CRIMSONSCEPTER_ANGELINA_MOD-ULTIMATE_BIG_BANG.description": "[gold]Retain[/gold]. Lose 1 Relic. Deal {DisplayedDamage} [gold]Spell[/gold] damage to all enemies. This card costs 1 more this combat.",
-  "CRIMSONSCEPTER_ANGELINA_MOD-ULTIMATE_BIG_BANG.upgraded_description": "[gold]Retain[/gold]. Lose 1 Relic. Deal {DisplayedDamage} [gold]Spell[/gold] damage to all enemies. This card costs 1 more this combat.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-ULTIMATE_BIG_BANG.description": "Lose 1 Relic. Deal {DisplayedDamage} [gold]Spell[/gold] damage to all enemies. This card costs 1 more this combat.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-ULTIMATE_BIG_BANG.upgraded_description": "Lose 1 Relic. Deal {DisplayedDamage} [gold]Spell[/gold] damage to all enemies. This card costs 1 more this combat.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-SPECIAL_GRAVITY_MODULE.title": "Special Gravity Module",
   "CRIMSONSCEPTER_ANGELINA_MOD-SPECIAL_GRAVITY_MODULE.description": "Whenever you play an [gold]Attack[/gold], if its target does not have [gold]Flight[/gold], give it {FlyPower:diff()} [gold]Flight[/gold]. Whenever you play a card, enemies with Flight take 2 damage.",

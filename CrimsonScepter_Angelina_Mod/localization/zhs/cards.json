@@ -208,16 +208,16 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-REALITY_MANIPULATION.upgraded_description": "每当有牌进入或离开[gold]消耗牌堆[/gold]时，获得{RealityManipulationPower:diff()}点格挡。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-INVERSION_SYMMETRY.title": "反演对称",
-  "CRIMSONSCEPTER_ANGELINA_MOD-INVERSION_SYMMETRY.description": "消耗X点能量。将弃牌堆中最近的X张其他牌依次打出。",
-  "CRIMSONSCEPTER_ANGELINA_MOD-INVERSION_SYMMETRY.upgraded_description": "[gold]保留[/gold]。消耗X点能量。将弃牌堆中最近的X张其他牌依次打出。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-INVERSION_SYMMETRY.description": "按照从上到下的顺序，打出弃牌堆顶的前X张牌。不会打出同名卡。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-INVERSION_SYMMETRY.upgraded_description": "按照从上到下的顺序，打出弃牌堆顶的前X张牌。不会打出同名卡。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-SCEPTER_ANTIGRAVITY_MODE.title": "权杖·反重力模式",
   "CRIMSONSCEPTER_ANGELINA_MOD-SCEPTER_ANTIGRAVITY_MODE.description": "对所有敌人施加{ImbalancePower:diff()}点[gold]失衡[/gold]，造成{DisplayedDamage}点[gold]法术[/gold]伤害，并使其获得{TemporaryFlyPower:diff()}层临时飞行。",
   "CRIMSONSCEPTER_ANGELINA_MOD-SCEPTER_ANTIGRAVITY_MODE.upgraded_description": "对所有敌人施加{ImbalancePower:diff()}点[gold]失衡[/gold]，造成{DisplayedDamage}点[gold]法术[/gold]伤害，并使其获得{TemporaryFlyPower:diff()}层临时飞行。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-ULTIMATE_BIG_BANG.title": "终极大爆炸",
-  "CRIMSONSCEPTER_ANGELINA_MOD-ULTIMATE_BIG_BANG.description": "[gold]保留[/gold]。失去1件遗物。对所有敌人造成{DisplayedDamage}点[gold]法术[/gold]伤害。本场战斗中，此牌费用+1。",
-  "CRIMSONSCEPTER_ANGELINA_MOD-ULTIMATE_BIG_BANG.upgraded_description": "[gold]保留[/gold]。失去1件遗物。对所有敌人造成{DisplayedDamage}点[gold]法术[/gold]伤害。本场战斗中，此牌费用+1。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-ULTIMATE_BIG_BANG.description": "失去1件遗物。对所有敌人造成{DisplayedDamage}点[gold]法术[/gold]伤害。本场战斗中，此牌费用+1。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-ULTIMATE_BIG_BANG.upgraded_description": "失去1件遗物。对所有敌人造成{DisplayedDamage}点[gold]法术[/gold]伤害。本场战斗中，此牌费用+1。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-SPECIAL_GRAVITY_MODULE.title": "特限重力模块",
   "CRIMSONSCEPTER_ANGELINA_MOD-SPECIAL_GRAVITY_MODULE.description": "每当你打出一张[gold]攻击[/gold]牌时，若其目标没有[gold]飞行[/gold]，则给予其{FlyPower:diff()}层[gold]飞行[/gold]。每打出一张牌，处于飞行状态的敌人受到2点伤害。",

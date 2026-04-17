@@ -21,8 +21,26 @@ public abstract class AngelinaPower : CustomPowerModel
     {
         get
         {
-            var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigPowerImagePath();
-            return ResourceLoader.Exists(path) ? path : "power.png".BigPowerImagePath();
+            var fileName = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png";
+            var bigPath = fileName.BigPowerImagePath();
+            if (ResourceLoader.Exists(bigPath))
+            {
+                return bigPath;
+            }
+
+            var smallPath = fileName.PowerImagePath();
+            if (ResourceLoader.Exists(smallPath))
+            {
+                return smallPath;
+            }
+
+            var defaultBigPath = "power.png".BigPowerImagePath();
+            if (ResourceLoader.Exists(defaultBigPath))
+            {
+                return defaultBigPath;
+            }
+
+            return "power.png".PowerImagePath();
         }
     }
 }

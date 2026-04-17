@@ -49,44 +49,73 @@
 ## 项目文件结构
 
 ```text
-CrimsonScepter_Angelina_Mod/
-├─ CrimsonScepter_Angelina_Mod.csproj        # C# 项目文件
-├─ CrimsonScepter_Angelina_Mod.sln           # 解决方案文件
-├─ project.godot                             # Godot 项目入口
-├─ export_presets.cfg                        # 导出 / 发布配置
-├─ Directory.Build.props                     # 构建参数
-├─ Sts2PathDiscovery.props                   # STS2 路径发现配置
-│
-├─ CrimsonScepter_Angelina_Mod/              # 资源目录（res://CrimsonScepter_Angelina_Mod）
-│  ├─ images/
-│  │  ├─ card_portraits/                     # 卡牌图片（含测试图、beta 图、正式图）
-│  │  │  └─ big/                             # 大图目录
-│  │  ├─ powers/                             # Power 图标
-│  │  │  └─ big/                             # Power 大图目录
-│  │  ├─ relics/                             # 遗物图标
-│  │  │  └─ big/                             # 遗物大图目录
-│  │  └─ charui/                             # 角色 UI 图：选人图、地图图标、能量图等
-│  │
-│  ├─ localization/
-│  │  ├─ zhs/                                # 中文本地化
-│  │  └─ eng/                                # 英文本地化
-│  │
-│  └─ mod_image.png                          # Mod 展示图
-│
-├─ CrimsonScepter_Angelina_ModCode/          # 核心 C# 代码
-│  ├─ MainFile.cs                            # Mod 初始化入口
-│  ├─ Abstracts/                             # 卡牌 / Power / 遗物 / 药水基类
-│  ├─ Character/                             # 角色本体与卡池/遗物池/药水池注册
-│  ├─ Cards/                                 # 所有卡牌实现
-│  ├─ Powers/                                # 所有 Power 实现
-│  ├─ Relics/                                # 所有遗物实现
-│  ├─ Potions/                               # 药水实现（当前目录为空）
-│  ├─ Helpers/                               # 辅助逻辑，如法术、浮空判断等
-│  └─ Extensions/                            # 路径拼接等扩展方法
-│
-├─ .godot/                                   # Godot 自动生成目录
-├─ bin/                                      # 编译输出
-└─ README.md                                 # 当前仓库说明
+
+CrimsonScepter_Angelina_Mod_AI/
+├── CrimsonScepter_Angelina_Mod.csproj          # C# 项目文件
+├── CrimsonScepter_Angelina_Mod.sln             # 解决方案文件
+├── CrimsonScepter_Angelina_Mod.json            # Mod 清单
+├── project.godot                               # Godot 项目入口
+├── export_presets.cfg                          # Godot 导出配置
+├── Directory.Build.props                       # 本地构建参数
+├── Sts2PathDiscovery.props                     # STS2 路径发现配置
+├── spine_godot_extension.gdextension           # Spine GDExtension 配置
+├── README.md                                   # 当前说明文档
+├── CrimsonScepter_Angelina_Mod/                # 资源目录（res://CrimsonScepter_Angelina_Mod）
+│   ├── mod_image.png                           # Mod 展示图
+│   ├── images/
+│   │   ├── card_portraits/                     # 卡图资源
+│   │   │   ├── beta/                           # 当前测试卡图
+│   │   │   └── big/                            # 预留大图目录
+│   │   ├── charui/                             # 角色 UI 图：头像、选人图、能量图、地图标记
+│   │   ├── powers/
+│   │   │   └── big/                            # Power 大图目录
+│   │   ├── relics/
+│   │   │   └── big/                            # Relic 大图目录
+│   │   └── screens/
+│   │       └── char_select_bg_angelina.png     # 选人背景图
+│   ├── localization/
+│   │   ├── eng/                                # 英文本地化
+│   │   └── zhs/                                # 中文本地化
+│   ├── scenes/
+│   │   ├── combat/
+│   │   │   └── energy_counters/
+│   │   │       └── angelina_energy_counter.tscn
+│   │   ├── creature_visuals/
+│   │   │   └── angelina.tscn
+│   │   ├── merchant/
+│   │   │   └── characters/
+│   │   │       └── angelina_merchant.tscn
+│   │   ├── rest_site/
+│   │   │   └── characters/
+│   │   │       └── angelina_rest_site.tscn
+│   │   └── screens/
+│   │       └── char_select/
+│   │           └── char_select_bg_angelina.tscn
+│   └── spine_data/                             # Spine 原始数据与 Godot 资源封装
+│       ├── build_char_291_aglina.atlas
+│       ├── build_char_291_aglina.png
+│       ├── build_char_291_aglina.skel
+│       ├── build_char_291_aglina.tres
+│       ├── build_char_291_aglina_rest.atlas
+│       ├── build_char_291_aglina_rest.png
+│       ├── build_char_291_aglina_rest.skel
+│       └── build_char_291_aglina_rest.tres
+├── CrimsonScepter_Angelina_ModCode/            # 核心 C# 代码
+│   ├── MainFile.cs                             # Mod 初始化入口
+│   ├── Abstracts/                              # 卡牌 / Power / Relic / Potion 基类
+│   ├── Cards/                                  # 所有卡牌实现
+│   ├── Character/                              # 角色本体与卡池 / 遗物池 / 药水池
+│   ├── Extensions/                             # 路径与字符串扩展
+│   ├── Helpers/                                # 辅助逻辑
+│   ├── Potions/                                # 药水目录（当前为空）
+│   ├── Powers/                                 # 所有 Power 实现
+│   ├── Relics/                                 # 所有遗物实现
+│   └── Scripts/                                # Godot 场景绑定脚本
+│       ├── AngelinaMerchantCharacter.cs
+│       └── AngelinaRestSiteCharacter.cs
+├── .godot/                                     # Godot 自动生成目录
+├── bin/                                        # 编译 / 发布输出
+└── windows/                                    # 导出运行时相关目录
 
 ```
 

@@ -33,7 +33,7 @@ public sealed class SecretCrimsonScepter : AngelinaRelic
     {
         get
         {
-            string typoPath = "sercet_secrimson_scepter.png".RelicImagePath();
+            string typoPath = "sercet_secrimson_scepter.png".BigRelicImagePath();
             return ResourceLoader.Exists(typoPath) ? typoPath : base.PackedIconPath;
         }
     }

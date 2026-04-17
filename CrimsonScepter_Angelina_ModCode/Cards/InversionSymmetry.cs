@@ -35,18 +35,23 @@ public sealed class InversionSymmetry : AngelinaCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 结算本次 X 费实际消耗
-        int cardsToReplay = ResolveEnergyXValue();
-        if (cardsToReplay <= 0)
+        int spentEnergy = ResolveEnergyXValue();
+        if (spentEnergy <= 0)
         {
             return;
         }
 
-        // 取弃牌堆中最近的 X 张其他牌
+        // 只查看弃牌堆顶往下的前 X 张牌，并按从上到下的顺序处理。
         CardPile discardPile = PileType.Discard.GetPile(base.Owner);
-        List<CardModel> cards = discardPile.Cards
+        List<CardModel> topCards = discardPile.Cards
             .Reverse()
             .Where(card => card is not InversionSymmetry)
-            .Take(cardsToReplay)
+            .Take(spentEnergy)
+            .ToList();
+
+        // 同名牌只打出第一张，不向更深处补位。
+        List<CardModel> cards = topCards
+            .DistinctBy(card => card.Id)
             .ToList();
 
         // 依次打出这些牌
@@ -57,8 +62,14 @@ public sealed class InversionSymmetry : AngelinaCard
                 break;
             }
 
-            await CardPileCmd.Add(card, PileType.Play, CardPilePosition.Top);
             await CardCmd.AutoPlay(choiceContext, card, null, skipXCapture: true);
+        }
+
+        // 未能实际用于重放的 X 费在结算后返还。
+        int refundedEnergy = spentEnergy - cards.Count;
+        if (refundedEnergy > 0)
+        {
+            await PlayerCmd.GainEnergy(refundedEnergy, base.Owner);
         }
     }
 
