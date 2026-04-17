@@ -55,11 +55,6 @@ public static class StringExtensions
     {
         return $"{MainFile.ResPath}/scenes/creature_visuals/{path}";
     }
-    
-    public static string CustomIconPath(this string path)
-    {
-        return $"{MainFile.ResPath}/scenes/ui/character_icons/{path}";
-    }
 
     public static string CustomEnergyCounterPath(this string path)
     {
