@@ -123,15 +123,10 @@ public sealed class ImbalancePower : AngelinaPower
     }
 
     // 规范化当前失衡层数：
-    // - 小于0时修正为0
     // - 小于等于0时直接移除这层Power
     private async Task<bool> NormalizeAmount()
     {
-        if (base.Amount < 0)
-        {
-            base.Amount = 0;
-        }
-
+        
         if (base.Amount <= 0)
         {
             await PowerCmd.Remove(this);

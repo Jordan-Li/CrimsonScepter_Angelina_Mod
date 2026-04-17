@@ -41,9 +41,9 @@ public class Angelina : PlaceholderCharacterModel
         ModelDb.Relic<CrimsonScepter>()
     ];
 
-    public override CardPoolModel CardPool => ModelDb.CardPool<AngelinaCardPool>();
-    public override RelicPoolModel RelicPool => ModelDb.RelicPool<AngelinaRelicPool>();
-    public override PotionPoolModel PotionPool => ModelDb.PotionPool<AngelinaPotionPool>();
+    public override CardPoolModel CardPool => ModelDb.CardPool<AngelinaCardPool>();             //重定义卡池
+    public override RelicPoolModel RelicPool => ModelDb.RelicPool<AngelinaRelicPool>();         //重定义遗物池
+    public override PotionPoolModel PotionPool => ModelDb.PotionPool<AngelinaPotionPool>();     //重定义药水池
     
     public override Control CustomIcon
     {
@@ -53,10 +53,18 @@ public class Angelina : PlaceholderCharacterModel
             icon.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
             return icon;
         }
-    }
+    }   //角色icon
 
-    public override string CustomIconTexturePath => "character_icon_angelina.png".CharacterUiPath();
-    public override string CustomCharacterSelectIconPath => "char_select_angelina.png".CharacterUiPath();
-    public override string CustomCharacterSelectLockedIconPath => "char_select_angelina_locked.png".CharacterUiPath();
-    public override string CustomMapMarkerPath => "map_marker_angelina.png".CharacterUiPath();
+    public override string CustomIconTexturePath => "character_icon_angelina.png".CharacterUiPath();                    //左上角icon
+    public override string CustomCharacterSelectIconPath => "char_select_angelina.png".CharacterUiPath();               //选择页面图片
+    public override string CustomCharacterSelectLockedIconPath => "char_select_angelina_locked.png".CharacterUiPath();  //选择页面未解锁图片
+    public override string CustomMapMarkerPath => "map_marker_angelina.png".CharacterUiPath();                          //地图上指针
+    
+    
+    public override string CustomVisualPath => "angelina.tscn".CustomVisualPath();
+    public override string CustomEnergyCounterPath => "angelina_energy_counter.tscn".CustomEnergyCounterPath();
+    public override string CustomRestSiteAnimPath => "angelina_rest_site.tscn".CustomRestSiteAnimPath();
+    public override string CustomCharacterSelectBg => "char_select_bg_angelina.tscn".CustomCharacterSelectBg();
+    public override string CustomMerchantAnimPath => "angelina_merchant.tscn".CustomMerchantPath();
+    
 }

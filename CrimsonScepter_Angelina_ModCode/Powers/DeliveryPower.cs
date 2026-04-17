@@ -47,7 +47,7 @@ public sealed class DeliveryPower : AngelinaPower
     /// 使用计数层数显示当前寄送牌数量
     /// </summary>
     public override PowerStackType StackType => PowerStackType.Counter;
-
+    public override int DisplayAmount => GetQueuedCards().Count;
     public override bool ShouldScaleInMultiplayer => false;
 
     /// <summary>
@@ -295,13 +295,12 @@ public sealed class DeliveryPower : AngelinaPower
     {
         Data data = GetInternalData<Data>();
 
-        base.Amount = data.QueuedCards.Count;
-
         string fullCardList = data.QueuedCards.Count == 0
             ? "无"
             : string.Join("\n", data.QueuedCards.Select(card => $"• {card.Title}"));
 
         ((StringVar)base.DynamicVars["Cards"]).StringValue = fullCardList;
+        InvokeDisplayAmountChanged();
     }
 
     /// <summary>

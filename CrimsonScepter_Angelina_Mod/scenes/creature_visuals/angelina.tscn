@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://cda18e1p5ysx8"]
+
+[ext_resource type="Script" uid="uid://spjoflfmd15q" path="res://CrimsonScepter_Angelina_ModCode/Visuals/CustomCreatureVisuals.cs" id="1_1acyd"]
+[ext_resource type="SpineSkeletonDataResource" uid="uid://dt6ghocpe1w1x" path="res://CrimsonScepter_Angelina_Mod/spine_data/build_char_291_aglina.tres" id="2_1acyd"]
+
+[node name="Angelina" type="Node2D"]
+script = ExtResource("1_1acyd")
+
+[node name="Visuals" type="SpineSprite" parent="."]
+skeleton_data_res = ExtResource("2_1acyd")
+preview_skin = "Default"
+preview_animation = "cast"
+preview_frame = false
+preview_time = 0.0
+unique_name_in_owner = true
+position = Vector2(80, -22)
+scale = Vector2(0.7, 0.7)
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -30.0
+offset_top = -316.0
+offset_right = 150.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(20, -351)
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(20, -351)

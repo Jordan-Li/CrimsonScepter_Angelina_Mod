@@ -135,6 +135,6 @@ public sealed class WeightlessPower : AngelinaPower
             return;
         }
 
-        base.Amount -= 1;
+        await PowerCmd.Decrement(this);
     }
 }
