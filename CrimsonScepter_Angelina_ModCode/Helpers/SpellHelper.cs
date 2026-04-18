@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Collections.Generic;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -52,6 +53,28 @@ public static class SpellHelper
         );
     }
 
+    public static async Task<IEnumerable<DamageResult>> DamageAll(
+        PlayerChoiceContext choiceContext,
+        Creature? source,
+        IEnumerable<Creature> targets,
+        decimal amount,
+        CardModel? cardSource)
+    {
+        if (amount <= 0m)
+        {
+            return [];
+        }
+
+        return await CreatureCmd.Damage(
+            choiceContext,
+            targets,
+            amount,
+            SpellProps,
+            source,
+            cardSource
+        );
+    }
+    
     public static async Task<decimal> GainBlock(
         Creature? source,
         Creature? target,

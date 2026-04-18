@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 
-namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Helpers;
+namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Enchantments;
 
 /// <summary>
 /// 附魔名：送达升级

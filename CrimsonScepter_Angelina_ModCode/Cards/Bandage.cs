@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
-using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Helpers;
+using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Enchantments;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 
