@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://cacgjj3sqpsf5"
+path="res://.godot/imported/build_char_291_aglina_rest.atlas-9ea0c196f569054759d1cbf5c977d9ab.spatlas"
+
+[deps]
+
+source_file="res://CrimsonScepter_Angelina_Mod/spine_data/build_char_291_aglina_rest.atlas"
+dest_files=["res://.godot/imported/build_char_291_aglina_rest.atlas-9ea0c196f569054759d1cbf5c977d9ab.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

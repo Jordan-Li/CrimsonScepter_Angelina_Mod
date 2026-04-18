@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://yirtxm2nffuj"]
+
+[ext_resource type="Script" uid="uid://b37to7mefaa0y" path="res://CrimsonScepter_Angelina_ModCode/Scripts/AngelinaMerchantCharacter.cs" id="1_bolkk"]
+[ext_resource type="SpineSkeletonDataResource" uid="uid://dt6ghocpe1w1x" path="res://CrimsonScepter_Angelina_Mod/spine_data/build_char_291_aglina.tres" id="2_ode7k"]
+
+[node name="AngelinaMerchant" type="Node2D"]
+scale = Vector2(1, 1)
+script = ExtResource("1_bolkk")
+
+[node name="SpineSprite" type="SpineSprite" parent="."]
+skeleton_data_res = ExtResource("2_ode7k")
+preview_skin = "Default"
+preview_animation = "relaxed_loop"
+preview_frame = false
+preview_time = 5.4
+scale = Vector2(0.47, 0.47)

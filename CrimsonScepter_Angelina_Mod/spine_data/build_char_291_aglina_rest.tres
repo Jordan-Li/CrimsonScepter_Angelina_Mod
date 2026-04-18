@@ -1,0 +1,9 @@
+[gd_resource type="SpineSkeletonDataResource" load_steps=3 format=3 uid="uid://exy61odq3eh2"]
+
+[ext_resource type="SpineAtlasResource" uid="uid://dy3ph1c8lch6n" path="res://CrimsonScepter_Angelina_Mod/spine_data/build_char_291_aglina_rest.atlas" id="1_umfhj"]
+[ext_resource type="SpineSkeletonFileResource" uid="uid://be61nb8t15u0k" path="res://CrimsonScepter_Angelina_Mod/spine_data/build_char_291_aglina_rest.skel" id="2_r8tc6"]
+
+[resource]
+atlas_res = ExtResource("1_umfhj")
+skeleton_file_res = ExtResource("2_r8tc6")
+default_mix = 0.2

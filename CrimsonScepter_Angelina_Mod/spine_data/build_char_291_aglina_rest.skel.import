@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://dotj0uqwrqvd5"
+path="res://.godot/imported/build_char_291_aglina_rest.skel-9cf4dad3ddedf3f58edc0d4ccb1ccf6c.spskel"
+
+[deps]
+
+source_file="res://CrimsonScepter_Angelina_Mod/spine_data/build_char_291_aglina_rest.skel"
+dest_files=["res://.godot/imported/build_char_291_aglina_rest.skel-9cf4dad3ddedf3f58edc0d4ccb1ccf6c.spskel"]
+
+[params]
+
