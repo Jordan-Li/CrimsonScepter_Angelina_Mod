@@ -2,13 +2,10 @@
 
 [ext_resource type="SpineSkeletonDataResource" uid="uid://dt6ghocpe1w1x" path="res://CrimsonScepter_Angelina_Mod/spine_data/build_char_291_aglina.tres" id="1_ode7k"]
 
-[node name="AngelinaMerchant" type="NMerchantCharacter"]
-scale = Vector2(1.9, 1.9)
-
-[node name="SpineSprite" type="SpineSprite" parent="."]
+[node name="AngelinaMerchant" type="SpineSprite"]
 skeleton_data_res = ExtResource("1_ode7k")
 preview_skin = "Default"
 preview_animation = "relaxed_loop"
 preview_frame = false
 preview_time = 5.4
-scale = Vector2(0.47, 0.47)
+scale = Vector2(0.893, 0.893)

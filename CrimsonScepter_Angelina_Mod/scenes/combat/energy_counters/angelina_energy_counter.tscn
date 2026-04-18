@@ -1,9 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://0x37uehu4fpq"]
+[gd_scene load_steps=2 format=3 uid="uid://0x37uehu4fpq"]
 
-[ext_resource type="Script" uid="uid://dh4d0sqk21k6" path="res://src/Core/Nodes/Combat/NEnergyCounter.cs" id="1_1frpf"]
-[ext_resource type="FontVariation" uid="uid://bg85h22rkxs6g" path="res://themes/kreon_bold_shared.tres" id="2_hrdbh"]
-[ext_resource type="Script" uid="uid://dtfio45agppyj" path="res://addons/mega_text/MegaLabel.cs" id="3_cnddh"]
-[ext_resource type="Texture2D" path="res://CrimsonScepter_Angelina_Mod/images/charui/energy.png" id="4_energy"]
+[ext_resource type="Texture2D" uid="uid://dcdo6dplx16u" path="res://CrimsonScepter_Angelina_Mod/images/charui/energy.png" id="4_energy"]
 
 [node name="AngelinaEnergyCounter" type="Control"]
 layout_mode = 3
@@ -11,7 +8,6 @@ anchors_preset = 0
 offset_right = 128.0
 offset_bottom = 128.0
 pivot_offset = Vector2(64, 64)
-script = ExtResource("1_1frpf")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -46,11 +42,7 @@ theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 16
 theme_override_constants/shadow_outline_size = 16
-theme_override_fonts/font = ExtResource("2_hrdbh")
 theme_override_font_sizes/font_size = 36
 text = "3/3"
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("3_cnddh")
-MinFontSize = 32
-MaxFontSize = 36
