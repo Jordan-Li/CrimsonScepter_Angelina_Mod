@@ -90,7 +90,7 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-MISSED_TRAP.description": "Deal {Damage:diff()} damage twice. If the enemy leaves [gold]Airborne[/gold], gain {EnergyGain:energyIcons()}.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_TAKEOFF.title": "Emergency Takeoff",
-  "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_TAKEOFF.description": "Gain {FlyPower:diff()} [gold]Fly[/gold]. Gain {DisplayedBlock} [gold]spell[/gold] Block.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_TAKEOFF.description": "Gain {ImbalancePower:diff()} [gold]Imbalance[/gold]. Gain {TemporaryFlyPower:diff()} [gold]Temporary Fly[/gold]. Gain {DisplayedBlock} [gold]spell[/gold] Block.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-SOARING_KIT.title": "Soaring Kit",
   "CRIMSONSCEPTER_ANGELINA_MOD-SOARING_KIT.description": "Give yourself {FlyPower:diff()} [gold]Fly[/gold].\n[gold]Delivered[/gold]: Give all enemies 1 [gold]Fly[/gold]. [gold]Exhaust[/gold].",

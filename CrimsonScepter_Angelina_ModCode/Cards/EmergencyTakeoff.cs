@@ -18,8 +18,8 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 /// 费用：0
 /// 稀有度：普通
 /// 卡牌类型：技能
-/// 效果：获得1层飞行。获得8点法术格挡。
-/// 升级后效果：获得1层飞行。获得11点法术格挡。
+/// 效果：获得5点失衡。获得1层临时飞行。获得8点法术格挡。
+/// 升级后效果：获得5点失衡。获得1层临时飞行。获得11点法术格挡。
 /// </summary>
 public sealed class EmergencyTakeoff : AngelinaCard
 {
@@ -27,22 +27,26 @@ public sealed class EmergencyTakeoff : AngelinaCard
     public override bool GainsBlock => true;
 
     // 额外悬浮说明：
-    // 1. 飞行
-    // 2. 法术
+    // 1. 失衡
+    // 2. 临时飞行
+    // 3. 法术
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<FlyPower>(),
+        HoverTipFactory.FromPower<ImbalancePower>(),
+        HoverTipFactory.FromPower<TemporaryFlyPower>(),
         new HoverTip(
             new LocString("powers", "SPELL.title"),
             new LocString("powers", "SPELL.description"))
     ];
 
     // 动态变量：
-    // 1. 飞行层数
-    // 2. 法术格挡
+    // 1. 失衡值
+    // 2. 临时飞行层数
+    // 3. 法术格挡
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<FlyPower>(1m),
+        new PowerVar<ImbalancePower>(5m),
+        new PowerVar<TemporaryFlyPower>(1m),
         new BlockVar(8m, ValueProp.Unpowered | ValueProp.Move)
     ];
 
@@ -52,18 +56,26 @@ public sealed class EmergencyTakeoff : AngelinaCard
     {
     }
 
-    // 打出时，先获得飞行，再获得法术格挡。
+    // 打出时，先获得失衡和临时飞行，再获得法术格挡。
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 第一步：给予自己飞行。
-        await PowerCmd.Apply<FlyPower>(
+        // 第一步：给予自己失衡。
+        await PowerCmd.Apply<ImbalancePower>(
             base.Owner.Creature,
-            base.DynamicVars["FlyPower"].BaseValue,
+            base.DynamicVars["ImbalancePower"].BaseValue,
             base.Owner.Creature,
             this
         );
 
-        // 第二步：计算法术修正后的格挡并给予自己。
+        // 第二步：给予自己临时飞行。
+        await PowerCmd.Apply<TemporaryFlyPower>(
+            base.Owner.Creature,
+            base.DynamicVars["TemporaryFlyPower"].BaseValue,
+            base.Owner.Creature,
+            this
+        );
+
+        // 第三步：计算法术修正后的格挡并给予自己。
         decimal block = SpellHelper.ModifySpellValue(base.Owner.Creature, base.DynamicVars.Block.BaseValue);
         await SpellHelper.GainBlock(base.Owner.Creature, base.Owner.Creature, block, cardPlay);
     }

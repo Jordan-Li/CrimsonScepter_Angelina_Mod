@@ -90,7 +90,7 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-MISSED_TRAP.description": "造成{Damage:diff()}点伤害2次。若使敌方脱离[gold]浮空[/gold]，获得{EnergyGain:energyIcons()}。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_TAKEOFF.title": "紧急升空",
-  "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_TAKEOFF.description": "获得{FlyPower:diff()}层[gold]飞行[/gold]。获得{DisplayedBlock}点[gold]法术[/gold]格挡。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_TAKEOFF.description": "获得{ImbalancePower:diff()}点[gold]失衡[/gold]。获得{TemporaryFlyPower:diff()}层[gold]临时飞行[/gold]。获得{DisplayedBlock}点[gold]法术[/gold]格挡。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-SOARING_KIT.title": "腾空套组",
   "CRIMSONSCEPTER_ANGELINA_MOD-SOARING_KIT.description": "给予自己{FlyPower:diff()}层[gold]飞行[/gold]。\n[gold]送达[/gold]：给予所有敌方1层[gold]飞行[/gold]。",

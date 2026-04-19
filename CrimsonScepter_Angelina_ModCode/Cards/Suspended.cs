@@ -15,8 +15,8 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 /// 费用：2
 /// 稀有度：罕见
 /// 卡牌类型：技能
-/// 效果：获得5层飞行。
-/// 升级后效果：获得7层飞行。
+/// 效果：获得3层飞行。
+/// 升级后效果：获得5层飞行。
 /// </summary>
 public sealed class Suspended : AngelinaCard
 {
@@ -29,7 +29,7 @@ public sealed class Suspended : AngelinaCard
     // 动态变量：获得的飞行层数。
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<FlyPower>(5m)
+        new PowerVar<FlyPower>(3m)
     ];
 
     // 初始化卡牌的基础信息：2费、技能、罕见、目标为自己。
