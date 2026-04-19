@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
@@ -43,6 +44,10 @@ public sealed class CometCombo : AngelinaCard
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(3m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(3m),
+        new ExtraDamageVar(1m),
+        new CalculatedDamageVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m),
         new CardsVar(1)
     ];
 
@@ -82,17 +87,4 @@ public sealed class CometCombo : AngelinaCard
         base.DynamicVars.Cards.UpgradeValueBy(1m);
     }
 
-    // 额外描述参数：让描述里的法术伤害显示当前修正后的数值。
-    protected override void AddExtraArgsToDescription(LocString description)
-    {
-        base.AddExtraArgsToDescription(description);
-
-        decimal displayedDamage = base.DynamicVars.Damage.BaseValue;
-        if (base.IsMutable && base.Owner?.Creature != null)
-        {
-            displayedDamage = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedDamage);
-        }
-
-        description.Add("DisplayedDamage", displayedDamage);
-    }
 }

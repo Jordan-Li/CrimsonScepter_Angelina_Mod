@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -45,7 +46,11 @@ public sealed class PrismRay : AngelinaCard
     // 动态变量：法术伤害。
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(12m, ValueProp.Unpowered | ValueProp.Move)
+        new DamageVar(12m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(12m),
+        new ExtraDamageVar(1m),
+        new CalculatedDamageVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m)
     ];
 
     // 初始化卡牌的基础信息：1费、攻击、稀有、目标为单体敌人。
@@ -71,20 +76,7 @@ public sealed class PrismRay : AngelinaCard
     protected override void OnUpgrade()
     {
         base.DynamicVars.Damage.UpgradeValueBy(4m);
-    }
-
-    // 额外描述参数：让描述里的法术伤害显示当前修正后的数值。
-    protected override void AddExtraArgsToDescription(LocString description)
-    {
-        base.AddExtraArgsToDescription(description);
-
-        decimal displayedDamage = base.DynamicVars.Damage.BaseValue;
-        if (base.IsMutable && base.Owner?.Creature != null)
-        {
-            displayedDamage = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedDamage);
-        }
-
-        description.Add("DisplayedDamage", displayedDamage);
+        base.DynamicVars.CalculationBase.UpgradeValueBy(4m);
     }
 
     // 变化当前所有寄送中的牌；若此牌已升级，则变化后的牌额外升级。

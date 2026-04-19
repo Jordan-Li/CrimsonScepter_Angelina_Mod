@@ -47,6 +47,10 @@ public sealed class Chant : AngelinaCard
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new BlockVar(8m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(8m),
+        new CalculationExtraVar(1m),
+        new CalculatedBlockVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m),
         new PowerVar<ChantTemporaryFocusNextTurnPower>(1m)
     ];
 
@@ -78,20 +82,7 @@ public sealed class Chant : AngelinaCard
     protected override void OnUpgrade()
     {
         base.DynamicVars.Block.UpgradeValueBy(2m);
+        base.DynamicVars.CalculationBase.UpgradeValueBy(2m);
         base.DynamicVars["ChantTemporaryFocusNextTurnPower"].UpgradeValueBy(1m);
-    }
-
-    // 预览描述时，补入受集中影响后的法术格挡数值。
-    protected override void AddExtraArgsToDescription(LocString description)
-    {
-        base.AddExtraArgsToDescription(description);
-
-        decimal displayedBlock = base.DynamicVars.Block.BaseValue;
-        if (base.IsMutable && base.Owner?.Creature != null)
-        {
-            displayedBlock = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedBlock);
-        }
-
-        description.Add("DisplayedBlock", displayedBlock);
     }
 }

@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
@@ -40,6 +41,10 @@ public sealed class ScepterAntigravityMode : AngelinaCard
     [
         new PowerVar<ImbalancePower>(18m),
         new DamageVar(18m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(18m),
+        new ExtraDamageVar(1m),
+        new CalculatedDamageVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m),
         new PowerVar<TemporaryFlyPower>(1m)
     ];
 
@@ -98,19 +103,6 @@ public sealed class ScepterAntigravityMode : AngelinaCard
         // 升级后同时提高失衡值和法术伤害。
         base.DynamicVars["ImbalancePower"].UpgradeValueBy(7m);
         base.DynamicVars.Damage.UpgradeValueBy(7m);
-    }
-
-    protected override void AddExtraArgsToDescription(LocString description)
-    {
-        // 为本地化描述补上法术修正后的实际显示伤害。
-        base.AddExtraArgsToDescription(description);
-
-        decimal displayedDamage = base.DynamicVars.Damage.BaseValue;
-        if (base.IsMutable && base.Owner?.Creature != null)
-        {
-            displayedDamage = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedDamage);
-        }
-
-        description.Add("DisplayedDamage", displayedDamage);
+        base.DynamicVars.CalculationBase.UpgradeValueBy(7m);
     }
 }

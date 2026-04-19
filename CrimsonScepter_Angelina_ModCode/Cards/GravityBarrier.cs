@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
@@ -43,6 +44,10 @@ public sealed class GravityBarrier : AngelinaCard
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new BlockVar(12m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(12m),
+        new CalculationExtraVar(1m),
+        new CalculatedBlockVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m),
         new PowerVar<GravityBarrierPower>(8m)
     ];
 
@@ -77,20 +82,7 @@ public sealed class GravityBarrier : AngelinaCard
     protected override void OnUpgrade()
     {
         base.DynamicVars.Block.UpgradeValueBy(3m);
+        base.DynamicVars.CalculationBase.UpgradeValueBy(3m);
         base.DynamicVars["GravityBarrierPower"].UpgradeValueBy(4m);
-    }
-
-    // 预览描述时，补入受集中影响后的法术格挡数值。
-    protected override void AddExtraArgsToDescription(LocString description)
-    {
-        base.AddExtraArgsToDescription(description);
-
-        decimal displayedBlock = base.DynamicVars.Block.BaseValue;
-        if (base.IsMutable && base.Owner?.Creature != null)
-        {
-            displayedBlock = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedBlock);
-        }
-
-        description.Add("DisplayedBlock", displayedBlock);
     }
 }

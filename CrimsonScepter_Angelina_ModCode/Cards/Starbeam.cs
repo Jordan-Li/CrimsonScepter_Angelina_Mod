@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
@@ -38,7 +39,11 @@ public sealed class Starbeam : AngelinaCard
     // 动态变量：法术伤害。
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(8m, ValueProp.Unpowered | ValueProp.Move)
+        new DamageVar(8m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(8m),
+        new ExtraDamageVar(1m),
+        new CalculatedDamageVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m)
     ];
 
     // 初始化卡牌的基础信息：1费、攻击、普通、目标为单体敌人。
@@ -81,19 +86,6 @@ public sealed class Starbeam : AngelinaCard
     protected override void OnUpgrade()
     {
         base.DynamicVars.Damage.UpgradeValueBy(2m);
-    }
-
-    // 额外描述参数：让描述里的法术伤害显示当前修正后的数值。
-    protected override void AddExtraArgsToDescription(LocString description)
-    {
-        base.AddExtraArgsToDescription(description);
-
-        decimal displayedDamage = base.DynamicVars.Damage.BaseValue;
-        if (base.IsMutable && base.Owner?.Creature != null)
-        {
-            displayedDamage = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedDamage);
-        }
-
-        description.Add("DisplayedDamage", displayedDamage);
+        base.DynamicVars.CalculationBase.UpgradeValueBy(2m);
     }
 }

@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -43,7 +44,11 @@ public sealed class ChargedImpact : DeliveredCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new PowerVar<ImbalancePower>(20m),
-        new DamageVar(18m, ValueProp.Unpowered | ValueProp.Move)
+        new DamageVar(18m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(18m),
+        new ExtraDamageVar(1m),
+        new CalculatedDamageVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m)
     ];
 
     // 初始化卡牌的基础信息：3费、攻击、罕见、目标为单体敌人。
@@ -75,6 +80,7 @@ public sealed class ChargedImpact : DeliveredCardModel
     {
         base.DynamicVars["ImbalancePower"].UpgradeValueBy(8m);
         base.DynamicVars.Damage.UpgradeValueBy(7m);
+        base.DynamicVars.CalculationBase.UpgradeValueBy(7m);
     }
 
     // 送达时，随机本场战斗中这张牌的耗能。
@@ -84,19 +90,5 @@ public sealed class ChargedImpact : DeliveredCardModel
         base.InvokeEnergyCostChanged();
         NCard.FindOnTable(this)?.PlayRandomizeCostAnim();
         return Task.CompletedTask;
-    }
-
-    // 额外描述参数：让描述中的法术伤害显示当前修正后的数值。
-    protected override void AddExtraArgsToDescription(LocString description)
-    {
-        base.AddExtraArgsToDescription(description);
-
-        decimal displayedDamage = base.DynamicVars.Damage.BaseValue;
-        if (base.IsMutable && base.Owner?.Creature != null)
-        {
-            displayedDamage = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedDamage);
-        }
-
-        description.Add("DisplayedDamage", displayedDamage);
     }
 }

@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
@@ -36,7 +37,14 @@ public sealed class LittleGift : AngelinaCard
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
         new DamageVar(3m, ValueProp.Unpowered | ValueProp.Move),
-        new BlockVar(3m, ValueProp.Unpowered | ValueProp.Move)
+        new BlockVar(3m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(3m),
+        new ExtraDamageVar(1m),
+        new CalculatedDamageVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m),
+        new CalculationExtraVar(1m),
+        new CalculatedBlockVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m)
     };
 
     // 初始化卡牌的基础信息：0费、攻击牌、其他、目标为单体敌人。
@@ -66,23 +74,6 @@ public sealed class LittleGift : AngelinaCard
     {
         base.DynamicVars.Damage.UpgradeValueBy(1m);
         base.DynamicVars.Block.UpgradeValueBy(1m);
-    }
-
-    // 给描述补充当前法术修正后的显示值，让卡面数字和实际结算一致。
-    protected override void AddExtraArgsToDescription(LocString description)
-    {
-        base.AddExtraArgsToDescription(description);
-
-        decimal displayedDamage = base.DynamicVars.Damage.BaseValue;
-        decimal displayedBlock = base.DynamicVars.Block.BaseValue;
-
-        if (base.IsMutable && base.Owner?.Creature != null)
-        {
-            displayedDamage = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedDamage);
-            displayedBlock = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedBlock);
-        }
-
-        description.Add("DisplayedDamage", displayedDamage);
-        description.Add("DisplayedBlock", displayedBlock);
+        base.DynamicVars.CalculationBase.UpgradeValueBy(1m);
     }
 }

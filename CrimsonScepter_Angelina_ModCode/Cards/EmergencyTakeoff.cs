@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
@@ -47,7 +48,11 @@ public sealed class EmergencyTakeoff : AngelinaCard
     [
         new PowerVar<ImbalancePower>(5m),
         new PowerVar<TemporaryFlyPower>(1m),
-        new BlockVar(8m, ValueProp.Unpowered | ValueProp.Move)
+        new BlockVar(8m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(8m),
+        new CalculationExtraVar(1m),
+        new CalculatedBlockVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m)
     ];
 
     // 初始化卡牌的基础信息：0费、技能、普通、目标为自己。
@@ -84,19 +89,6 @@ public sealed class EmergencyTakeoff : AngelinaCard
     protected override void OnUpgrade()
     {
         base.DynamicVars.Block.UpgradeValueBy(3m);
-    }
-
-    // 额外描述参数：让描述里的法术格挡显示当前修正后的数值。
-    protected override void AddExtraArgsToDescription(LocString description)
-    {
-        base.AddExtraArgsToDescription(description);
-
-        decimal displayedBlock = base.DynamicVars.Block.BaseValue;
-        if (base.IsMutable && base.Owner?.Creature != null)
-        {
-            displayedBlock = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedBlock);
-        }
-
-        description.Add("DisplayedBlock", displayedBlock);
+        base.DynamicVars.CalculationBase.UpgradeValueBy(3m);
     }
 }

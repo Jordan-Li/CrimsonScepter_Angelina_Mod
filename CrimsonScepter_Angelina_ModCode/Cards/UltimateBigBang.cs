@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Models.Relics;
 using MegaCrit.Sts2.Core.ValueProps;
 using MegaCrit.Sts2.Core.Entities.Relics;
@@ -45,7 +46,14 @@ public sealed class UltimateBigBang : AngelinaCard
     ];
 
     // 这张牌只有一段法术伤害动态值：40，升级到 50。
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(40m, ValueProp.Unpowered | ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DamageVar(40m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(40m),
+        new ExtraDamageVar(1m),
+        new CalculatedDamageVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m)
+    ];
 
     public UltimateBigBang()
         : base(0, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
@@ -94,19 +102,6 @@ public sealed class UltimateBigBang : AngelinaCard
     protected override void OnUpgrade()
     {
         base.DynamicVars.Damage.UpgradeValueBy(10m);
-    }
-
-    // 给描述补上法术修正后的显示伤害。
-    protected override void AddExtraArgsToDescription(LocString description)
-    {
-        base.AddExtraArgsToDescription(description);
-
-        decimal displayedDamage = base.DynamicVars.Damage.BaseValue;
-        if (base.IsMutable && base.Owner?.Creature != null)
-        {
-            displayedDamage = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedDamage);
-        }
-
-        description.Add("DisplayedDamage", displayedDamage);
+        base.DynamicVars.CalculationBase.UpgradeValueBy(10m);
     }
 }

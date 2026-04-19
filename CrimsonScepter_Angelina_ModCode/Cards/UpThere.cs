@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
@@ -60,6 +61,10 @@ public sealed class UpThere : AngelinaCard
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new BlockVar(7m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(7m),
+        new CalculationExtraVar(1m),
+        new CalculatedBlockVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m),
         new PowerVar<ImbalancePower>(10m)
     ];
 
@@ -104,20 +109,7 @@ public sealed class UpThere : AngelinaCard
     protected override void OnUpgrade()
     {
         base.DynamicVars.Block.UpgradeValueBy(2m);
+        base.DynamicVars.CalculationBase.UpgradeValueBy(2m);
         base.DynamicVars["ImbalancePower"].UpgradeValueBy(5m);
-    }
-
-    // 额外描述参数：让描述里的法术格挡显示当前修正后的数值。
-    protected override void AddExtraArgsToDescription(LocString description)
-    {
-        base.AddExtraArgsToDescription(description);
-
-        decimal displayedBlock = base.DynamicVars.Block.BaseValue;
-        if (base.IsMutable && base.Owner?.Creature != null)
-        {
-            displayedBlock = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedBlock);
-        }
-
-        description.Add("DisplayedBlock", displayedBlock);
     }
 }

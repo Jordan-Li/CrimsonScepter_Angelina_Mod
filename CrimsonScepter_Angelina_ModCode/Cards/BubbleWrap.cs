@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
@@ -40,7 +41,11 @@ public sealed class BubbleWrap : AngelinaCard
     // 动态变量：法术伤害，初始值为3
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(3m, ValueProp.Unpowered | ValueProp.Move)
+        new DamageVar(3m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(3m),
+        new ExtraDamageVar(1m),
+        new CalculatedDamageVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m)
     ];
 
     // 费用：0费，类型：攻击牌，稀有度：普通，目标：任意敌人
@@ -82,20 +87,6 @@ public sealed class BubbleWrap : AngelinaCard
     protected override void OnUpgrade()
     {
         base.DynamicVars.Damage.UpgradeValueBy(2m);
-    }
-
-    // 给描述补充法术修正后的显示伤害
-    protected override void AddExtraArgsToDescription(LocString description)
-    {
-        base.AddExtraArgsToDescription(description);
-
-        decimal displayedDamage = base.DynamicVars.Damage.BaseValue;
-
-        if (base.IsMutable && base.Owner?.Creature != null)
-        {
-            displayedDamage = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedDamage);
-        }
-
-        description.Add("DisplayedDamage", displayedDamage);
+        base.DynamicVars.CalculationBase.UpgradeValueBy(2m);
     }
 }

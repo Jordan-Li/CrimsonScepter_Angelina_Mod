@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -40,7 +41,11 @@ public sealed class AnnihilationParticle : AngelinaCard
     // 维护法术伤害动态值。
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(20m, ValueProp.Unpowered | ValueProp.Move)
+        new DamageVar(20m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(20m),
+        new ExtraDamageVar(1m),
+        new CalculatedDamageVar(ValueProp.Unpowered | ValueProp.Move)
+            .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m)
     ];
 
     // 这是攻击牌，但伤害部分按法术伤害结算。
@@ -103,20 +108,7 @@ public sealed class AnnihilationParticle : AngelinaCard
     {
         // 升级后仅提高法术伤害。
         base.DynamicVars.Damage.UpgradeValueBy(6m);
-    }
-
-    protected override void AddExtraArgsToDescription(LocString description)
-    {
-        base.AddExtraArgsToDescription(description);
-
-        decimal displayedDamage = base.DynamicVars.Damage.BaseValue;
-        if (base.IsMutable && base.Owner?.Creature != null)
-        {
-            displayedDamage = SpellHelper.ModifySpellValue(base.Owner.Creature, displayedDamage);
-        }
-
-        description.Add("DisplayedDamage", displayedDamage);
-        description.Add("CalculatedDamage", displayedDamage);
+        base.DynamicVars.CalculationBase.UpgradeValueBy(6m);
     }
 
     // 奖励结算补丁会在战斗奖励生成时消费这条“移除卡牌奖励”记录。
