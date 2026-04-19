@@ -22,7 +22,7 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 /// 稀有度：普通
 /// 卡牌类型：攻击
 /// 效果：造成8点伤害。寄送1张牌。
-/// 升级后效果：造成12点伤害。寄送1张牌。
+/// 升级后效果：造成12点伤害。寄送2张牌。
 /// </summary>
 public sealed class DeliveryFlow : AngelinaCard
 {
@@ -57,16 +57,23 @@ public sealed class DeliveryFlow : AngelinaCard
             .WithHitFx("vfx/vfx_flying_slash")          // 命中特效
             .Execute(choiceContext);                    // 真正执行
 
-        // 第二步：从手牌中选择1张牌寄送
-        CardModel? selectedCard = (await CardSelectCmd.FromHand(
+        // 第二步：从手牌中选择若干张牌寄送。
+        int handCount = base.Owner.PlayerCombatState?.Hand.Cards.Count ?? 0;
+        int deliveryCount = System.Math.Min(base.IsUpgraded ? 2 : 1, handCount);
+        if (deliveryCount <= 0)
+        {
+            return;
+        }
+
+        List<CardModel> selectedCards = (await CardSelectCmd.FromHand(
             context: choiceContext,
             player: base.Owner,
-            prefs: new CardSelectorPrefs(new LocString("cards", "DELIVERY_FLOW.selectPrompt"), 1),
+            prefs: new CardSelectorPrefs(new LocString("cards", "DELIVERY_FLOW.selectPrompt"), deliveryCount),
             filter: null,
-            source: this)).FirstOrDefault();
+            source: this)).ToList();
 
         // 如果没有选到牌，就直接结束
-        if (selectedCard == null)
+        if (selectedCards.Count == 0)
         {
             return;
         }
@@ -74,13 +81,14 @@ public sealed class DeliveryFlow : AngelinaCard
         DeliveryPower? deliveryPower = base.Owner.Creature.GetPower<DeliveryPower>();
         deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
 
-        // 先把牌移到 Exhaust
-        await CardCmd.Exhaust(choiceContext, selectedCard);
-
-        // 再加入寄送队列
+        // 先把牌移到 Exhaust，再加入寄送队列
         if (deliveryPower != null)
         {
-            await deliveryPower.EnqueueCard(selectedCard);
+            foreach (CardModel selectedCard in selectedCards)
+            {
+                await CardCmd.Exhaust(choiceContext, selectedCard);
+                await deliveryPower.EnqueueCard(selectedCard);
+            }
         }
     }
 

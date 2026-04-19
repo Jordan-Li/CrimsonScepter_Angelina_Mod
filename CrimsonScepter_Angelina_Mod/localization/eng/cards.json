@@ -31,9 +31,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_NODE.upgraded_description": "Apply {ImbalancePower} [gold]Imbalance[/gold], then deal {Damage} damage. If this card makes the target become [gold]Weightless[/gold], permanently increase this card's [gold]Imbalance[/gold] by {ImbalanceIncrease}; if this card deals a [gold]fatal[/gold] blow, permanently increase its damage by {DamageIncrease}.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.title": "Delivery Flow",
-  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.description": "Deal {Damage:diff()} damage. Send a card.",
-  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.upgraded_description": "Deal {Damage:diff()} damage. Send a card.",
-  "DELIVERY_FLOW.selectPrompt": "Choose a card to send",
+  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.description": "Deal {Damage:diff()} damage. {IfUpgraded:show:Send 2 cards.|Send a card.}",
+  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.upgraded_description": "Deal {Damage:diff()} damage. Send 2 cards.",
+  "DELIVERY_FLOW.selectPrompt": "Choose card(s) to send",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-PACKAGE_PREVIEW.title": "Package Preview",
   "CRIMSONSCEPTER_ANGELINA_MOD-PACKAGE_PREVIEW.description": "Deal {Damage:diff()} damage. Deliver the most recently sent card, then place it on top of your draw pile.",

@@ -1,7 +1,7 @@
 ﻿{
   "DELIVERED.title": "送达",
   "DELIVERED.description": "当此牌被[gold]寄送[/gold]返回手牌时，会触发额外效果。",
-  
+
   "CRIMSONSCEPTER_ANGELINA_MOD-STRIKE_ANGELINA.title": "打击",
   "CRIMSONSCEPTER_ANGELINA_MOD-STRIKE_ANGELINA.description": "造成{Damage:diff()}点伤害。",
   "CRIMSONSCEPTER_ANGELINA_MOD-STRIKE_ANGELINA.upgraded_description": "造成{Damage:diff()}点伤害。",
@@ -31,9 +31,8 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_NODE.upgraded_description": "施加{ImbalancePower}点[gold]失衡[/gold]，造成{Damage}点伤害。若此牌使目标[gold]失重[/gold]，永久增加{ImbalanceIncrease}点[gold]失衡[/gold]；若此牌[gold]斩杀[/gold]目标，永久增加{DamageIncrease}点伤害。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.title": "寄送流程",
-  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.description": "造成{Damage:diff()}点伤害。[gold]寄送[/gold]1张牌。",
-  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.upgraded_description": "造成{Damage:diff()}点伤害。[gold]寄送[/gold]1张牌。",
-  "DELIVERY_FLOW.selectPrompt": "选择1张要寄送的牌",
+  "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_FLOW.description": "造成{Damage:diff()}点伤害。[gold]寄送[/gold]{IfUpgraded:show:2|1}张牌。",
+  "DELIVERY_FLOW.selectPrompt": "选择要寄送的牌",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-PACKAGE_PREVIEW.title": "预览",
   "CRIMSONSCEPTER_ANGELINA_MOD-PACKAGE_PREVIEW.description": "造成{Damage:diff()}点伤害。将最近[gold]寄送[/gold]的1张牌[gold]送达[/gold]后置于抽牌堆顶。",
@@ -116,7 +115,7 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-MISSED_TRAP.title": "落空陷阱",
   "CRIMSONSCEPTER_ANGELINA_MOD-MISSED_TRAP.description": "造成{Damage:diff()}点伤害2次。若使敌方脱离[gold]浮空[/gold]，获得{EnergyGain:energyIcons()}。",
   "CRIMSONSCEPTER_ANGELINA_MOD-MISSED_TRAP.upgraded_description": "造成{Damage:diff()}点伤害2次。若使敌方脱离[gold]浮空[/gold]，获得{EnergyGain:energyIcons()}。",
-  
+
   "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_TAKEOFF.title": "紧急升空",
   "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_TAKEOFF.description": "获得{FlyPower:diff()}层[gold]飞行[/gold]。获得{DisplayedBlock}点[gold]法术[/gold]格挡。",
   "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_TAKEOFF.upgraded_description": "获得{FlyPower:diff()}层[gold]飞行[/gold]。获得{DisplayedBlock}点[gold]法术[/gold]格挡。",
@@ -137,7 +136,7 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-BANDAGE.description": "获得{Block:diff()}点格挡。为{EnchantAll:cond:>0?所有手牌|1张手牌}添加[gold]附魔[/gold]：[gold]送达[/gold]时，在本场战斗中获得升级。",
   "CRIMSONSCEPTER_ANGELINA_MOD-BANDAGE.upgraded_description": "获得{Block:diff()}点格挡。为{EnchantAll:cond:>0?所有手牌|1张手牌}添加[gold]附魔[/gold]：[gold]送达[/gold]时，在本场战斗中获得升级。",
   "BANDAGE.selectPrompt": "选择要添加附魔的手牌",
-  
+
   "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.title": "上升气流",
   "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.description": "回合开始时，获得1层[gold]临时飞行[/gold]。若你因受到攻击脱离[gold]浮空[/gold]，向抽牌堆内添加一张眩晕。",
   "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.upgraded_description": "回合开始时，获得1层[gold]临时飞行[/gold]。若你因受到攻击脱离[gold]浮空[/gold]，向抽牌堆内添加一张眩晕。",
@@ -243,7 +242,7 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-FUTURE_OBSERVATION.title": "未来观测",
   "CRIMSONSCEPTER_ANGELINA_MOD-FUTURE_OBSERVATION.description": "打出时，选择5张卡组中的牌出现在你下次战斗的抽牌堆顶部。",
   "CRIMSONSCEPTER_ANGELINA_MOD-FUTURE_OBSERVATION.upgraded_description": "打出时，选择5张卡组中的牌出现在你下次战斗的抽牌堆顶部。",
-  
+
   "CRIMSONSCEPTER_ANGELINA_MOD-IMPORTANT_COMMISSION.title": "重要委托",
   "CRIMSONSCEPTER_ANGELINA_MOD-IMPORTANT_COMMISSION.description": "在这张牌被打出{Count}次后，每场战斗仅限1次，打出此牌时获得1个随机遗物并[gold]消耗[/gold]。[gold]送达[/gold]：升级需要次数减1，本场战斗中消耗能量减少{Energy:energyIcons()}。",
   "CRIMSONSCEPTER_ANGELINA_MOD-IMPORTANT_COMMISSION.upgraded_description": "在这张牌被打出{Count}次后，每场战斗仅限1次，打出此牌时获得1个随机遗物并[gold]消耗[/gold]。[gold]送达[/gold]：升级需要次数减1，本场战斗中消耗能量减少{Energy:energyIcons()}。",
