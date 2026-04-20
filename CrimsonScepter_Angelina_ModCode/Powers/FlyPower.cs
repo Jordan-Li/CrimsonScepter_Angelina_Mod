@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
@@ -18,7 +20,7 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
 /// 1. 让有威力的攻击伤害减半
 /// 2. 每次吃到未被格挡的有威力攻击后失去1层
 /// 3. 层数归零时自动移除
-/// 备注：这是角色“飞行/浮空”体系的基础状态，不能删
+/// 备注：这是角色“飞行/浮空”体系的基础状态
 /// </summary>
 public sealed class FlyPower : AngelinaPower
 {
@@ -37,14 +39,30 @@ public sealed class FlyPower : AngelinaPower
 
     /// <summary>
     /// 初次施加后若层数已归零，直接移除自身。
+    /// 玩家持有飞行时，还需要主动刷新敌方意图预览。
     /// </summary>
-    public override Task AfterApplied(Creature? applier, CardModel? cardSource) => RemoveIfDepleted();
+    public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
+    {
+        await RemoveIfDepleted();
+        await RefreshEnemyIntentsIfPlayerOwned(base.Owner);
+    }
 
     /// <summary>
     /// 自己的层数发生变化后，同样检查是否需要清空。
+    /// 玩家持有飞行时，还需要主动刷新敌方意图预览。
     /// </summary>
-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
-        => power == this ? RemoveIfDepleted() : Task.CompletedTask;
+    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    {
+        if (power != this)
+        {
+            return;
+        }
+
+        await RemoveIfDepleted();
+        await RefreshEnemyIntentsIfPlayerOwned(base.Owner);
+    }
+
+    public override Task AfterRemoved(Creature oldOwner) => RefreshEnemyIntentsIfPlayerOwned(oldOwner);
 
     /// <summary>
     /// 只有受到有威力的攻击时才把伤害压到 50%。
@@ -99,5 +117,33 @@ public sealed class FlyPower : AngelinaPower
     private static bool IsPoweredAttack(ValueProp props)
     {
         return props.HasFlag(ValueProp.Move) && !props.HasFlag(ValueProp.Unpowered);
+    }
+
+    private static async Task RefreshEnemyIntentsIfPlayerOwned(Creature owner)
+    {
+        if (!CombatManager.Instance.IsInProgress || !owner.IsPlayer)
+        {
+            return;
+        }
+
+        CombatState? combatState = owner.CombatState;
+        if (combatState == null)
+        {
+            return;
+        }
+
+        foreach (Creature enemy in combatState.Enemies)
+        {
+            if (!enemy.IsMonster || !enemy.IsAlive)
+            {
+                continue;
+            }
+
+            var creatureNode = NCombatRoom.Instance?.GetCreatureNode(enemy);
+            if (creatureNode != null)
+            {
+                await creatureNode.RefreshIntents();
+            }
+        }
     }
 }
