@@ -77,13 +77,18 @@ public sealed class AntiGravity : AngelinaCard
         );
 
         // 第二步：造成法术伤害
-        await SpellHelper.Damage(
+        var damageResult = await SpellHelper.Damage(
             choiceContext,
             base.Owner.Creature,
             cardPlay.Target,
             SpellHelper.ModifySpellValue(base.Owner.Creature, base.DynamicVars.Damage.BaseValue),
             this
         );
+
+        if (damageResult?.WasTargetKilled ?? !cardPlay.Target.IsAlive)
+        {
+            return;
+        }
 
         // 第三步：给予目标临时飞行
         await PowerCmd.Apply<TemporaryFlyPower>(
@@ -103,4 +108,3 @@ public sealed class AntiGravity : AngelinaCard
     }
 
 }
-

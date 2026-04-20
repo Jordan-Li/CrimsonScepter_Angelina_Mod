@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Helpers;
+using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -23,6 +26,12 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 /// </summary>
 public sealed class Starbeam : AngelinaCard
 {
+    private Creature? _pendingGroundedTarget;
+
+    private bool _pendingGroundedCheck;
+
+    private bool _groundedByCurrentHit;
+
     // 额外悬浮说明：
     // 1. 浮空
     // 2. 法术
@@ -59,6 +68,8 @@ public sealed class Starbeam : AngelinaCard
 
         // 第一步：计算法术修正后的伤害。
         decimal damage = SpellHelper.ModifySpellValue(base.Owner.Creature, base.DynamicVars.Damage.BaseValue);
+        bool wasAirborne = AirborneHelper.IsAirborne(cardPlay.Target);
+        PrepareGroundedCheck(cardPlay.Target, wasAirborne);
 
         // 第二步：先对目标结算一次法术伤害。
         await SpellHelper.Damage(
@@ -70,7 +81,9 @@ public sealed class Starbeam : AngelinaCard
         );
 
         // 第三步：若目标处于浮空，再追加一次同样的法术伤害。
-        if (AirborneHelper.IsAirborne(cardPlay.Target))
+        bool shouldFollowUp = wasAirborne && !_groundedByCurrentHit && cardPlay.Target.IsAlive;
+        ResetGroundedCheck();
+        if (shouldFollowUp)
         {
             await SpellHelper.Damage(
                 choiceContext,
@@ -87,5 +100,43 @@ public sealed class Starbeam : AngelinaCard
     {
         base.DynamicVars.Damage.UpgradeValueBy(2m);
         base.DynamicVars.CalculationBase.UpgradeValueBy(2m);
+    }
+
+    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    {
+        _ = applier;
+
+        if (!_pendingGroundedCheck || cardSource != this || TemporaryFlyPower.IsResolvingExpiration)
+        {
+            return Task.CompletedTask;
+        }
+
+        if (power.Owner != _pendingGroundedTarget || !AirborneHelper.IsAirbornePower(power))
+        {
+            return Task.CompletedTask;
+        }
+
+        if (!AirborneHelper.BecameGrounded(power, amount))
+        {
+            return Task.CompletedTask;
+        }
+
+        _groundedByCurrentHit = true;
+        _pendingGroundedCheck = false;
+        return Task.CompletedTask;
+    }
+
+    private void PrepareGroundedCheck(Creature target, bool wasAirborne)
+    {
+        _pendingGroundedTarget = target;
+        _groundedByCurrentHit = false;
+        _pendingGroundedCheck = target.IsAlive && !TemporaryFlyPower.IsResolvingExpiration && wasAirborne;
+    }
+
+    private void ResetGroundedCheck()
+    {
+        _pendingGroundedTarget = null;
+        _pendingGroundedCheck = false;
+        _groundedByCurrentHit = false;
     }
 }

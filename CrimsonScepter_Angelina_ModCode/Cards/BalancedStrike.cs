@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
@@ -43,11 +44,16 @@ public sealed class BalancedStrike : AngelinaCard
         ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
 
         // 第一步：先对目标造成一次普通攻击伤害。
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
+        var attackCommand = await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
             .FromCard(this)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_flying_slash")
             .Execute(choiceContext);
+
+        if (attackCommand.Results.Any(result => result.Receiver == cardPlay.Target && result.WasTargetKilled))
+        {
+            return;
+        }
 
         // 第二步：再给目标施加失衡。
         await PowerCmd.Apply<ImbalancePower>(

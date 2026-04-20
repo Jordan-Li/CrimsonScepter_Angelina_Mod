@@ -17,11 +17,7 @@
 
   "SPELL.title": "法术",
   "SPELL.description": "法术攻击与法术格挡不会受到力量、敏捷、易伤、虚弱等影响，只受到集中的影响。法术攻击不会受到飞行状态减伤，也不会消耗飞行层数。",
-
-  "CRIMSONSCEPTER_ANGELINA_MOD-SPELL_RHYTHM_POWER.title": "法术节奏",
-  "CRIMSONSCEPTER_ANGELINA_MOD-SPELL_RHYTHM_POWER.description": "每回合记录你打出的[gold]法术[/gold]牌数。第2张[gold]法术[/gold]：获得1层[gold]临时飞行[/gold]。第3张[gold]法术[/gold]：选择1张[gold]寄送[/gold]牌送达。",
-  "CRIMSONSCEPTER_ANGELINA_MOD-SPELL_RHYTHM_POWER.smartDescription": "本回合已打出{SpellCount}张[gold]法术[/gold]牌。第2张[gold]法术[/gold]：获得1层[gold]临时飞行[/gold]。第3张[gold]法术[/gold]：选择1张[gold]寄送[/gold]牌送达。",
-
+  
   "AIRBORNE.title": "浮空",
   "AIRBORNE.description": "若目标处于[gold]飞行[/gold]或[gold]振翅[/gold]状态时，视为[gold]浮空[/gold]。",
 

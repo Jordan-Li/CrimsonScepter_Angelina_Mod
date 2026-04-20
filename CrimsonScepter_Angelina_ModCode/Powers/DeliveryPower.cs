@@ -23,7 +23,6 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
 /// 2. 层数显示当前寄送牌数量
 /// 3. 动态描述展示完整寄送列表
 /// 4. 在下个回合抽牌前统一送达
-/// 备注：这是寄送体系的核心状态，不能删
 /// </summary>
 public sealed class DeliveryPower : AngelinaPower
 {
@@ -118,7 +117,7 @@ public sealed class DeliveryPower : AngelinaPower
     /// <summary>
     /// 随机立即送达一张寄送牌。
     /// </summary>
-    public async Task DeliverRandom(PlayerChoiceContext choiceContext, CardModel source)
+    public async Task<CardModel?> DeliverRandom(PlayerChoiceContext choiceContext, CardModel source)
     {
         _ = choiceContext;
         _ = source;
@@ -126,31 +125,29 @@ public sealed class DeliveryPower : AngelinaPower
         List<CardModel> queuedCards = GetQueuedCards().ToList();
         if (queuedCards.Count == 0)
         {
-            return;
+            return null;
         }
 
-        int randomIndex = System.Random.Shared.Next(queuedCards.Count);
-        CardModel selectedCard = queuedCards[randomIndex];
-        await DeliverCardNow(selectedCard);
+        CardModel? selectedCard = base.Owner.Player?.RunState.Rng.CombatCardSelection.NextItem(queuedCards);
+        return selectedCard == null ? null : await DeliverCardNow(selectedCard);
     }
 
     /// <summary>
     /// 选择一张寄送牌立即送达。
     /// </summary>
-    public async Task DeliverChosen(PlayerChoiceContext choiceContext, CardModel source)
+    public async Task<CardModel?> DeliverChosen(PlayerChoiceContext choiceContext, CardModel source)
     {
         _ = source;
 
         List<CardModel> queuedCards = GetQueuedCards().ToList();
         if (queuedCards.Count == 0 || base.Owner.Player == null)
         {
-            return;
+            return null;
         }
 
         if (queuedCards.Count == 1)
         {
-            await DeliverCardNow(queuedCards[0]);
-            return;
+            return await DeliverCardNow(queuedCards[0]);
         }
 
         CardModel? selectedCard = (await CardSelectCmd.FromSimpleGrid(
@@ -162,23 +159,23 @@ public sealed class DeliveryPower : AngelinaPower
 
         if (selectedCard == null)
         {
-            return;
+            return null;
         }
 
-        await DeliverCardNow(selectedCard);
+        return await DeliverCardNow(selectedCard);
     }
 
     /// <summary>
     /// 立即送达指定寄送牌。
     /// </summary>
-    public async Task<bool> DeliverCardNow(CardModel card)
+    public async Task<CardModel?> DeliverCardNow(CardModel card)
     {
         CleanupQueue();
 
         Data data = GetInternalData<Data>();
         if (!data.QueuedCards.Contains(card) || card.Pile?.Type != PileType.Exhaust)
         {
-            return false;
+            return null;
         }
 
         await CardPileCmd.Add(card, PileType.Hand, source: this);
@@ -186,7 +183,7 @@ public sealed class DeliveryPower : AngelinaPower
         data.QueuedCards.Remove(card);
         await RefreshAfterQueueChanged();
 
-        return true;
+        return card;
     }
 
     /// <summary>
@@ -195,7 +192,12 @@ public sealed class DeliveryPower : AngelinaPower
     public Task<bool> DeliverLatestNow()
     {
         CardModel? latestCard = PeekLatest();
-        return latestCard == null ? Task.FromResult(false) : DeliverCardNow(latestCard);
+        return latestCard == null ? Task.FromResult(false) : DeliverLatestNowInternal(latestCard);
+    }
+
+    private async Task<bool> DeliverLatestNowInternal(CardModel latestCard)
+    {
+        return await DeliverCardNow(latestCard) != null;
     }
 
     /// <summary>
