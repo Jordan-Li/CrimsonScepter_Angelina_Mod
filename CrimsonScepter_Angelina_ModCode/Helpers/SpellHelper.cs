@@ -1,5 +1,6 @@
-﻿using System.Threading.Tasks;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -8,6 +9,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Helpers;
 
 /// <summary>
@@ -31,7 +33,7 @@ public static class SpellHelper
         return decimal.Max(0m, baseValue + focus);
     }
 
-    public static async Task Damage(
+    public static async Task<DamageResult?> Damage(
         PlayerChoiceContext choiceContext,
         Creature? source,
         Creature? target,
@@ -40,17 +42,17 @@ public static class SpellHelper
     {
         if (target == null || amount <= 0m)
         {
-            return;
+            return null;
         }
 
-        await CreatureCmd.Damage(
+        return (await CreatureCmd.Damage(
             choiceContext,
             target,
             amount,
             SpellProps,
             source,
             cardSource
-        );
+        )).FirstOrDefault();
     }
 
     public static async Task<IEnumerable<DamageResult>> DamageAll(
