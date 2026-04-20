@@ -6,9 +6,11 @@ using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -24,6 +26,12 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 /// </summary>
 public sealed class GravityNode : AngelinaCard
 {
+    private Creature? _pendingWeightlessTarget;
+
+    private bool _pendingWeightlessCheck;
+
+    private bool _enteredWeightlessByCurrentPlay;
+
     // 这张牌的基础伤害
     private const int BaseDamage = 10;
 
@@ -151,6 +159,7 @@ public sealed class GravityNode : AngelinaCard
 
         // 记录目标打出前是否已经处于失重
         bool wasWeightless = cardPlay.Target.GetPower<WeightlessPower>() != null;
+        PrepareWeightlessCheck(cardPlay.Target, wasWeightless);
 
         // 第一步：先施加失衡
         await PowerCmd.Apply<ImbalancePower>(
@@ -162,7 +171,8 @@ public sealed class GravityNode : AngelinaCard
 
         // 如果目标原本没有失重，但施加后进入了失重，
         // 说明这张牌满足了“永久增加失衡”的成长条件。
-        bool enteredWeightless = !wasWeightless && cardPlay.Target.GetPower<WeightlessPower>() != null;
+        bool enteredWeightless = _enteredWeightlessByCurrentPlay;
+        ResetWeightlessCheck();
 
         // 第二步：如果目标还活着，再造成伤害，并记录这次伤害是否完成了真正的斩杀。
         bool fatalKilledTarget = false;
@@ -227,5 +237,38 @@ public sealed class GravityNode : AngelinaCard
     {
         CurrentDamage = BaseDamage + IncreasedDamage;
         CurrentImbalance = BaseImbalance + IncreasedImbalance;
+    }
+
+    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    {
+        _ = applier;
+
+        if (!_pendingWeightlessCheck || cardSource != this || amount <= 0m)
+        {
+            return Task.CompletedTask;
+        }
+
+        if (power is not WeightlessPower || power.Owner != _pendingWeightlessTarget)
+        {
+            return Task.CompletedTask;
+        }
+
+        _enteredWeightlessByCurrentPlay = true;
+        _pendingWeightlessCheck = false;
+        return Task.CompletedTask;
+    }
+
+    private void PrepareWeightlessCheck(Creature target, bool wasWeightless)
+    {
+        _pendingWeightlessTarget = target;
+        _enteredWeightlessByCurrentPlay = false;
+        _pendingWeightlessCheck = target.IsAlive && !wasWeightless;
+    }
+
+    private void ResetWeightlessCheck()
+    {
+        _pendingWeightlessTarget = null;
+        _pendingWeightlessCheck = false;
+        _enteredWeightlessByCurrentPlay = false;
     }
 }

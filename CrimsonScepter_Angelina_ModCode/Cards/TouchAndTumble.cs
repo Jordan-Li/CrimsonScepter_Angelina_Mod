@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
@@ -87,21 +88,19 @@ public sealed class TouchAndTumble : AngelinaCard
 
         await PowerCmd.Apply<WeightlessPower>(cardPlay.Target, WeightlessDuration, base.Owner.Creature, this);
 
-        // 第三步：如果目标还活着，让其失去“原失衡层数一半”的生命值。
-        if (cardPlay.Target.IsAlive)
-        {
-            await CreatureCmd.Damage(
-                new ThrowingPlayerChoiceContext(),
-                cardPlay.Target,
-                removedImbalance / 2m,
-                ValueProp.Unblockable | ValueProp.Unpowered,
-                null,
-                null
-            );
-        }
+        // 第三步：结算“失去当前失衡一半的生命值”，并直接用伤害结果判断是否被这次生命损失打死。
+        var damageResults = await CreatureCmd.Damage(
+            new ThrowingPlayerChoiceContext(),
+            cardPlay.Target,
+            removedImbalance / 2m,
+            ValueProp.Unblockable | ValueProp.Unpowered,
+            null,
+            null
+        );
+        bool wasKilledByHpLoss = damageResults.Any(result => result.Receiver == cardPlay.Target && result.WasTargetKilled);
 
-        // 第四步：如果目标还活着，再处理回合打断。
-        if (cardPlay.Target.IsAlive)
+        // 第四步：若目标没有被这次生命损失打死，再处理回合打断。
+        if (!wasKilledByHpLoss)
         {
             // 如果目标是玩家，并且正处于它自己的回合，就直接结束回合。
             if (cardPlay.Target.IsPlayer)

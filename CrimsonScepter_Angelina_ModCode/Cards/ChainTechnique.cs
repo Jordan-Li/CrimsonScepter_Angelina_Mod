@@ -5,9 +5,11 @@ using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
@@ -21,6 +23,12 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 /// </summary>
 public sealed class ChainTechnique : AngelinaCard
 {
+    private Creature? _pendingWeightlessTarget;
+
+    private bool _pendingWeightlessCheck;
+
+    private bool _enteredWeightlessByCurrentPlay;
+
     // 维护失衡、临时集中和集中的动态数值。
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -50,6 +58,7 @@ public sealed class ChainTechnique : AngelinaCard
 
         // 先记录目标原本是否处于失重，用来判断这张牌是否成功让其进入失重。
         bool wasWeightless = cardPlay.Target.GetPower<WeightlessPower>() != null;
+        PrepareWeightlessCheck(cardPlay.Target, wasWeightless);
 
         // 先对目标施加失衡。
         await PowerCmd.Apply<ImbalancePower>(
@@ -60,8 +69,7 @@ public sealed class ChainTechnique : AngelinaCard
         );
 
         // 若目标因此从非失重变成失重，则直接获得集中并结束，不再给临时集中。
-        bool isWeightless = cardPlay.Target.GetPower<WeightlessPower>() != null;
-        if (!wasWeightless && isWeightless)
+        if (_enteredWeightlessByCurrentPlay)
         {
             await PowerCmd.Apply<FocusPower>(
                 base.Owner.Creature,
@@ -69,6 +77,7 @@ public sealed class ChainTechnique : AngelinaCard
                 base.Owner.Creature,
                 this
             );
+            ResetWeightlessCheck();
             return;
         }
 
@@ -79,6 +88,7 @@ public sealed class ChainTechnique : AngelinaCard
             base.Owner.Creature,
             this
         );
+        ResetWeightlessCheck();
     }
 
     protected override void OnUpgrade()
@@ -87,5 +97,38 @@ public sealed class ChainTechnique : AngelinaCard
         base.DynamicVars["ImbalancePower"].UpgradeValueBy(3m);
         base.DynamicVars["ChantTemporaryFocusNextTurnPower"].UpgradeValueBy(1m);
         base.DynamicVars["FocusPower"].UpgradeValueBy(1m);
+    }
+
+    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    {
+        _ = applier;
+
+        if (!_pendingWeightlessCheck || cardSource != this || amount <= 0m)
+        {
+            return Task.CompletedTask;
+        }
+
+        if (power is not WeightlessPower || power.Owner != _pendingWeightlessTarget)
+        {
+            return Task.CompletedTask;
+        }
+
+        _enteredWeightlessByCurrentPlay = true;
+        _pendingWeightlessCheck = false;
+        return Task.CompletedTask;
+    }
+
+    private void PrepareWeightlessCheck(Creature target, bool wasWeightless)
+    {
+        _pendingWeightlessTarget = target;
+        _enteredWeightlessByCurrentPlay = false;
+        _pendingWeightlessCheck = target.IsAlive && !wasWeightless;
+    }
+
+    private void ResetWeightlessCheck()
+    {
+        _pendingWeightlessTarget = null;
+        _pendingWeightlessCheck = false;
+        _enteredWeightlessByCurrentPlay = false;
     }
 }
