@@ -24,6 +24,15 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 /// </summary>
 public sealed class MissedTrap : AngelinaCard
 {
+    // 当前这次命中正在跟踪的目标。
+    private MegaCrit.Sts2.Core.Entities.Creatures.Creature? _pendingGroundedTarget;
+
+    // 这次命中是否需要监听“脱离浮空”。
+    private bool _pendingGroundedCheck;
+
+    // 这次命中是否已经确认打掉了浮空。
+    private bool _groundedByCurrentHit;
+
     // 动态变量：
     // 1. 单段伤害
     // 2. 脱离浮空后获得的能量
@@ -62,8 +71,7 @@ public sealed class MissedTrap : AngelinaCard
         // 依次结算两次攻击。
         for (int i = 0; i < 2; i++)
         {
-            // 记录伤害前目标是否处于浮空。
-            bool wasAirborne = AirborneHelper.IsAirborne(cardPlay.Target);
+            PrepareGroundedCheck(cardPlay.Target, grantedEnergy);
 
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
                 .FromCard(this)
@@ -71,13 +79,14 @@ public sealed class MissedTrap : AngelinaCard
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
-            // 若目标从浮空状态脱离，则本张牌只触发一次回能。
-            bool isAirborneNow = cardPlay.Target.IsAlive && AirborneHelper.IsAirborne(cardPlay.Target);
-            if (!grantedEnergy && wasAirborne && !isAirborneNow)
+            // 只在本次命中实际打掉浮空时回能，避免多人中因异步结算后轮询状态而分歧。
+            if (!grantedEnergy && _groundedByCurrentHit)
             {
                 await PlayerCmd.GainEnergy(base.DynamicVars["EnergyGain"].BaseValue, base.Owner);
                 grantedEnergy = true;
             }
+
+            ResetGroundedCheck();
 
             // 若目标已经死亡，则不再继续后续攻击。
             if (!cardPlay.Target.IsAlive)
@@ -92,5 +101,43 @@ public sealed class MissedTrap : AngelinaCard
     {
         base.DynamicVars.Damage.UpgradeValueBy(1m);
         base.DynamicVars["EnergyGain"].UpgradeValueBy(1m);
+    }
+
+    public override Task AfterPowerAmountChanged(MegaCrit.Sts2.Core.Models.PowerModel power, decimal amount, MegaCrit.Sts2.Core.Entities.Creatures.Creature? applier, MegaCrit.Sts2.Core.Models.CardModel? cardSource)
+    {
+        _ = applier;
+
+        if (!_pendingGroundedCheck || TemporaryFlyPower.IsResolvingExpiration || cardSource != this)
+        {
+            return Task.CompletedTask;
+        }
+
+        if (power.Owner != _pendingGroundedTarget || !AirborneHelper.IsAirbornePower(power))
+        {
+            return Task.CompletedTask;
+        }
+
+        if (!AirborneHelper.BecameGrounded(power, amount))
+        {
+            return Task.CompletedTask;
+        }
+
+        _groundedByCurrentHit = true;
+        _pendingGroundedCheck = false;
+        return Task.CompletedTask;
+    }
+
+    private void PrepareGroundedCheck(MegaCrit.Sts2.Core.Entities.Creatures.Creature target, bool grantedEnergy)
+    {
+        _pendingGroundedTarget = target;
+        _groundedByCurrentHit = false;
+        _pendingGroundedCheck = !grantedEnergy && target.IsAlive && !TemporaryFlyPower.IsResolvingExpiration && AirborneHelper.IsAirborne(target);
+    }
+
+    private void ResetGroundedCheck()
+    {
+        _pendingGroundedTarget = null;
+        _pendingGroundedCheck = false;
+        _groundedByCurrentHit = false;
     }
 }
