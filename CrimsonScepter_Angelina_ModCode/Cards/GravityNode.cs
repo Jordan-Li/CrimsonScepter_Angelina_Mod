@@ -50,6 +50,11 @@ public sealed class GravityNode : AngelinaCard
     // 这张牌累计获得的额外失衡
     private int increasedImbalance;
 
+    // 当前战斗内的临时成长。用于攻击药水等生成牌，或战斗中的当前实例显示同步。
+    private int combatOnlyDamageBonus;
+
+    private int combatOnlyImbalanceBonus;
+
     /// <summary>
     /// 持久化保存当前伤害。
     /// 这样这张牌在一局内成长后，不会因为离开手牌就丢失。
@@ -62,7 +67,7 @@ public sealed class GravityNode : AngelinaCard
         {
             AssertMutable();
             currentDamage = value;
-            base.DynamicVars.Damage.BaseValue = currentDamage;
+            RefreshDisplayedStats();
         }
     }
 
@@ -77,7 +82,7 @@ public sealed class GravityNode : AngelinaCard
         {
             AssertMutable();
             currentImbalance = value;
-            base.DynamicVars["ImbalancePower"].BaseValue = currentImbalance;
+            RefreshDisplayedStats();
         }
     }
 
@@ -116,8 +121,8 @@ public sealed class GravityNode : AngelinaCard
     // 4. 每次斩杀后增加的伤害值
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<ImbalancePower>(CurrentImbalance),
-        new DamageVar(CurrentDamage, ValueProp.Move),
+        new PowerVar<ImbalancePower>(GetDisplayedImbalance()),
+        new DamageVar(GetDisplayedDamage(), ValueProp.Move),
         new IntVar("ImbalanceIncrease", 3m),
         new IntVar("DamageIncrease", 3m)
     ];
@@ -152,6 +157,7 @@ public sealed class GravityNode : AngelinaCard
     {
         // 如果没有目标，就直接报错，避免空引用
         ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
+        GravityNode? persistentVersion = base.DeckVersion as GravityNode;
 
         // 按照游戏原生 Fatal 的定义，先记录这个目标是否允许触发斩杀奖励。
         // 爪牙类目标会因为相关 Power 返回 false，从而不被计入斩杀。
@@ -190,15 +196,15 @@ public sealed class GravityNode : AngelinaCard
         // 造成失重时，只永久提高这张牌的失衡。
         if (enteredWeightless)
         {
-            BuffImbalance(base.DynamicVars["ImbalanceIncrease"].IntValue);
-            (base.DeckVersion as GravityNode)?.BuffImbalance(base.DynamicVars["ImbalanceIncrease"].IntValue);
+            BuffImbalanceThisCombat(base.DynamicVars["ImbalanceIncrease"].IntValue);
+            persistentVersion?.BuffImbalance(base.DynamicVars["ImbalanceIncrease"].IntValue);
         }
 
         // 按游戏原生 Fatal 规则完成斩杀时，只永久提高这张牌的伤害。
         if (fatalKilledTarget)
         {
-            BuffDamage(base.DynamicVars["DamageIncrease"].IntValue);
-            (base.DeckVersion as GravityNode)?.BuffDamage(base.DynamicVars["DamageIncrease"].IntValue);
+            BuffDamageThisCombat(base.DynamicVars["DamageIncrease"].IntValue);
+            persistentVersion?.BuffDamage(base.DynamicVars["DamageIncrease"].IntValue);
         }
     }
 
@@ -232,11 +238,40 @@ public sealed class GravityNode : AngelinaCard
         UpdateCurrentStats();
     }
 
+    // 当前战斗实例的临时成长，不写入 SavedProperty。
+    private void BuffDamageThisCombat(int extraDamage)
+    {
+        combatOnlyDamageBonus += extraDamage;
+        RefreshDisplayedStats();
+    }
+
+    private void BuffImbalanceThisCombat(int extraImbalance)
+    {
+        combatOnlyImbalanceBonus += extraImbalance;
+        RefreshDisplayedStats();
+    }
+
     // 根据基础值和累计成长值，刷新当前面板数值
     private void UpdateCurrentStats()
     {
         CurrentDamage = BaseDamage + IncreasedDamage;
         CurrentImbalance = BaseImbalance + IncreasedImbalance;
+    }
+
+    private int GetDisplayedDamage()
+    {
+        return currentDamage + combatOnlyDamageBonus;
+    }
+
+    private int GetDisplayedImbalance()
+    {
+        return currentImbalance + combatOnlyImbalanceBonus;
+    }
+
+    private void RefreshDisplayedStats()
+    {
+        base.DynamicVars.Damage.BaseValue = GetDisplayedDamage();
+        base.DynamicVars["ImbalancePower"].BaseValue = GetDisplayedImbalance();
     }
 
     public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
