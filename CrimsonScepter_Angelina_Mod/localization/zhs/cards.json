@@ -191,6 +191,7 @@
 
   "CRIMSONSCEPTER_ANGELINA_MOD-SIRACUSAN_DELIVERY.title": "叙拉古式运送",
   "CRIMSONSCEPTER_ANGELINA_MOD-SIRACUSAN_DELIVERY.description": "抽{Cards:diff()}张牌。将1张[gold]无主快递[/gold]加入弃牌堆。",
+  
   "CRIMSONSCEPTER_ANGELINA_MOD-UNCLAIMED_PARCEL.title": "无主快递",
   "CRIMSONSCEPTER_ANGELINA_MOD-UNCLAIMED_PARCEL.description": "[gold]送达[/gold]：寄送此牌。",
 

@@ -34,8 +34,9 @@ internal static class StunHelper
         string followUpStateId = nextMoveId ?? string.Empty;
         if (string.IsNullOrEmpty(followUpStateId))
         {
-            MonsterMoveStateMachine moveStateMachine = monster.MoveStateMachine;
-            followUpStateId = moveStateMachine.StateLog.Last().Id;
+            MonsterMoveStateMachine? moveStateMachine = monster.MoveStateMachine;
+            string? lastLoggedStateId = moveStateMachine?.StateLog.LastOrDefault()?.Id;
+            followUpStateId = lastLoggedStateId ?? monster.NextMove?.Id ?? string.Empty;
         }
 
         MoveState state = new("STUNNED", Wrapper, new StunIntent())
