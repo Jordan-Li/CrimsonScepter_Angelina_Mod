@@ -75,8 +75,8 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-ENERGY_CYCLE_POWER.smartDescription": "Each turn, when you play an Attack, Skill, or Power card costing at least 2 Energy, each card type can trigger at most {Amount} times: gain 1 Energy.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-FAST_CHARGE_MODE_POWER.title": "Fast Charge Mode",
-  "CRIMSONSCEPTER_ANGELINA_MOD-FAST_CHARGE_MODE_POWER.description": "This turn, double the [gold]Imbalance[/gold] you apply.",
-  "CRIMSONSCEPTER_ANGELINA_MOD-FAST_CHARGE_MODE_POWER.smartDescription": "This turn, double the [gold]Imbalance[/gold] you apply.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FAST_CHARGE_MODE_POWER.description": "Double the [gold]Imbalance[/gold] you apply. Lose 1 stack at end of turn.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FAST_CHARGE_MODE_POWER.smartDescription": "Double the [gold]Imbalance[/gold] you apply. Lose 1 stack at end of turn.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-DECEL_BINDER_POWER.title": "Decel Binder",
   "CRIMSONSCEPTER_ANGELINA_MOD-DECEL_BINDER_POWER.description": "Whenever you play an Attack, apply [gold]Stagger[/gold] to its target.",
