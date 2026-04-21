@@ -195,6 +195,10 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-MOMENTUM.title": "Momentum",
   "CRIMSONSCEPTER_ANGELINA_MOD-MOMENTUM.description": " Draw 1 card for each [gold]Fly[/gold] on all units.Deal {Damage:diff()} damage.",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-LEVERAGE_DELIVERY.title": "Leverage Delivery",
+  "CRIMSONSCEPTER_ANGELINA_MOD-LEVERAGE_DELIVERY.description": "[gold]Send[/gold] 1 card. For each [gold]Delivered[/gold] card, deal {Damage:diff()} damage to all enemies.",
+  "LEVERAGE_DELIVERY.selectPrompt": "Choose a card to send",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-ANNIHILATION_PARTICLE.title": "Annihilation Particle",
   "CRIMSONSCEPTER_ANGELINA_MOD-ANNIHILATION_PARTICLE.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage to all enemies. If any target is [gold]Fatally[/gold] killed, this combat grants no card rewards."
 }
