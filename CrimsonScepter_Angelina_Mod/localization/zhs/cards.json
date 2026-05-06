@@ -204,6 +204,8 @@
   "BEACON_DELIVERY.selectPrompt": "选择至多{Amount}张牌加入手牌",
   "CRIMSONSCEPTER_ANGELINA_MOD-POOR_RECEPTION.title": "招待不周！",
   "CRIMSONSCEPTER_ANGELINA_MOD-POOR_RECEPTION.description": "造成{Damage:diff()}点伤害4次。\n[gold]送达[/gold]：向随机目标打出此牌。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-HEAVYWEIGHT_DELIVERY.title": "重量级投送",
+  "CRIMSONSCEPTER_ANGELINA_MOD-HEAVYWEIGHT_DELIVERY.description": "对敌方全体施加{ImbalancePower:diff()}点失衡X次。\n[gold]送达[/gold]：此牌施加的失衡值在本回合翻倍。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-UNCLAIMED_PARCEL.title": "无主快递",
   "CRIMSONSCEPTER_ANGELINA_MOD-UNCLAIMED_PARCEL.description": "[gold]送达[/gold]：寄送此牌。",

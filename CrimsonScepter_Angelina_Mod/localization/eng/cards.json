@@ -204,6 +204,8 @@
   "BEACON_DELIVERY.selectPrompt": "Choose up to {Amount} cards to add to your hand",
   "CRIMSONSCEPTER_ANGELINA_MOD-POOR_RECEPTION.title": "Poor Reception!",
   "CRIMSONSCEPTER_ANGELINA_MOD-POOR_RECEPTION.description": "Deal {Damage:diff()} damage 4 times.\n[gold]Delivered[/gold]: Play this card targeting a random enemy.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-HEAVYWEIGHT_DELIVERY.title": "Heavyweight Delivery",
+  "CRIMSONSCEPTER_ANGELINA_MOD-HEAVYWEIGHT_DELIVERY.description": "Apply {ImbalancePower:diff()} Imbalance to all enemies X times.\n[gold]Delivered[/gold]: This card's Imbalance this turn is doubled.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-UNCLAIMED_PARCEL.title": "Unclaimed Parcel",
   "CRIMSONSCEPTER_ANGELINA_MOD-UNCLAIMED_PARCEL.description": " [gold]Delivered[/gold]: Send this card.",
