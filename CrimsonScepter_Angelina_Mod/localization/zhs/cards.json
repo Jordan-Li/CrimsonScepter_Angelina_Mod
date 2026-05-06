@@ -209,6 +209,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-LEVERAGE_DELIVERY.description": "[gold]寄送[/gold]1张牌。每有1张牌正在被[gold]寄送[/gold]，对敌方全体造成{Damage:diff()}点伤害一次。",
   "LEVERAGE_DELIVERY.selectPrompt": "选择1张要寄送的牌",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-EXTREME_BEAM.title": "极限束流",
+  "CRIMSONSCEPTER_ANGELINA_MOD-EXTREME_BEAM.description": "对敌方全体造成{CalculatedDamage:diff()}点[gold]法术[/gold]伤害。在本场战斗中，使此牌伤害翻倍并使费用增加{Energy:energyIcons()}。{IfUpgraded:show:将此牌返回你的手牌。|}\n[gold]送达[/gold]：将此牌重置为初始状态。",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-ANNIHILATION_PARTICLE.title": "湮灭粒子",
   "CRIMSONSCEPTER_ANGELINA_MOD-ANNIHILATION_PARTICLE.description": "对所有敌方造成{CalculatedDamage:diff()}点[gold]法术[/gold]伤害。如果有目标被[gold]斩杀[/gold]，则这场战斗不再有卡牌奖励。"
 }
