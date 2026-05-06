@@ -106,7 +106,7 @@
   "BANDAGE.selectPrompt": "选择要添加附魔的手牌",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.title": "上升气流",
-  "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.description": "回合开始时，获得1层[gold]临时飞行[/gold]。若你因受到攻击脱离[gold]浮空[/gold]，向抽牌堆内添加一张眩晕。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.description": "所有处于[gold]浮空[/gold]的单位额外获得1层[gold]飞行[/gold]，否则获得10点[gold]失衡[/gold]。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_BARRIER.title": "重力结界",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_BARRIER.description": "获得{CalculatedBlock:diff()}点[gold]法术[/gold]格挡。本回合内，当来自敌方的伤害完全被格挡时，对伤害来源施加{GravityBarrierPower:diff()}点[gold]失衡[/gold]。",

@@ -106,7 +106,7 @@
   "BANDAGE.selectPrompt": "Choose card(s) to enchant",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.title": "Updraft",
-  "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.description": "At the start of your turn, gain 1 [gold]Temporary Fly[/gold]. If you leave [gold]Airborne[/gold] because of an attack, add a Dazed to your draw pile.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.description": "All [gold]Airborne[/gold] units gain 1 additional [gold]Fly[/gold]. Otherwise, gain 10 [gold]Imbalance[/gold].",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_BARRIER.title": "Gravity Barrier",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_BARRIER.description": "Gain {CalculatedBlock:diff()} [gold]spell[/gold] Block. This turn, whenever damage from an enemy is fully blocked, apply {GravityBarrierPower:diff()} [gold]Imbalance[/gold] to the damage source.",
