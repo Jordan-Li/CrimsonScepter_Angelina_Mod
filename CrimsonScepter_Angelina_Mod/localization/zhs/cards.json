@@ -199,6 +199,10 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-SIRACUSAN_DELIVERY.title": "叙拉古式运送",
   "CRIMSONSCEPTER_ANGELINA_MOD-SIRACUSAN_DELIVERY.description": "抽{Cards:diff()}张牌。将1张[gold]无主快递[/gold]加入弃牌堆。",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-BEACON_DELIVERY.title": "信标投送",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BEACON_DELIVERY.description": "[gold]送达[/gold]：[gold]消耗[/gold]。从抽牌堆中选择至多{Cards:diff()}张牌加入手牌。",
+  "BEACON_DELIVERY.selectPrompt": "选择至多{Amount}张牌加入手牌",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-UNCLAIMED_PARCEL.title": "无主快递",
   "CRIMSONSCEPTER_ANGELINA_MOD-UNCLAIMED_PARCEL.description": "[gold]送达[/gold]：寄送此牌。",
 
