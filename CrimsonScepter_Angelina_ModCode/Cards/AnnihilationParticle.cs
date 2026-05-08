@@ -1,17 +1,23 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Helpers;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
+using Godot;
+using Godot.Collections;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -27,6 +33,7 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 public sealed class AnnihilationParticle : AngelinaCard
 {
     private static readonly HashSet<(CombatRoom Room, ulong PlayerNetId)> PendingNoCardRewards = [];
+    private static readonly Color SweepRed = new(1f, 0.22f, 0.16f, 1f);
 
     // 这张牌会用到斩杀、法术伤害以及“本场战斗无卡牌奖励”的悬浮说明。
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
@@ -66,22 +73,25 @@ public sealed class AnnihilationParticle : AngelinaCard
             return;
         }
 
-        // 先记录哪些敌人符合官方 Fatal 触发条件，爪牙等目标不会被计入斩杀。
         HashSet<Creature> fatalEligibleTargets = base.CombatState.HittableEnemies
             .Where(enemy => enemy.IsAlive && enemy.Powers.All(power => power.ShouldOwnerDeathTriggerFatal()))
             .ToHashSet();
 
-        // 统一按法术规则造成全体伤害。不要走 AttackCommand，
-        // 否则会被依赖 AfterAttack + ValueProp.Move 的怪物机制误判成普通卡牌命中。
+        List<Creature> hittableEnemies = base.CombatState.HittableEnemies
+            .Where(enemy => enemy.IsAlive)
+            .ToList();
+
+        await CreatureCmd.TriggerAnim(base.Owner.Creature, "Attack", base.Owner.Character.AttackAnimDelay);
+        await PlaySweepingBeamLikeVfx(hittableEnemies);
+
         decimal spellDamage = SpellHelper.ModifySpellValue(base.Owner.Creature, base.DynamicVars.Damage.BaseValue);
         IEnumerable<DamageResult> damageResults = await SpellHelper.DamageAll(
             choiceContext,
             base.Owner.Creature,
-            base.CombatState.HittableEnemies,
+            hittableEnemies,
             spellDamage,
             this);
 
-        // 只有真正按 Fatal 规则斩杀了非爪牙目标，才会封锁本场战斗的卡牌奖励。
         bool triggeredFatal = damageResults.Any(result =>
             result.WasTargetKilled &&
             fatalEligibleTargets.Contains(result.Receiver));
@@ -106,7 +116,6 @@ public sealed class AnnihilationParticle : AngelinaCard
 
     protected override void OnUpgrade()
     {
-        // 升级后仅提高法术伤害。
         base.DynamicVars.Damage.UpgradeValueBy(6m);
         base.DynamicVars.CalculationBase.UpgradeValueBy(6m);
     }
@@ -116,5 +125,53 @@ public sealed class AnnihilationParticle : AngelinaCard
     {
         return PendingNoCardRewards.Remove((room, playerNetId));
     }
-}
 
+    private async Task PlaySweepingBeamLikeVfx(List<Creature> targets)
+    {
+        if (targets.Count == 0)
+        {
+            return;
+        }
+
+        Array<Vector2> targetPositions = [];
+        foreach (Creature target in targets)
+        {
+            targetPositions.Add(GetCreatureCenter(target));
+        }
+
+        NSweepingBeamVfx? sweepingBeamVfx = NSweepingBeamVfx.Create(GetCreatureCenter(base.Owner.Creature), targetPositions);
+        if (sweepingBeamVfx == null)
+        {
+            return;
+        }
+
+        TintCanvasItemsRed(sweepingBeamVfx);
+        NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(sweepingBeamVfx);
+        await Cmd.Wait(0.5f);
+    }
+
+    private static Vector2 GetCreatureCenter(Creature creature)
+    {
+        NCreature? creatureNode = NCombatRoom.Instance?.GetCreatureNode(creature);
+        Control? hitbox = creatureNode?.Hitbox;
+        if (hitbox != null)
+        {
+            return hitbox.GetGlobalRect().GetCenter();
+        }
+
+        return creatureNode?.VfxSpawnPosition ?? Vector2.Zero;
+    }
+
+    private static void TintCanvasItemsRed(Node root)
+    {
+        foreach (Node child in root.GetChildren())
+        {
+            if (child is CanvasItem canvasItem)
+            {
+                canvasItem.SelfModulate = SweepRed;
+            }
+
+            TintCanvasItemsRed(child);
+        }
+    }
+}

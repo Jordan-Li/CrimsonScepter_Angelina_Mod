@@ -80,6 +80,8 @@ public sealed class UltimateBigBang : AngelinaCard
             return;
         }
 
+        await CreatureCmd.TriggerAnim(base.Owner.Creature, "Attack", base.Owner.Character.AttackAnimDelay);
+
         var relicToLose = base.Owner.Relics.Last();
         await RelicCmd.Remove(relicToLose);
         await PlayHyperbeamLikeVfx();
