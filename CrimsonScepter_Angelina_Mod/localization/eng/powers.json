@@ -40,6 +40,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE_POWER.title": "Gravity Mode",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE_POWER.description": "The first time each turn you deal [gold]spell[/gold] damage, apply [gold]Imbalance[/gold] to the target equal to that damage.",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE_POWER.smartDescription": "The first time each turn you deal [gold]spell[/gold] damage, apply [gold]Imbalance[/gold] to the target equal to that damage.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA_POWER.title": "Glitterstream",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA_POWER.description": "The first 1 [gold]Delivered[/gold] card each turn gains [purple]Glam[/purple] for this combat.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA_POWER.smartDescription": "The first {Amount} [gold]Delivered[/gold] cards each turn gain [purple]Glam[/purple] for this combat.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.title": "Precision Adjustment",
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.description": "At the start of next turn, lose [gold]Imbalance[/gold].",

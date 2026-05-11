@@ -116,6 +116,9 @@
 
   "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.title": "纪念品",
   "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.description": "从3张其他角色的{IfUpgraded:show:已升级的|}稀有卡中选择1张加入手牌中，其在本回合可以免费打出。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA.title": "流光溢彩",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA.description": "[gold]寄送[/gold]1张牌。每回合前1张[gold]送达[/gold]的牌在本场战斗内获得附魔：[purple]华彩[/purple]。",
+  "GLITTERSTREAM_ANGELINA.selectPrompt": "选择1张要寄送的牌",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.title": "精密调整",
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.description": "对所有敌方施加{ImbalancePower:diff()}点[gold]失衡[/gold]，并在下回合开始时失去{PrecisionAdjustmentPower}点[gold]失衡[/gold]。",
