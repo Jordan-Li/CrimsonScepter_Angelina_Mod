@@ -59,6 +59,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-BUBBLE_WRAP.title": "Bubble Wrap",
   "CRIMSONSCEPTER_ANGELINA_MOD-BUBBLE_WRAP.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage. If there are no sent cards, [gold]send[/gold] a copy of this card.",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-FISHING_FOR_SCALES.title": "Fishing for Scales!",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FISHING_FOR_SCALES.description": "Deal {Damage:diff()} damage to {IfUpgraded:show:the target|a random target}. If this card dealt no damage, apply {ImbalancePower:diff()} [gold]Imbalance[/gold] to all enemies.",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-HOVER.title": "Hover",
   "CRIMSONSCEPTER_ANGELINA_MOD-HOVER.description": "Gain {TemporaryFlyPower:diff()} Temporary Fly. Draw {Cards} cards.",
 
@@ -114,6 +117,10 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE.title": "Gravity Mode",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE.description": "The first time each turn you deal [gold]spell[/gold] damage, apply [gold]Imbalance[/gold] to the target equal to that damage.",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-MATRIX_DISPLACEMENT.title": "Matrix Displacement",
+  "CRIMSONSCEPTER_ANGELINA_MOD-MATRIX_DISPLACEMENT.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage. This turn, whenever the target takes [gold]spell[/gold] damage, draw 1 card and [gold]Send[/gold] 1 card.",
+  "MATRIX_DISPLACEMENT.sendPrompt": "Choose a card to send",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.title": "Souvenir",
   "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.description": "Choose 1 of 3{IfUpgraded:show: upgraded|} Rare cards from other characters and add it to your hand. It costs 0 this turn. ",
   "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA.title": "Glitterstream",
@@ -121,7 +128,7 @@
   "GLITTERSTREAM_ANGELINA.selectPrompt": "Choose a card to send",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.title": "Precision Adjustment",
-  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.description": "Apply {ImbalancePower:diff()} [gold]Imbalance[/gold] to all enemies. At the start of next turn, they lose {PrecisionAdjustmentPower} [gold]Imbalance[/gold].",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.description": "Apply {ImbalancePower:diff()} [gold]Imbalance[/gold] to all enemies. At the end of your turn, they lose {PrecisionAdjustmentPower:diff()} [gold]Imbalance[/gold].",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_SPELL.title": "Emergency Spell",
   "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_SPELL.description": "Shuffle 1 [gold]Dazed[/gold] into your discard pile. Gain {Energy:energyIcons()}. Draw {Cards:diff()} card(s).",

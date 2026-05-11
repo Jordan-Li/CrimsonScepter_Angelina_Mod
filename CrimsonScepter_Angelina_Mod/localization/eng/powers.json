@@ -40,13 +40,16 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE_POWER.title": "Gravity Mode",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE_POWER.description": "The first time each turn you deal [gold]spell[/gold] damage, apply [gold]Imbalance[/gold] to the target equal to that damage.",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE_POWER.smartDescription": "The first time each turn you deal [gold]spell[/gold] damage, apply [gold]Imbalance[/gold] to the target equal to that damage.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-MATRIX_DISPLACEMENT_POWER.title": "Matrix Displacement",
+  "CRIMSONSCEPTER_ANGELINA_MOD-MATRIX_DISPLACEMENT_POWER.description": "This turn, whenever this unit takes [gold]spell[/gold] damage, draw 1 card and [gold]Send[/gold] 1 card.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-MATRIX_DISPLACEMENT_POWER.smartDescription": "This turn, whenever this unit takes [gold]spell[/gold] damage, draw {Amount} cards and [gold]Send[/gold] {Amount} cards.",
   "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA_POWER.title": "Glitterstream",
   "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA_POWER.description": "The first 1 [gold]Delivered[/gold] card each turn gains [purple]Glam[/purple] for this combat.",
   "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA_POWER.smartDescription": "The first {Amount} [gold]Delivered[/gold] cards each turn gain [purple]Glam[/purple] for this combat.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.title": "Precision Adjustment",
-  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.description": "At the start of next turn, lose [gold]Imbalance[/gold].",
-  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.smartDescription": "At the start of next turn, lose {Amount} [gold]Imbalance[/gold].",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.description": "Lose [gold]Imbalance[/gold] at the end of your turn.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.smartDescription": "Lose {Amount} [gold]Imbalance[/gold] at the end of your turn.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-CHANT.title": "Chant",
   "CRIMSONSCEPTER_ANGELINA_MOD-CHANT.description": "Gain {DisplayedBlock} [gold]spell[/gold] Block. Next turn, gain {ChantTemporaryFocusNextTurnPower:diff()} [gold]Focus[/gold].",
