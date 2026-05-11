@@ -114,6 +114,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE.title": "引力模式",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE.description": "每回合首次造成[gold]法术[/gold]伤害时，向目标施加等同于该伤害的[gold]失衡[/gold]。",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.title": "纪念品",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.description": "从3张其他角色的{IfUpgraded:show:已升级的|}稀有卡中选择1张加入手牌中，其在本回合可以免费打出。",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.title": "精密调整",
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.description": "对所有敌方施加{ImbalancePower:diff()}点[gold]失衡[/gold]，并在下回合开始时失去{PrecisionAdjustmentPower}点[gold]失衡[/gold]。",
 

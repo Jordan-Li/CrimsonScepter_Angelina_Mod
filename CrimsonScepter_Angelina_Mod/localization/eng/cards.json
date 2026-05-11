@@ -114,6 +114,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE.title": "Gravity Mode",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE.description": "The first time each turn you deal [gold]spell[/gold] damage, apply [gold]Imbalance[/gold] to the target equal to that damage.",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.title": "Souvenir",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.description": "Choose 1 of 3{IfUpgraded:show: upgraded|} Rare cards from other characters and add it to your hand. It costs 0 this turn. ",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.title": "Precision Adjustment",
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.description": "Apply {ImbalancePower:diff()} [gold]Imbalance[/gold] to all enemies. At the start of next turn, they lose {PrecisionAdjustmentPower} [gold]Imbalance[/gold].",
 
