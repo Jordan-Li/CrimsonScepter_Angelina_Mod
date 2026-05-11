@@ -20,8 +20,8 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 /// 费用：0
 /// 稀有度：罕见
 /// 卡牌类型：攻击
-/// 效果：造成4点法术伤害。若没有寄送牌，则寄送这张牌的复制品。
-/// 升级后效果：造成6点法术伤害。若没有寄送牌，则寄送这张牌的复制品。
+/// 效果：造成5点法术伤害。若没有寄送牌，则寄送这张牌的复制品。
+/// 升级后效果：造成7点法术伤害。若没有寄送牌，则寄送这张牌的复制品。
 /// </summary>
 public sealed class BubbleWrap : AngelinaCard
 {
@@ -41,8 +41,8 @@ public sealed class BubbleWrap : AngelinaCard
     // 动态变量：法术伤害，初始值为3
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(4m, ValueProp.Unpowered | ValueProp.Move),
-        new CalculationBaseVar(4m),
+        new DamageVar(5m, ValueProp.Unpowered | ValueProp.Move),
+        new CalculationBaseVar(5m),
         new ExtraDamageVar(1m),
         new CalculatedDamageVar(ValueProp.Unpowered | ValueProp.Move)
             .WithMultiplier(static (card, _) => card.Owner?.Creature?.GetPower<FocusPower>()?.Amount ?? 0m)

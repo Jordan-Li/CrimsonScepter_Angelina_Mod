@@ -50,7 +50,7 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-SUPPLY_PACKAGE.description": "Apply {ImbalancePower:diff()} [gold]Imbalance[/gold]. [gold]Delivered[/gold]: Gain {EnergyGain:energyIcons()}.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.title": "By the Way",
-  "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.description": "Gain {Block:diff()} [gold]Block[/gold].\n[gold]Send[/gold] this card.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.description": "Gain {Block:diff()} [gold]Block[/gold].\nIf a card is currently being [gold]Sent[/gold], [gold]Send[/gold] this card.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_TRICK.title": "Little Trick",
   "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_TRICK.description": "Choose 1 other card in your hand. Create a copy of it and [gold]send[/gold] the copy.",

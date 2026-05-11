@@ -50,7 +50,7 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-SUPPLY_PACKAGE.description": "施加{ImbalancePower:diff()}点[gold]失衡[/gold]。[gold]送达[/gold]：回复{EnergyGain:energyIcons()}。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.title": "捎带",
-  "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n[gold]寄送[/gold]此牌。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n若当前已有牌被[gold]寄送[/gold]，[gold]寄送[/gold]此牌。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_TRICK.title": "小戏法",
   "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_TRICK.description": "选择1张牌。[gold]寄送[/gold]其复制品。",
