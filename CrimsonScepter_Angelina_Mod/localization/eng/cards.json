@@ -50,14 +50,17 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-SUPPLY_PACKAGE.description": "Apply {ImbalancePower:diff()} [gold]Imbalance[/gold]. [gold]Delivered[/gold]: Gain {EnergyGain:energyIcons()}.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.title": "By the Way",
-  "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.description": "Gain {Block:diff()} [gold]Block[/gold].\n[gold]Send[/gold] this card.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.description": "Gain {Block:diff()} [gold]Block[/gold].\nIf a card is currently being [gold]Sent[/gold], [gold]Send[/gold] this card.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_TRICK.title": "Little Trick",
   "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_TRICK.description": "Choose 1 other card in your hand. Create a copy of it and [gold]send[/gold] the copy.",
   "LITTLE_TRICK.selectPrompt": "Choose a card to copy and send",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-BUBBLE_WRAP.title": "Bubble Wrap",
-  "CRIMSONSCEPTER_ANGELINA_MOD-BUBBLE_WRAP.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage. [gold]Send[/gold] a copy of this card.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BUBBLE_WRAP.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage. If there are no sent cards, [gold]send[/gold] a copy of this card.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-FISHING_FOR_SCALES.title": "Fishing for Scales!",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FISHING_FOR_SCALES.description": "Deal {Damage:diff()} damage to {IfUpgraded:show:the target|a random target}. If this card dealt no damage, apply {ImbalancePower:diff()} [gold]Imbalance[/gold] to all enemies.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-HOVER.title": "Hover",
   "CRIMSONSCEPTER_ANGELINA_MOD-HOVER.description": "Gain {TemporaryFlyPower:diff()} Temporary Fly. Draw {Cards} cards.",
@@ -106,13 +109,26 @@
   "BANDAGE.selectPrompt": "Choose card(s) to enchant",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.title": "Updraft",
-  "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.description": "At the start of your turn, gain 1 [gold]Temporary Fly[/gold]. If you leave [gold]Airborne[/gold] because of an attack, add a Dazed to your draw pile.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.description": "All [gold]Airborne[/gold] units gain 1 additional [gold]Fly[/gold]. Otherwise, gain 10 [gold]Imbalance[/gold].",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_BARRIER.title": "Gravity Barrier",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_BARRIER.description": "Gain {CalculatedBlock:diff()} [gold]spell[/gold] Block. This turn, whenever damage from an enemy is fully blocked, apply {GravityBarrierPower:diff()} [gold]Imbalance[/gold] to the damage source.",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE.title": "Gravity Mode",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE.description": "The first time each turn you deal [gold]spell[/gold] damage, apply [gold]Imbalance[/gold] to the target equal to that damage.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-MATRIX_DISPLACEMENT.title": "Matrix Displacement",
+  "CRIMSONSCEPTER_ANGELINA_MOD-MATRIX_DISPLACEMENT.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage. This turn, whenever the target takes [gold]spell[/gold] damage, draw 1 card and [gold]Send[/gold] 1 card.",
+  "MATRIX_DISPLACEMENT.sendPrompt": "Choose a card to send",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.title": "Souvenir",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.description": "Choose 1 of 3{IfUpgraded:show: upgraded|} Rare cards from other characters and add it to your hand. It costs 0 this turn. ",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA.title": "Glitterstream",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA.description": "[gold]Send[/gold] 1 card. The first 1 [gold]Delivered[/gold] card each turn gains [purple]Glam[/purple] for this combat.",
+  "GLITTERSTREAM_ANGELINA.selectPrompt": "Choose a card to send",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.title": "Precision Adjustment",
-  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.description": "Apply {ImbalancePower:diff()} [gold]Imbalance[/gold] to all enemies. At the start of next turn, they lose {PrecisionAdjustmentPower} [gold]Imbalance[/gold].",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.description": "Apply {ImbalancePower:diff()} [gold]Imbalance[/gold] to all enemies. At the end of your turn, they lose {PrecisionAdjustmentPower:diff()} [gold]Imbalance[/gold].",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_SPELL.title": "Emergency Spell",
   "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_SPELL.description": "Shuffle 1 [gold]Dazed[/gold] into your discard pile. Gain {Energy:energyIcons()}. Draw {Cards:diff()} card(s).",
@@ -196,6 +212,14 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-SIRACUSAN_DELIVERY.title": "Siracusan Delivery",
   "CRIMSONSCEPTER_ANGELINA_MOD-SIRACUSAN_DELIVERY.description": "Draw {Cards:diff()} card(s). Add 1 [gold]Unclaimed Parcel[/gold] to your discard pile.",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-BEACON_DELIVERY.title": "Beacon Delivery",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BEACON_DELIVERY.description": "[gold]Delivered[/gold]: [gold]Exhaust[/gold]. Choose up to {Cards:diff()} cards from your draw pile and add them to your hand.",
+  "BEACON_DELIVERY.selectPrompt": "Choose up to {Amount} cards to add to your hand",
+  "CRIMSONSCEPTER_ANGELINA_MOD-POOR_RECEPTION.title": "Poor Reception!",
+  "CRIMSONSCEPTER_ANGELINA_MOD-POOR_RECEPTION.description": "Deal {Damage:diff()} damage 4 times.\n[gold]Delivered[/gold]: Play this card targeting a random enemy.",
+  "CRIMSONSCEPTER_ANGELINA_MOD-HEAVYWEIGHT_DELIVERY.title": "Heavyweight Delivery",
+  "CRIMSONSCEPTER_ANGELINA_MOD-HEAVYWEIGHT_DELIVERY.description": "Apply {ImbalancePower:diff()} Imbalance to all enemies X times.\n[gold]Delivered[/gold]: This card's Imbalance this turn is doubled.",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-UNCLAIMED_PARCEL.title": "Unclaimed Parcel",
   "CRIMSONSCEPTER_ANGELINA_MOD-UNCLAIMED_PARCEL.description": " [gold]Delivered[/gold]: Send this card.",
 
@@ -205,6 +229,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-LEVERAGE_DELIVERY.title": "Leverage Delivery",
   "CRIMSONSCEPTER_ANGELINA_MOD-LEVERAGE_DELIVERY.description": "[gold]Send[/gold] 1 card. For each [gold]Delivered[/gold] card, deal {Damage:diff()} damage to all enemies.",
   "LEVERAGE_DELIVERY.selectPrompt": "Choose a card to send",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-EXTREME_BEAM.title": "Extreme Beam",
+  "CRIMSONSCEPTER_ANGELINA_MOD-EXTREME_BEAM.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage to all enemies. For this combat, double this card's damage and increase its play cost by {Energy:energyIcons()}. {IfUpgraded:show:Return this card to your hand.|}\n[gold]Delivered[/gold]: Reset this card to its initial state.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-ANNIHILATION_PARTICLE.title": "Annihilation Particle",
   "CRIMSONSCEPTER_ANGELINA_MOD-ANNIHILATION_PARTICLE.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage to all enemies. If any target is [gold]Fatally[/gold] killed, this combat grants no card rewards."

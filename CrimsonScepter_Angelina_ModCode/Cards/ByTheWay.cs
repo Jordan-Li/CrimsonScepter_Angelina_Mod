@@ -17,8 +17,8 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 /// 费用：0
 /// 稀有度：普通
 /// 卡牌类型：技能
-/// 效果：获得4点格挡。寄送这张牌。
-/// 升级后效果：获得6点格挡。寄送这张牌。
+/// 效果：获得4点格挡。若当前已有牌正在寄送，寄送这张牌。
+/// 升级后效果：获得6点格挡。若当前已有牌正在寄送，寄送这张牌。
 /// </summary>
 public sealed class ByTheWay : AngelinaCard
 {
@@ -44,10 +44,6 @@ public sealed class ByTheWay : AngelinaCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-
-        // 这张牌打出后会自己进入 Exhaust。
-        // 等它真正进入 Exhaust 后，再把它加入寄送队列。
-        pendingSelfDelivery = true;
     }
 
     public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(
@@ -59,7 +55,12 @@ public sealed class ByTheWay : AngelinaCard
     {
         if (card == this)
         {
-            return (PileType.Exhaust, CardPilePosition.Bottom);
+            pendingSelfDelivery = base.Owner.Creature.HasPower<DeliveryPower>();
+
+            if (pendingSelfDelivery)
+            {
+                return (PileType.Exhaust, CardPilePosition.Bottom);
+            }
         }
 
         return base.ModifyCardPlayResultPileTypeAndPosition(card, isAutoPlay, resources, pileType, position);

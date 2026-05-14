@@ -37,9 +37,19 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_BARRIER_POWER.description": "本回合内，当来自敌方的伤害完全被格挡时，对来源施加[gold]失衡值[/gold]。",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_BARRIER_POWER.smartDescription": "本回合内，当来自敌方的伤害完全被格挡时，对来源施加{Amount}点[gold]失衡值[/gold]。",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE_POWER.title": "引力模式",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE_POWER.description": "每回合首次造成[gold]法术[/gold]伤害时，向目标施加等同于该伤害的[gold]失衡[/gold]。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE_POWER.smartDescription": "每回合首次造成[gold]法术[/gold]伤害时，向目标施加等同于该伤害的[gold]失衡[/gold]。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-MATRIX_DISPLACEMENT_POWER.title": "矩阵位移",
+  "CRIMSONSCEPTER_ANGELINA_MOD-MATRIX_DISPLACEMENT_POWER.description": "本回合内，当该单位每受到一次[gold]法术[/gold]伤害时，你抽1张牌并[gold]寄送[/gold]1张牌。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-MATRIX_DISPLACEMENT_POWER.smartDescription": "本回合内，当该单位每受到一次[gold]法术[/gold]伤害时，你抽{Amount}张牌并[gold]寄送[/gold]{Amount}张牌。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA_POWER.title": "流光溢彩",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA_POWER.description": "每回合前1张[gold]送达[/gold]的牌在本场战斗内获得附魔：[purple]华彩[/purple]。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA_POWER.smartDescription": "每回合前{Amount}张[gold]送达[/gold]的牌在本场战斗内获得附魔：[purple]华彩[/purple]。",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.title": "精密调整",
-  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.description": "下回合开始时，失去[gold]失衡值[/gold]。",
-  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.smartDescription": "下回合开始时，失去{Amount}点[gold]失衡值[/gold]。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.description": "在你的回合结束时，失去[gold]失衡值[/gold]。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT_POWER.smartDescription": "在你的回合结束时，失去{Amount}点[gold]失衡值[/gold]。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-CHANT_TEMPORARY_FOCUS_NEXT_TURN_POWER.title": "吟唱",
   "CRIMSONSCEPTER_ANGELINA_MOD-CHANT_TEMPORARY_FOCUS_NEXT_TURN_POWER.description": "下回合开始时，获得[gold]集中[/gold]。若本回合失去生命，则失去此效果。",

@@ -1,19 +1,23 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Helpers;
+using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Models.Relics;
+using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
-using MegaCrit.Sts2.Core.Entities.Relics;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 
@@ -26,6 +30,11 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 /// </summary>
 public sealed class UltimateBigBang : AngelinaCard
 {
+    private static readonly Color BeamGoldBright = new(1f, 0.9f, 0.35f, 1f);
+    private static readonly Color BeamGoldMid = new(1f, 0.72f, 0.16f, 1f);
+    private static readonly Color BeamGoldWarm = new(1f, 0.96f, 0.75f, 1f);
+    private static readonly Color ParticleGold = new(1f, 0.82f, 0.24f, 1f);
+
     public override bool IsSpell => true;
 
     // 没有遗物可失去时，这张牌不能打出。
@@ -62,21 +71,21 @@ public sealed class UltimateBigBang : AngelinaCard
 
     // 打出时：
     // 1. 失去当前最右侧的遗物
-    // 2. 对所有敌人造成法术伤害
-    // 3. 不再提升此牌本场战斗耗能
+    // 2. 播放类似超能光束的主束流与落点特效
+    // 3. 对所有敌人造成法术伤害
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 再做一次保护，避免在异常情况下无遗物可失去。
         if (base.Owner.Relics.Count == 0)
         {
             return;
         }
 
-        // Relics 列表尾部对应当前最右侧的遗物。
+        await CreatureCmd.TriggerAnim(base.Owner.Creature, "Attack", base.Owner.Character.AttackAnimDelay);
+
         var relicToLose = base.Owner.Relics.Last();
         await RelicCmd.Remove(relicToLose);
+        await PlayHyperbeamLikeVfx();
 
-        // 按当前法术修正后的伤害值，对所有存活敌人逐个结算。
         decimal damage = SpellHelper.ModifySpellValue(base.Owner.Creature, base.DynamicVars.Damage.BaseValue);
         List<Creature> enemies = (base.CombatState?.HittableEnemies ?? Enumerable.Empty<Creature>())
             .Where(enemy => enemy.IsAlive)
@@ -92,7 +101,6 @@ public sealed class UltimateBigBang : AngelinaCard
                 this
             );
         }
-
     }
 
     // 升级后伤害从 40 提高到 50。
@@ -100,5 +108,96 @@ public sealed class UltimateBigBang : AngelinaCard
     {
         base.DynamicVars.Damage.UpgradeValueBy(10m);
         base.DynamicVars.CalculationBase.UpgradeValueBy(10m);
+    }
+
+    private async Task PlayHyperbeamLikeVfx()
+    {
+        List<Creature> enemies = (base.CombatState?.Enemies ?? Enumerable.Empty<Creature>())
+            .Where(enemy => enemy.IsAlive)
+            .ToList();
+
+        if (enemies.Count == 0)
+        {
+            return;
+        }
+
+        Vector2 sourcePosition = GetCreatureBeamOrigin(base.Owner.Creature);
+        Vector2 mainTargetPosition = GetCreatureBeamOrigin(enemies.Last());
+
+        NHyperbeamVfx? beamVfx = NHyperbeamVfx.Create(sourcePosition, mainTargetPosition);
+        if (beamVfx != null)
+        {
+            TintHyperbeamGold(beamVfx);
+            NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(beamVfx);
+            await Cmd.Wait(0.5f);
+        }
+
+        foreach (Creature enemy in enemies)
+        {
+            NHyperbeamImpactVfx? impactVfx = NHyperbeamImpactVfx.Create(sourcePosition, GetCreatureBeamOrigin(enemy));
+            if (impactVfx != null)
+            {
+                TintImpactGold(impactVfx);
+                NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(impactVfx);
+            }
+        }
+    }
+
+    private static Vector2 GetCreatureBeamOrigin(Creature creature)
+    {
+        NCreature? creatureNode = NCombatRoom.Instance?.GetCreatureNode(creature);
+        Control? hitbox = creatureNode?.Hitbox;
+        if (hitbox != null)
+        {
+            return hitbox.GetGlobalRect().GetCenter();
+        }
+
+        return creatureNode?.VfxSpawnPosition ?? Vector2.Zero;
+    }
+
+    private static void TintHyperbeamGold(NHyperbeamVfx beamVfx)
+    {
+        TintCanvasItemsGold(beamVfx);
+
+        Line2D? laserLine = beamVfx.GetNodeOrNull<Line2D>("laser/vfx_hyperbeam_laser_line");
+        if (laserLine == null)
+        {
+            return;
+        }
+
+        Gradient goldGradient = new();
+        goldGradient.InterpolationMode = Gradient.InterpolationModeEnum.Linear;
+        goldGradient.Offsets = [0f, 0.34f, 0.68f, 1f];
+        goldGradient.Colors = [BeamGoldBright, BeamGoldMid, BeamGoldBright, BeamGoldWarm];
+        laserLine.Gradient = goldGradient;
+
+        if (laserLine.Material is ShaderMaterial shaderMaterial)
+        {
+            ShaderMaterial beamMaterial = (ShaderMaterial)shaderMaterial.Duplicate();
+            Gradient lutGradient = new();
+            lutGradient.InterpolationMode = Gradient.InterpolationModeEnum.Linear;
+            lutGradient.Offsets = [0f, 0.33f, 0.66f, 1f];
+            lutGradient.Colors = [BeamGoldBright, BeamGoldMid, BeamGoldBright, BeamGoldWarm];
+            beamMaterial.SetShaderParameter("lut", new GradientTexture1D { Gradient = lutGradient });
+            laserLine.Material = beamMaterial;
+        }
+    }
+
+    private static void TintImpactGold(NHyperbeamImpactVfx impactVfx)
+    {
+        TintCanvasItemsGold(impactVfx);
+    }
+
+    private static void TintCanvasItemsGold(Node root)
+    {
+        foreach (Node child in root.GetChildren())
+        {
+            if (child is CanvasItem canvasItem && child is not Line2D)
+            {
+                canvasItem.SelfModulate = ParticleGold;
+            }
+
+            TintCanvasItemsGold(child);
+        }
     }
 }

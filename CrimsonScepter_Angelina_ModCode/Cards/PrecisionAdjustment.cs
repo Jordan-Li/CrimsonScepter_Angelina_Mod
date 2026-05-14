@@ -17,8 +17,8 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 /// 费用：0
 /// 稀有度：普通
 /// 卡牌类型：技能
-/// 效果：对所有敌方施加12点失衡，并在下回合开始时失去5点失衡。
-/// 升级后效果：对所有敌方施加18点失衡，并在下回合开始时失去5点失衡。
+/// 效果：对所有敌方施加12点失衡，并在回合结束时失去6点失衡。
+/// 升级后效果：对所有敌方施加18点失衡，并在回合结束时失去9点失衡。
 /// </summary>
 public sealed class PrecisionAdjustment : AngelinaCard
 {
@@ -28,7 +28,7 @@ public sealed class PrecisionAdjustment : AngelinaCard
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new PowerVar<ImbalancePower>(12m),
-        new PowerVar<PrecisionAdjustmentPower>(5m)
+        new PowerVar<PrecisionAdjustmentPower>(6m)
     ];
 
     // 额外悬浮说明：
@@ -69,9 +69,10 @@ public sealed class PrecisionAdjustment : AngelinaCard
         }
     }
 
-    // 升级后仅提高施加的失衡数值。
+    // 升级后提高施加与回收的失衡数值。
     protected override void OnUpgrade()
     {
         base.DynamicVars["ImbalancePower"].UpgradeValueBy(6m);
+        base.DynamicVars["PrecisionAdjustmentPower"].UpgradeValueBy(3m);
     }
 }

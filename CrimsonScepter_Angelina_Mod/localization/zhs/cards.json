@@ -50,14 +50,17 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-SUPPLY_PACKAGE.description": "施加{ImbalancePower:diff()}点[gold]失衡[/gold]。[gold]送达[/gold]：回复{EnergyGain:energyIcons()}。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.title": "捎带",
-  "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n[gold]寄送[/gold]此牌。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BY_THE_WAY.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n若当前已有牌被[gold]寄送[/gold]，[gold]寄送[/gold]此牌。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_TRICK.title": "小戏法",
   "CRIMSONSCEPTER_ANGELINA_MOD-LITTLE_TRICK.description": "选择1张牌。[gold]寄送[/gold]其复制品。",
   "LITTLE_TRICK.selectPrompt": "选择1张牌复制并寄送",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-BUBBLE_WRAP.title": "泡沫纸",
-  "CRIMSONSCEPTER_ANGELINA_MOD-BUBBLE_WRAP.description": "造成{CalculatedDamage:diff()}点[gold]法术[/gold]伤害。[gold]寄送[/gold]这张牌的复制品。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BUBBLE_WRAP.description": "造成{CalculatedDamage:diff()}点[gold]法术[/gold]伤害。若没有牌被[gold]寄送[/gold]，则[gold]寄送[/gold]这张牌的复制品。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-FISHING_FOR_SCALES.title": "钓鳞时间！",
+  "CRIMSONSCEPTER_ANGELINA_MOD-FISHING_FOR_SCALES.description": "对{IfUpgraded:show:目标|随机目标}造成{Damage:diff()}点伤害。若此牌未造成伤害，则对敌方全体施加{ImbalancePower:diff()}点[gold]失衡[/gold]。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-HOVER.title": "悬停",
   "CRIMSONSCEPTER_ANGELINA_MOD-HOVER.description": "获得{TemporaryFlyPower:diff()}层临时飞行。抽{Cards}张牌。",
@@ -106,13 +109,26 @@
   "BANDAGE.selectPrompt": "选择要添加附魔的手牌",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.title": "上升气流",
-  "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.description": "回合开始时，获得1层[gold]临时飞行[/gold]。若你因受到攻击脱离[gold]浮空[/gold]，向抽牌堆内添加一张眩晕。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-UPDRAFT.description": "所有处于[gold]浮空[/gold]的单位额外获得1层[gold]飞行[/gold]，否则获得10点[gold]失衡[/gold]。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_BARRIER.title": "重力结界",
   "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_BARRIER.description": "获得{CalculatedBlock:diff()}点[gold]法术[/gold]格挡。本回合内，当来自敌方的伤害完全被格挡时，对伤害来源施加{GravityBarrierPower:diff()}点[gold]失衡[/gold]。",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE.title": "引力模式",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GRAVITY_MODE.description": "每回合首次造成[gold]法术[/gold]伤害时，向目标施加等同于该伤害的[gold]失衡[/gold]。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-MATRIX_DISPLACEMENT.title": "矩阵位移",
+  "CRIMSONSCEPTER_ANGELINA_MOD-MATRIX_DISPLACEMENT.description": "造成{CalculatedDamage:diff()}点[gold]法术[/gold]伤害。本回合内，当目标每受到一次[gold]法术[/gold]伤害时，抽1张牌并[gold]寄送[/gold]1张牌。",
+  "MATRIX_DISPLACEMENT.sendPrompt": "选择1张要寄送的牌",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.title": "纪念品",
+  "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.description": "从3张其他角色的{IfUpgraded:show:已升级的|}稀有卡中选择1张加入手牌中，其在本回合可以免费打出。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA.title": "流光溢彩",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA.description": "[gold]寄送[/gold]1张牌。每回合前1张[gold]送达[/gold]的牌在本场战斗内获得附魔：[purple]华彩[/purple]。",
+  "GLITTERSTREAM_ANGELINA.selectPrompt": "选择1张要寄送的牌",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.title": "精密调整",
-  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.description": "对所有敌方施加{ImbalancePower:diff()}点[gold]失衡[/gold]，并在下回合开始时失去{PrecisionAdjustmentPower}点[gold]失衡[/gold]。",
+  "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.description": "对所有敌方施加{ImbalancePower:diff()}点[gold]失衡[/gold]，并在你的回合结束时失去{PrecisionAdjustmentPower:diff()}点[gold]失衡[/gold]。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_SPELL.title": "应急法术",
   "CRIMSONSCEPTER_ANGELINA_MOD-EMERGENCY_SPELL.description": "向弃牌堆中加入1张[gold]眩晕[/gold]。获得{Energy:energyIcons()}。抽{Cards:diff()}张牌。",
@@ -196,6 +212,16 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-SIRACUSAN_DELIVERY.title": "叙拉古式运送",
   "CRIMSONSCEPTER_ANGELINA_MOD-SIRACUSAN_DELIVERY.description": "抽{Cards:diff()}张牌。将1张[gold]无主快递[/gold]加入弃牌堆。",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-BEACON_DELIVERY.title": "信标投送",
+  "CRIMSONSCEPTER_ANGELINA_MOD-BEACON_DELIVERY.description": "[gold]送达[/gold]：[gold]消耗[/gold]。从抽牌堆中选择至多{Cards:diff()}张牌加入手牌。",
+  "BEACON_DELIVERY.selectPrompt": "选择至多{Amount}张牌加入手牌",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-POOR_RECEPTION.title": "招待不周！",
+  "CRIMSONSCEPTER_ANGELINA_MOD-POOR_RECEPTION.description": "造成{Damage:diff()}点伤害4次。\n[gold]送达[/gold]：向随机目标打出此牌。",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-HEAVYWEIGHT_DELIVERY.title": "重量级投送",
+  "CRIMSONSCEPTER_ANGELINA_MOD-HEAVYWEIGHT_DELIVERY.description": "对敌方全体施加{ImbalancePower:diff()}点失衡X次。\n[gold]送达[/gold]：此牌施加的失衡值在本回合翻倍。",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-UNCLAIMED_PARCEL.title": "无主快递",
   "CRIMSONSCEPTER_ANGELINA_MOD-UNCLAIMED_PARCEL.description": "[gold]送达[/gold]：寄送此牌。",
 
@@ -205,6 +231,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-LEVERAGE_DELIVERY.title": "借势投送",
   "CRIMSONSCEPTER_ANGELINA_MOD-LEVERAGE_DELIVERY.description": "[gold]寄送[/gold]1张牌。每有1张牌正在被[gold]寄送[/gold]，对敌方全体造成{Damage:diff()}点伤害一次。",
   "LEVERAGE_DELIVERY.selectPrompt": "选择1张要寄送的牌",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-EXTREME_BEAM.title": "极限束流",
+  "CRIMSONSCEPTER_ANGELINA_MOD-EXTREME_BEAM.description": "对敌方全体造成{CalculatedDamage:diff()}点[gold]法术[/gold]伤害。在本场战斗中，使此牌伤害翻倍并使费用增加{Energy:energyIcons()}。{IfUpgraded:show:将此牌返回你的手牌。|}\n[gold]送达[/gold]：将此牌重置为初始状态。",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-ANNIHILATION_PARTICLE.title": "湮灭粒子",
   "CRIMSONSCEPTER_ANGELINA_MOD-ANNIHILATION_PARTICLE.description": "对所有敌方造成{CalculatedDamage:diff()}点[gold]法术[/gold]伤害。如果有目标被[gold]斩杀[/gold]，则这场战斗不再有卡牌奖励。"
