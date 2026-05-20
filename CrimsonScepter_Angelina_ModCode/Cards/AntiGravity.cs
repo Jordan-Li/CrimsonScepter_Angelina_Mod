@@ -1,38 +1,32 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Helpers;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
+using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Cards;
 
-/// <summary>
-/// 卡牌名：反重力
-/// 费用：2
-/// 稀有度：其他
-/// 卡牌类型：攻击
-/// 效果：施加12点失衡，造成8点法术伤害，使目标获得1层临时飞行。
-/// 升级后效果：施加15点失衡，造成12点法术伤害，使目标获得1层临时飞行。
-/// 备注：初始卡牌
-/// </summary>
 public sealed class AntiGravity : AngelinaCard
 {
-    // 这张牌是法术牌，会参与法术相关结算与联动。
+    private static readonly Color AntiGravityTrailColor = new(0.96f, 0.18f, 0.18f, 1f);
+
     public override bool IsSpell => true;
 
-    // 额外悬浮提示：
-    // 1. 失衡
-    // 2. 临时飞行
-    // 3. 法术
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<ImbalancePower>(),
@@ -42,10 +36,6 @@ public sealed class AntiGravity : AngelinaCard
             new LocString("powers", "SPELL.description"))
     ];
 
-    // 动态变量：
-    // 1. 失衡值
-    // 2. 法术伤害
-    // 3. 临时飞行层数
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new PowerVar<ImbalancePower>(12m),
@@ -57,18 +47,18 @@ public sealed class AntiGravity : AngelinaCard
         new PowerVar<TemporaryFlyPower>(1m)
     ];
 
-    // 费用：2费，类型：攻击牌，稀有度：基础，目标：任意敌人
     public AntiGravity()
         : base(2, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
     {
     }
 
-    // 打出时的效果
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
 
-        // 第一步：施加失衡
+        await CreatureCmd.TriggerAnim(base.Owner.Creature, "Attack", base.Owner.Character.AttackAnimDelay);
+        await PlayAntiGravityStrikeVfx(base.Owner.Creature, cardPlay.Target);
+
         await PowerCmd.Apply<ImbalancePower>(
             cardPlay.Target,
             base.DynamicVars["ImbalancePower"].BaseValue,
@@ -76,7 +66,6 @@ public sealed class AntiGravity : AngelinaCard
             this
         );
 
-        // 第二步：造成法术伤害
         var damageResult = await SpellHelper.Damage(
             choiceContext,
             base.Owner.Creature,
@@ -90,7 +79,6 @@ public sealed class AntiGravity : AngelinaCard
             return;
         }
 
-        // 第三步：给予目标临时飞行
         await PowerCmd.Apply<TemporaryFlyPower>(
             cardPlay.Target,
             base.DynamicVars["TemporaryFlyPower"].BaseValue,
@@ -99,7 +87,6 @@ public sealed class AntiGravity : AngelinaCard
         );
     }
 
-    // 升级后：失衡值+3，法术伤害+4
     protected override void OnUpgrade()
     {
         base.DynamicVars["ImbalancePower"].UpgradeValueBy(3m);
@@ -107,4 +94,25 @@ public sealed class AntiGravity : AngelinaCard
         base.DynamicVars.CalculationBase.UpgradeValueBy(4m);
     }
 
+    private static async Task PlayAntiGravityStrikeVfx(Creature owner, Creature target)
+    {
+        NCreature? ownerNode = NCombatRoom.Instance?.GetCreatureNode(owner);
+        NCreature? targetNode = NCombatRoom.Instance?.GetCreatureNode(target);
+        if (ownerNode == null || targetNode == null)
+        {
+            return;
+        }
+
+        Vector2 ownerCenter = ownerNode.Hitbox.GetGlobalRect().GetCenter();
+        Vector2 targetCenter = targetNode.Hitbox.GetGlobalRect().GetCenter();
+        Vector2 sourcePosition = ownerCenter + new Vector2(0f, -120f);
+        NShivThrowVfx? vfx = NShivThrowVfx.Create(sourcePosition, targetCenter, AntiGravityTrailColor);
+        if (vfx == null)
+        {
+            return;
+        }
+
+        NCombatRoom.Instance?.CombatVfxContainer.AddChild(vfx);
+        await Cmd.Wait(0.15f);
+    }
 }

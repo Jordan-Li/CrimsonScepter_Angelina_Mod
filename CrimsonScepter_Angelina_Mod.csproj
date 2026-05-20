@@ -8,6 +8,7 @@
         <DefaultItemExcludes>packages/**</DefaultItemExcludes>
         <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
         <PathMap>$(AppOutputBase)=.\</PathMap>
+        <ReferenceSts2DataDir Condition="'$(ReferenceSts2DataDir)' == ''">$(Sts2DataDir)</ReferenceSts2DataDir>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -16,13 +17,13 @@
         <NoWarn>$(NoWarn);MSB3270</NoWarn>
     </PropertyGroup>
 
-    <ItemGroup Condition="Exists('$(Sts2DataDir)')">
+    <ItemGroup Condition="Exists('$(ReferenceSts2DataDir)')">
         <Reference Include="0Harmony">
-            <HintPath>$(Sts2DataDir)/0Harmony.dll</HintPath>
+            <HintPath>$(ReferenceSts2DataDir)/0Harmony.dll</HintPath>
             <Private>false</Private>
         </Reference>
         <Reference Include="sts2">
-            <HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
+            <HintPath>$(ReferenceSts2DataDir)/sts2.dll</HintPath>
             <Private>false</Private>
         </Reference>
     </ItemGroup>
@@ -72,8 +73,8 @@
 
     <Target Name="CheckDependencyPaths">
         <Error
-                Text=" Slay the Spire 2 data not found at path '$(Sts2DataDir)'"
-                Condition="'$(Sts2DataDir)' == '' or !Exists('$(Sts2DataDir)')"/>
+                Text=" Slay the Spire 2 reference data not found at path '$(ReferenceSts2DataDir)'"
+                Condition="'$(ReferenceSts2DataDir)' == '' or !Exists('$(ReferenceSts2DataDir)')"/>
     </Target>
 
     <Target Name="CopyToModsFolderOnBuild" AfterTargets="PostBuildEvent">
