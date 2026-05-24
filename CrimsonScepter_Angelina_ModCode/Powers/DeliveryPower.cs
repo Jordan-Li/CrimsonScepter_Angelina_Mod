@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
+using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Helpers;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -56,6 +58,20 @@ public sealed class DeliveryPower : AngelinaPower
     protected override object InitInternalData()
     {
         return new Data();
+    }
+
+    public override Task AfterApplied(Creature? applier, CardModel? cardSource)
+    {
+        _ = applier;
+        _ = cardSource;
+        SyncOrbitVfx();
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterRemoved(Creature oldOwner)
+    {
+        DeliveryOrbitVfx.Remove(oldOwner);
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -289,6 +305,7 @@ public sealed class DeliveryPower : AngelinaPower
     {
         CleanupQueue();
         RefreshQueueDisplay();
+        SyncOrbitVfx();
         await RemoveSelfIfEmpty();
     }
 
@@ -300,5 +317,11 @@ public sealed class DeliveryPower : AngelinaPower
         return GetInternalData<Data>().QueuedCards.Count == 0
             ? PowerCmd.Remove(this)
             : Task.CompletedTask;
+    }
+
+    private void SyncOrbitVfx()
+    {
+        int queuedCount = GetInternalData<Data>().QueuedCards.Count;
+        DeliveryOrbitVfx.Sync(base.Owner, queuedCount);
     }
 }
