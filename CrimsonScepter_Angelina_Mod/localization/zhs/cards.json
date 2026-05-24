@@ -123,7 +123,7 @@
 
   "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.title": "纪念品",
   "CRIMSONSCEPTER_ANGELINA_MOD-SOUVENIR.description": "从3张其他角色的{IfUpgraded:show:已升级的|}稀有卡中选择1张加入手牌中，其在本回合可以免费打出。",
-  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA.title": "流光溢彩",
+  "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA.title": "华光异彩",
   "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA.description": "[gold]寄送[/gold]1张牌。每回合前1张[gold]送达[/gold]的牌在本场战斗内获得附魔：[purple]华彩[/purple]。",
   "GLITTERSTREAM_ANGELINA.selectPrompt": "选择1张要寄送的牌",
 
