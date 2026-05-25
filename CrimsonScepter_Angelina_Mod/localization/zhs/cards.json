@@ -127,6 +127,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA.description": "[gold]寄送[/gold]1张牌。每回合前1张[gold]送达[/gold]的牌在本场战斗内获得附魔：[purple]华彩[/purple]。",
   "GLITTERSTREAM_ANGELINA.selectPrompt": "选择1张要寄送的牌",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-WORLD_REVERSED.title": "世界倒转",
+  "CRIMSONSCEPTER_ANGELINA_MOD-WORLD_REVERSED.description": "依次打出所有[gold]寄送[/gold]牌，然后[gold]寄送[/gold]当前手牌。",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.title": "精密调整",
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.description": "对所有敌方施加{ImbalancePower:diff()}点[gold]失衡[/gold]，并在你的回合结束时失去{PrecisionAdjustmentPower:diff()}点[gold]失衡[/gold]。",
 

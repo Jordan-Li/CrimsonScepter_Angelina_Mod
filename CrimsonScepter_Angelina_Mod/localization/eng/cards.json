@@ -127,6 +127,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-GLITTERSTREAM_ANGELINA.description": "[gold]Send[/gold] 1 card. The first 1 [gold]Delivered[/gold] card each turn gains [purple]Glam[/purple] for this combat.",
   "GLITTERSTREAM_ANGELINA.selectPrompt": "Choose a card to send",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-WORLD_REVERSED.title": "World Reversed",
+  "CRIMSONSCEPTER_ANGELINA_MOD-WORLD_REVERSED.description": "Play all [gold]Sent[/gold] cards in order, then [gold]Send[/gold] your current hand.",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.title": "Precision Adjustment",
   "CRIMSONSCEPTER_ANGELINA_MOD-PRECISION_ADJUSTMENT.description": "Apply {ImbalancePower:diff()} [gold]Imbalance[/gold] to all enemies. At the end of your turn, they lose {PrecisionAdjustmentPower:diff()} [gold]Imbalance[/gold].",
 
