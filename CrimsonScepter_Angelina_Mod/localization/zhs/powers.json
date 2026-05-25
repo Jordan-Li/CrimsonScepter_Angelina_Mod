@@ -6,6 +6,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-WEIGHTLESS_POWER.title": "失重",
   "CRIMSONSCEPTER_ANGELINA_MOD-WEIGHTLESS_POWER.description": "受到的所有伤害翻倍。持续3回合。期间再次获得[gold]失衡[/gold]时，改为失去等量生命。",
   "CRIMSONSCEPTER_ANGELINA_MOD-WEIGHTLESS_POWER.smartDescription": "受到的所有伤害翻倍。持续{Amount}回合。期间再次获得[gold]失衡[/gold]时，改为失去等量生命。",
+  "WEIGHTLESS_RING.hoverTip": "处于失重状态，剩余[gold]{Amount}[/gold]回合。",
+
+  "IMBALANCE_RING.hoverTip": "距离进入失重还需要[gold]{Amount}[/gold]点失衡值",
 
   "FOCUS_POWER.title": "集中",
   "FOCUS_POWER.description": "提升充能球效果，以及[gold]法术[/gold]伤害与[gold]法术[/gold]格挡的效力。",

@@ -6,6 +6,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-WEIGHTLESS_POWER.title": "Weightless",
   "CRIMSONSCEPTER_ANGELINA_MOD-WEIGHTLESS_POWER.description": "Receive double damage for3turns. While in this state, gaining [gold]Imbalance[/gold] instead causes equal HP loss.",
   "CRIMSONSCEPTER_ANGELINA_MOD-WEIGHTLESS_POWER.smartDescription": "Receive double damage for{Amount}turns. While in this state, gaining [gold]Imbalance[/gold] instead causes equal HP loss.",
+  "WEIGHTLESS_RING.hoverTip": "Is Weightless. [gold]{Amount}[/gold] turn(s) remaining.",
+
+  "IMBALANCE_RING.hoverTip": "[gold]{Amount}[/gold] more Imbalance needed to become Weightless",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_POWER.title": "Delivery",
   "CRIMSONSCEPTER_ANGELINA_MOD-DELIVERY_POWER.description": "Sent cards return to your hand at the start of your next turn.",

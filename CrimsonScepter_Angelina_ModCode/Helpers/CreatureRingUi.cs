@@ -6,22 +6,24 @@ using Godot;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
-using MegaCrit.Sts2.Core.Models;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Helpers;
 
 internal static class CreatureRingUi
 {
-    private sealed record RingEntry(string Key, int Order, float Progress, Color FillColor, IEnumerable<IHoverTip> HoverTips);
+    private sealed record RingEntry(string Key, int Order, float Progress, string CenterText, Color FillColor, IEnumerable<IHoverTip> HoverTips);
 
     private sealed class RingWidget
     {
         public required Control Hitbox { get; init; }
         public required Line2D Background { get; init; }
         public required Line2D Fill { get; init; }
+        public required Label CenterLabel { get; init; }
         public string? Key { get; set; }
+        public string CenterText { get; set; } = string.Empty;
         public IEnumerable<IHoverTip> HoverTips { get; set; } = Enumerable.Empty<IHoverTip>();
     }
 
@@ -42,11 +44,11 @@ internal static class CreatureRingUi
 
     private const int WeightlessOrder = 0;
     private const int ImbalanceOrder = 10;
-    private const float RingRadius = 10f;
-    private const float RingThickness = 4f;
-    private const float RingStep = 26f;
-    private const float RingAnchorOffset = 16f;
-    private const float RingHoverSize = 28f;
+    private const float RingRadius = 16f;
+    private const float RingThickness = 6f;
+    private const float RingStep = 38f;
+    private const float RingAnchorOffset = 20f;
+    private const float RingHoverSize = 40f;
 
     public static void Attach(NHealthBar healthBar, Creature creature)
     {
@@ -122,17 +124,21 @@ internal static class CreatureRingUi
             if (!isActive)
             {
                 widget.Key = null;
+                widget.CenterText = string.Empty;
                 widget.HoverTips = Enumerable.Empty<IHoverTip>();
+                widget.CenterLabel.Text = string.Empty;
                 NHoverTipSet.Remove(widget.Hitbox);
                 continue;
             }
 
             RingEntry entry = entries[i];
             widget.Key = entry.Key;
+            widget.CenterText = entry.CenterText;
             widget.HoverTips = entry.HoverTips.ToList();
             widget.Fill.DefaultColor = entry.FillColor;
             widget.Fill.Points = CreateArcPoints(entry.Progress);
             widget.Background.Points = CreateArcPoints(1f);
+            widget.CenterLabel.Text = entry.CenterText;
         }
 
         Layout(host);
@@ -182,14 +188,29 @@ internal static class CreatureRingUi
             Position = Vector2.One * (RingHoverSize * 0.5f)
         };
 
+        Label centerLabel = new()
+        {
+            CustomMinimumSize = Vector2.One * RingHoverSize,
+            Size = Vector2.One * RingHoverSize,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            MouseFilter = Control.MouseFilterEnum.Ignore
+        };
+        centerLabel.AddThemeFontSizeOverride("font_size", 15);
+        centerLabel.AddThemeColorOverride("font_color", new Color(1f, 1f, 1f, 0.96f));
+        centerLabel.AddThemeColorOverride("font_outline_color", new Color(0f, 0f, 0f, 0.82f));
+        centerLabel.AddThemeConstantOverride("outline_size", 2);
+
         hitbox.AddChild(background);
         hitbox.AddChild(fill);
+        hitbox.AddChild(centerLabel);
         parent.AddChild(hitbox);
-        RingWidget widget = new RingWidget
+        RingWidget widget = new()
         {
             Hitbox = hitbox,
             Background = background,
-            Fill = fill
+            Fill = fill,
+            CenterLabel = centerLabel
         };
 
         hitbox.Connect(Control.SignalName.MouseEntered, Callable.From(() =>
@@ -219,6 +240,7 @@ internal static class CreatureRingUi
                 "weightless",
                 WeightlessOrder,
                 (float)(clampedAmount / maxStacks),
+                weightless.Amount.ToString("0"),
                 WeightlessRingColor,
                 BuildWeightlessHoverTips(weightless));
         }
@@ -234,6 +256,7 @@ internal static class CreatureRingUi
                     "imbalance",
                     ImbalanceOrder,
                     (float)(clampedAmount / threshold),
+                    Math.Max(0m, threshold - imbalance.Amount).ToString("0"),
                     ImbalanceRingColor,
                     BuildImbalanceHoverTips(imbalance, threshold));
             }
@@ -242,9 +265,10 @@ internal static class CreatureRingUi
 
     private static IEnumerable<IHoverTip> BuildImbalanceHoverTips(ImbalancePower power, decimal threshold)
     {
+        decimal remaining = Math.Max(0m, threshold - power.Amount);
         return new IHoverTip[]
         {
-            new HoverTip(power.Title, $"{power.Amount}/{threshold}"),
+            new HoverTip(power.Title, CreateRingHoverLocString("IMBALANCE_RING.hoverTip", remaining.ToString("0"))),
             HoverTipFactory.FromPower<ImbalancePower>(),
             HoverTipFactory.FromPower<WeightlessPower>()
         };
@@ -254,10 +278,17 @@ internal static class CreatureRingUi
     {
         return new IHoverTip[]
         {
-            new HoverTip(power.Title, $"{power.Amount}/3"),
+            new HoverTip(power.Title, CreateRingHoverLocString("WEIGHTLESS_RING.hoverTip", power.Amount.ToString("0"))),
             HoverTipFactory.FromPower<WeightlessPower>(),
             HoverTipFactory.FromPower<ImbalancePower>()
         };
+    }
+
+    private static LocString CreateRingHoverLocString(string key, string amount)
+    {
+        LocString locString = new("powers", key);
+        locString.Add("Amount", amount);
+        return locString;
     }
 
     private static Vector2[] CreateArcPoints(float progress)
@@ -270,8 +301,8 @@ internal static class CreatureRingUi
 
         int segmentCount = Math.Max(2, Mathf.CeilToInt(48f * progress));
         Vector2[] points = new Vector2[segmentCount + 1];
-        float startAngle = Mathf.Pi;
-        float endAngle = startAngle - Mathf.Tau * progress;
+        float startAngle = -Mathf.Pi * 0.5f;
+        float endAngle = startAngle + Mathf.Tau * progress;
 
         for (int i = 0; i <= segmentCount; i++)
         {
