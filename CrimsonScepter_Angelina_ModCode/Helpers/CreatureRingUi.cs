@@ -47,7 +47,8 @@ internal static class CreatureRingUi
     private const float RingRadius = 16f;
     private const float RingThickness = 6f;
     private const float RingStep = 38f;
-    private const float RingAnchorOffset = 20f;
+    private const float RingAnchorOffsetWithoutBlock = 20f;
+    private const float RingAnchorOffsetWithBlock = 36f;
     private const float RingHoverSize = 40f;
 
     public static void Attach(NHealthBar healthBar, Creature creature)
@@ -146,7 +147,8 @@ internal static class CreatureRingUi
 
     private static void Layout(HostState host)
     {
-        Vector2 baseAnchor = host.HealthBar.HpBarContainer.Position + new Vector2(-RingAnchorOffset, host.HealthBar.HpBarContainer.Size.Y * 0.5f);
+        float ringAnchorOffset = host.Creature.Block > 0m ? RingAnchorOffsetWithBlock : RingAnchorOffsetWithoutBlock;
+        Vector2 baseAnchor = host.HealthBar.HpBarContainer.Position + new Vector2(-ringAnchorOffset, host.HealthBar.HpBarContainer.Size.Y * 0.5f);
 
         for (int i = 0; i < host.Widgets.Count; i++)
         {
@@ -196,10 +198,10 @@ internal static class CreatureRingUi
             VerticalAlignment = VerticalAlignment.Center,
             MouseFilter = Control.MouseFilterEnum.Ignore
         };
-        centerLabel.AddThemeFontSizeOverride("font_size", 15);
+        centerLabel.AddThemeFontSizeOverride("font_size", 20);
         centerLabel.AddThemeColorOverride("font_color", new Color(1f, 1f, 1f, 0.96f));
-        centerLabel.AddThemeColorOverride("font_outline_color", new Color(0f, 0f, 0f, 0.82f));
-        centerLabel.AddThemeConstantOverride("outline_size", 2);
+        centerLabel.AddThemeColorOverride("font_outline_color", new Color(0f, 0f, 0f, 1f));
+        centerLabel.AddThemeConstantOverride("outline_size", 1);
 
         hitbox.AddChild(background);
         hitbox.AddChild(fill);
