@@ -46,6 +46,7 @@ public sealed class Hover : AngelinaCard
     {
         // 第一步：获得临时飞行
         await PowerCmd.Apply<TemporaryFlyPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["TemporaryFlyPower"].BaseValue,
             base.Owner.Creature,

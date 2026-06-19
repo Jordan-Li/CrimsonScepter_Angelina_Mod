@@ -52,6 +52,7 @@ public sealed class NaturalBurst : AngelinaCard
         // 先播放施法动作，再挂上持续 Power。
         await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<NaturalBurstPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["NaturalBurstPower"].BaseValue,
             base.Owner.Creature,

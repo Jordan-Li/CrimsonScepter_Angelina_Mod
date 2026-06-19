@@ -56,7 +56,7 @@ public sealed class MiracleCourier : AngelinaCard
 
         // 获取现有的寄送Power；如果没有，就创建一个
         DeliveryPower? deliveryPower = base.Owner.Creature.GetPower<DeliveryPower>();
-        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
 
         if (deliveryPower == null)
         {

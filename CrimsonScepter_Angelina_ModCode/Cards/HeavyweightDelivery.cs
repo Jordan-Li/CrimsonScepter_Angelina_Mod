@@ -64,7 +64,7 @@ public sealed class HeavyweightDelivery : DeliveredCardModel
                     continue;
                 }
 
-                await PowerCmd.Apply<ImbalancePower>(enemy, imbalanceAmount, base.Owner.Creature, this);
+                await PowerCmd.Apply<ImbalancePower>(choiceContext, enemy, imbalanceAmount, base.Owner.Creature, this);
             }
         }
     }
@@ -76,9 +76,10 @@ public sealed class HeavyweightDelivery : DeliveredCardModel
         return Task.CompletedTask;
     }
 
-    public override Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         _ = choiceContext;
+        _ = participants;
 
         if (side == base.Owner.Creature.Side)
         {

@@ -83,8 +83,9 @@ public sealed class ImbalancePower : AngelinaPower
     /// <summary>
     /// 层数变化后刷新说明；只有在层数增加时才尝试触发。
     /// </summary>
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
+        _ = choiceContext;
         if (power != this)
         {
             return;
@@ -153,7 +154,7 @@ public sealed class ImbalancePower : AngelinaPower
 
             await PowerCmd.Remove(this);
 
-            await PowerCmd.Apply<WeightlessPower>(base.Owner, WeightlessDuration, applier ?? base.Owner, cardSource);
+            await PowerCmd.Apply<WeightlessPower>(new ThrowingPlayerChoiceContext(), base.Owner, WeightlessDuration, applier ?? base.Owner, cardSource);
 
             if (!base.Owner.IsAlive)
             {

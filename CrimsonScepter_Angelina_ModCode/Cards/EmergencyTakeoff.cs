@@ -66,6 +66,7 @@ public sealed class EmergencyTakeoff : AngelinaCard
     {
         // 第一步：给予自己失衡。
         await PowerCmd.Apply<ImbalancePower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["ImbalancePower"].BaseValue,
             base.Owner.Creature,
@@ -74,6 +75,7 @@ public sealed class EmergencyTakeoff : AngelinaCard
 
         // 第二步：给予自己临时飞行。
         await PowerCmd.Apply<TemporaryFlyPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["TemporaryFlyPower"].BaseValue,
             base.Owner.Creature,

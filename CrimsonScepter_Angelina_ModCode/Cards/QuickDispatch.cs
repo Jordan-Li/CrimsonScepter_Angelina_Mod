@@ -80,7 +80,7 @@ public sealed class QuickDispatch : AngelinaCard
         // 立即送达可能会把寄送队列送空，并导致旧的 DeliveryPower 自行移除。
         // 这里重新获取一次，避免后续把新牌加入到已经失效的旧实例里。
         deliveryPower = base.Owner.Creature.GetPower<DeliveryPower>();
-        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
         if (deliveryPower == null)
         {
             return;

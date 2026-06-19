@@ -44,6 +44,7 @@ public sealed class Chant : AngelinaCard
         _ = cardPlay;
 
         await PowerCmd.Apply<ChantTemporaryFocusNextTurnPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["ChantTemporaryFocusNextTurnPower"].BaseValue,
             base.Owner.Creature,

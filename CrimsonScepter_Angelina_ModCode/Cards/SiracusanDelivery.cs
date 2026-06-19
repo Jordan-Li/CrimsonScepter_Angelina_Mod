@@ -33,12 +33,12 @@ public sealed class SiracusanDelivery : AngelinaCard
     {
         _ = cardPlay;
 
-        CombatState combatState = base.CombatState ?? throw new InvalidOperationException("CombatState is null during SiracusanDelivery.OnPlay.");
+        ICombatState combatState = base.CombatState ?? throw new InvalidOperationException("CombatState is null during SiracusanDelivery.OnPlay.");
 
         await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
 
         CardModel unclaimedParcel = combatState.CreateCard<UnclaimedParcel>(base.Owner);
-        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(unclaimedParcel, PileType.Discard, addedByPlayer: true));
+        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(unclaimedParcel, PileType.Discard, base.Owner));
     }
 
     protected override void OnUpgrade()

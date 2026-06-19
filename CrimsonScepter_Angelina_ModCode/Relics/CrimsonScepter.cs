@@ -75,11 +75,13 @@ public sealed class CrimsonScepter : AngelinaRelic
     /// 这里只响应本次受击后紧接着发生的浮空相关 Power 变化。
     /// </summary>
     public override async Task AfterPowerAmountChanged(
+        PlayerChoiceContext choiceContext,
         PowerModel power,
         decimal amount,
         Creature? applier,
         CardModel? cardSource)
     {
+        _ = choiceContext;
         _ = applier;
 
         if (!CombatManager.Instance.IsInProgress || TemporaryFlyPower.IsResolvingExpiration || amount >= 0m)
@@ -106,6 +108,7 @@ public sealed class CrimsonScepter : AngelinaRelic
 
         Flash();
         await PowerCmd.Apply<ImbalancePower>(
+            choiceContext,
             target,
             base.DynamicVars["ImbalancePower"].BaseValue,
             base.Owner.Creature,

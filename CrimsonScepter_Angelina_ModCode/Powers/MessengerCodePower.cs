@@ -74,7 +74,7 @@ public sealed class MessengerCodePower : AngelinaPower
         Flash();
 
         DeliveryPower? deliveryPower = base.Owner.GetPower<DeliveryPower>();
-        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(base.Owner, 1m, base.Owner, null!);
+        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(new ThrowingPlayerChoiceContext(), base.Owner, 1m, base.Owner, null!);
 
         if (deliveryPower is null)
         {

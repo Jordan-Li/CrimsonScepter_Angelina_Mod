@@ -46,6 +46,7 @@ public sealed class ParticleMode : AngelinaCard
     {
         await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<ParticleModePower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["ParticleModePower"].BaseValue,
             base.Owner.Creature,

@@ -45,6 +45,7 @@ public sealed class RealityManipulation : AngelinaCard
         // 先播放施法动作，再挂上持续 Power。
         await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<RealityManipulationPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["RealityManipulationPower"].BaseValue,
             base.Owner.Creature,

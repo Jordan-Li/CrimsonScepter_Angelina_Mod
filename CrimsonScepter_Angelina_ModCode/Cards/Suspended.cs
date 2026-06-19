@@ -43,6 +43,7 @@ public sealed class Suspended : AngelinaCard
     {
         // 对自己施加飞行层数。
         await PowerCmd.Apply<FlyPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["FlyPower"].BaseValue,
             base.Owner.Creature,

@@ -60,6 +60,7 @@ public sealed class AntiGravity : AngelinaCard
         await PlayAntiGravityStrikeVfx(base.Owner.Creature, cardPlay.Target);
 
         await PowerCmd.Apply<ImbalancePower>(
+            choiceContext,
             cardPlay.Target,
             base.DynamicVars["ImbalancePower"].BaseValue,
             base.Owner.Creature,
@@ -80,6 +81,7 @@ public sealed class AntiGravity : AngelinaCard
         }
 
         await PowerCmd.Apply<TemporaryFlyPower>(
+            choiceContext,
             cardPlay.Target,
             base.DynamicVars["TemporaryFlyPower"].BaseValue,
             base.Owner.Creature,

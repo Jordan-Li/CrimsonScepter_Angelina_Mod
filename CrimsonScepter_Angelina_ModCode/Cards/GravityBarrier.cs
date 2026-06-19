@@ -71,6 +71,7 @@ public sealed class GravityBarrier : AngelinaCard
 
         // 第三步：对自己施加重力结界 Power，用于本回合追踪“完全格挡敌伤”后的反制效果。
         await PowerCmd.Apply<GravityBarrierPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["GravityBarrierPower"].BaseValue,
             base.Owner.Creature,

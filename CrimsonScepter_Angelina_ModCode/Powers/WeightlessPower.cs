@@ -120,8 +120,9 @@ public sealed class WeightlessPower : AngelinaPower
     }
 
     // 在拥有者所属阵营的回合开始时，持续时间减 1；归零时移除。
-    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
+    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
+        _ = participants;
         _ = choiceContext;
         _ = combatState;
 

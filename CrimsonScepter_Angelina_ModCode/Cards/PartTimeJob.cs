@@ -52,6 +52,7 @@ public sealed class PartTimeJob : AngelinaCard
     {
         // 这张牌本身不立即回血，而是把“回合结束时检查是否打过攻击牌”的逻辑挂到 Power 里。
         await PowerCmd.Apply<PartTimeJobPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["Heal"].BaseValue,
             base.Owner.Creature,

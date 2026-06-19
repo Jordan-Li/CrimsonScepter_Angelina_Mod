@@ -85,7 +85,7 @@ public sealed class ImportantCommission : DeliveredCardModel
             persistentCard.ProgressCount = 0;
             var relic = RelicFactory.PullNextRelicFromFront(base.Owner).ToMutable();
             await RelicCmd.Obtain(relic, base.Owner);
-            await PowerCmd.Apply<ImportantCommissionRewardLockPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+            await PowerCmd.Apply<ImportantCommissionRewardLockPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
             shouldExhaustOnResolve = true;
 
             if (choiceContext != null && Pile?.Type != PileType.Exhaust)

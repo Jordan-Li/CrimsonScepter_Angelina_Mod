@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -32,8 +33,9 @@ public sealed class StaffCounterweight : AngelinaRelic
         HoverTipFactory.FromPower<FlyPower>()
     };
 
-    public override async Task AfterAttack(AttackCommand command)
+    public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
     {
+        _ = choiceContext;
         if (command.Attacker != base.Owner.Creature ||
             command.ModelSource is not CardModel cardSource ||
             cardSource.Type != CardType.Attack)
@@ -42,6 +44,7 @@ public sealed class StaffCounterweight : AngelinaRelic
         }
 
         List<FlyPower> flyPowers = command.Results
+            .SelectMany(results => results)
             .Select(result => result.Receiver.GetPower<FlyPower>())
             .Where(power => power != null && power.Amount > 0m)
             .Distinct()

@@ -4,6 +4,7 @@ using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 
@@ -42,7 +43,7 @@ public sealed class SecurityCheckPower : AngelinaPower
         foreach (var enemy in (base.CombatState?.HittableEnemies ?? Enumerable.Empty<MegaCrit.Sts2.Core.Entities.Creatures.Creature>())
                  .Where(enemy => enemy.IsAlive))
         {
-            await PowerCmd.Apply<ImbalancePower>(enemy, base.Amount, base.Owner, null);
+            await PowerCmd.Apply<ImbalancePower>(new ThrowingPlayerChoiceContext(), enemy, base.Amount, base.Owner, null);
         }
 
         return true;

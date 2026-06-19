@@ -46,7 +46,7 @@ public sealed class BeaconDelivery : DeliveredCardModel
     {
         _ = deliveryPower;
 
-        await CardPileCmd.Add(this, PileType.Exhaust, source: this);
+        await CardPileCmd.Add(this, PileType.Exhaust, clonedBy: this);
 
         CardPile drawPile = PileType.Draw.GetPile(base.Owner);
         int maxSelectCount = System.Math.Min(base.DynamicVars.Cards.IntValue, drawPile.Cards.Count);
@@ -67,7 +67,7 @@ public sealed class BeaconDelivery : DeliveredCardModel
             return;
         }
 
-        await CardPileCmd.Add(cardsToAdd, PileType.Hand, source: this);
+        await CardPileCmd.Add(cardsToAdd, PileType.Hand, clonedBy: this);
     }
 
     protected override void OnUpgrade()

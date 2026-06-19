@@ -84,6 +84,7 @@ public sealed class DownHere : AngelinaCard
             {
                 // 对浮空敌人施加虚弱。
                 await PowerCmd.Apply<WeakPower>(
+                    choiceContext,
                     enemy,
                     base.DynamicVars["WeakPower"].BaseValue,
                     base.Owner.Creature,
@@ -92,6 +93,7 @@ public sealed class DownHere : AngelinaCard
 
                 // 对浮空敌人施加失衡。
                 await PowerCmd.Apply<ImbalancePower>(
+                    choiceContext,
                     enemy,
                     base.DynamicVars["ImbalancePower"].BaseValue,
                     base.Owner.Creature,

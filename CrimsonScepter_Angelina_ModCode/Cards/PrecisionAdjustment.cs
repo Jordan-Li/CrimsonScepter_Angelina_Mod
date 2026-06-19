@@ -53,6 +53,7 @@ public sealed class PrecisionAdjustment : AngelinaCard
         {
             // 第一步：对目标施加失衡。
             await PowerCmd.Apply<ImbalancePower>(
+                choiceContext,
                 enemy,
                 base.DynamicVars["ImbalancePower"].BaseValue,
                 base.Owner.Creature,
@@ -61,6 +62,7 @@ public sealed class PrecisionAdjustment : AngelinaCard
 
             // 第二步：施加延时 Power，在下回合开始时扣回固定数值的失衡。
             await PowerCmd.Apply<PrecisionAdjustmentPower>(
+                choiceContext,
                 enemy,
                 base.DynamicVars["PrecisionAdjustmentPower"].BaseValue,
                 base.Owner.Creature,

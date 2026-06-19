@@ -62,6 +62,7 @@ public sealed class ChainTechnique : AngelinaCard
 
         // 先对目标施加失衡。
         await PowerCmd.Apply<ImbalancePower>(
+            choiceContext,
             cardPlay.Target,
             base.DynamicVars["ImbalancePower"].BaseValue,
             base.Owner.Creature,
@@ -72,6 +73,7 @@ public sealed class ChainTechnique : AngelinaCard
         if (_enteredWeightlessByCurrentPlay)
         {
             await PowerCmd.Apply<FocusPower>(
+                choiceContext,
                 base.Owner.Creature,
                 base.DynamicVars["FocusPower"].BaseValue,
                 base.Owner.Creature,
@@ -83,6 +85,7 @@ public sealed class ChainTechnique : AngelinaCard
 
         // 若没有让目标进入失重，则改为获得临时集中。
         await PowerCmd.Apply<ChainTechniqueTemporaryFocusPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["ChainTechniqueTemporaryFocusPower"].BaseValue,
             base.Owner.Creature,
@@ -99,8 +102,9 @@ public sealed class ChainTechnique : AngelinaCard
         base.DynamicVars["FocusPower"].UpgradeValueBy(1m);
     }
 
-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
+        _ = choiceContext;
         _ = applier;
 
         if (!_pendingWeightlessCheck || cardSource != this || amount <= 0m)

@@ -66,6 +66,7 @@ public sealed class ChargedImpact : DeliveredCardModel
 
         // 第一步：对目标施加失衡。
         await PowerCmd.Apply<ImbalancePower>(
+            choiceContext,
             cardPlay.Target,
             base.DynamicVars["ImbalancePower"].BaseValue,
             base.Owner.Creature,

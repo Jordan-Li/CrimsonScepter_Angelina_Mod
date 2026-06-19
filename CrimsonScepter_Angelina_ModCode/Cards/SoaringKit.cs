@@ -55,6 +55,7 @@ public sealed class SoaringKit : DeliveredCardModel
     {
         // 对自己施加飞行层数。
         await PowerCmd.Apply<FlyPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["FlyPower"].BaseValue,
             base.Owner.Creature,
@@ -76,7 +77,7 @@ public sealed class SoaringKit : DeliveredCardModel
         // 遍历所有敌人，逐个施加飞行。
         foreach (Creature enemy in combatState.HittableEnemies)
         {
-            await PowerCmd.Apply<FlyPower>(enemy, 1m, base.Owner.Creature, this);
+            await PowerCmd.Apply<FlyPower>(new ThrowingPlayerChoiceContext(), enemy, 1m, base.Owner.Creature, this);
         }
     }
 }

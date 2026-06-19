@@ -50,6 +50,7 @@ public sealed class ExpressEnchantment : AngelinaEnchantment
 
         DeliveryPower? deliveryPower = sourceCard.Owner.Creature.GetPower<DeliveryPower>();
         deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(
+            choiceContext,
             sourceCard.Owner.Creature,
             1m,
             sourceCard.Owner.Creature,

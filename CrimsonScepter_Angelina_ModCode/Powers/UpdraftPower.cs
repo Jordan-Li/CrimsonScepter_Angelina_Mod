@@ -47,15 +47,18 @@ public sealed class UpdraftPower : AngelinaPower
         return new Data();
     }
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
+        _ = participants;
+        _ = combatState;
+
         // 仅在自身回合开始时，给予等量临时飞行。
         if (side != base.Owner.Side)
         {
             return;
         }
 
-        await PowerCmd.Apply<TemporaryFlyPower>(base.Owner, base.Amount, base.Owner, null);
+        await PowerCmd.Apply<TemporaryFlyPower>(new ThrowingPlayerChoiceContext(), base.Owner, base.Amount, base.Owner, null);
     }
 
     public override Task AfterDamageReceived(
@@ -90,8 +93,10 @@ public sealed class UpdraftPower : AngelinaPower
         return Task.CompletedTask;
     }
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
+        _ = choiceContext;
+
         Data data = GetInternalData<Data>();
         if (!data.PendingAttackGroundedCheck)
         {
@@ -126,7 +131,7 @@ public sealed class UpdraftPower : AngelinaPower
 
         // 脱离浮空后，向抽牌堆中加入一张眩晕并闪烁提示。
         CardModel dazed = base.CombatState.CreateCard<Dazed>(base.Owner.Player);
-        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(dazed, PileType.Draw, addedByPlayer: true));
+        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(dazed, PileType.Draw, base.Owner.Player));
         Flash();
     }
 

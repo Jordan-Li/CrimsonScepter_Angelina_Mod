@@ -1,0 +1,710 @@
+﻿diff --git a/CrimsonScepter_Angelina_ModCode/Cards/ChainTechnique.cs b/CrimsonScepter_Angelina_ModCode/Cards/ChainTechnique.cs
+index 1521307..7359cfa 100644
+--- a/CrimsonScepter_Angelina_ModCode/Cards/ChainTechnique.cs
++++ b/CrimsonScepter_Angelina_ModCode/Cards/ChainTechnique.cs
+@@ -99,8 +99,9 @@ public sealed class ChainTechnique : AngelinaCard
+         base.DynamicVars["FocusPower"].UpgradeValueBy(1m);
+     }
+ 
+-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
++    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+     {
++        _ = choiceContext;
+         _ = applier;
+ 
+         if (!_pendingWeightlessCheck || cardSource != this || amount <= 0m)
+diff --git a/CrimsonScepter_Angelina_ModCode/Cards/ExtremeBeam.cs b/CrimsonScepter_Angelina_ModCode/Cards/ExtremeBeam.cs
+index e92d6f7..29befff 100644
+--- a/CrimsonScepter_Angelina_ModCode/Cards/ExtremeBeam.cs
++++ b/CrimsonScepter_Angelina_ModCode/Cards/ExtremeBeam.cs
+@@ -105,9 +105,9 @@ public sealed class ExtremeBeam : DeliveredCardModel
+         return Task.CompletedTask;
+     }
+ 
+-    protected override PileType GetResultPileType()
++    protected override PileType GetResultPileTypeForCardPlay()
+     {
+-        PileType resultPileType = base.GetResultPileType();
++        PileType resultPileType = base.GetResultPileTypeForCardPlay();
+         if (!IsUpgraded || resultPileType != PileType.Discard)
+         {
+             return resultPileType;
+diff --git a/CrimsonScepter_Angelina_ModCode/Cards/GravityNode.cs b/CrimsonScepter_Angelina_ModCode/Cards/GravityNode.cs
+index 97afbcd..4a873d4 100644
+--- a/CrimsonScepter_Angelina_ModCode/Cards/GravityNode.cs
++++ b/CrimsonScepter_Angelina_ModCode/Cards/GravityNode.cs
+@@ -274,8 +274,9 @@ public sealed class GravityNode : AngelinaCard
+         base.DynamicVars["ImbalancePower"].BaseValue = GetDisplayedImbalance();
+     }
+ 
+-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
++    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+     {
++        _ = choiceContext;
+         _ = applier;
+ 
+         if (!_pendingWeightlessCheck || cardSource != this || amount <= 0m)
+diff --git a/CrimsonScepter_Angelina_ModCode/Cards/HeavyweightDelivery.cs b/CrimsonScepter_Angelina_ModCode/Cards/HeavyweightDelivery.cs
+index 394d4ae..64eb247 100644
+--- a/CrimsonScepter_Angelina_ModCode/Cards/HeavyweightDelivery.cs
++++ b/CrimsonScepter_Angelina_ModCode/Cards/HeavyweightDelivery.cs
+@@ -76,9 +76,10 @@ public sealed class HeavyweightDelivery : DeliveredCardModel
+         return Task.CompletedTask;
+     }
+ 
+-    public override Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
++    public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+     {
+         _ = choiceContext;
++        _ = participants;
+ 
+         if (side == base.Owner.Creature.Side)
+         {
+diff --git a/CrimsonScepter_Angelina_ModCode/Cards/MissedTrap.cs b/CrimsonScepter_Angelina_ModCode/Cards/MissedTrap.cs
+index d68ddf7..a52ae5f 100644
+--- a/CrimsonScepter_Angelina_ModCode/Cards/MissedTrap.cs
++++ b/CrimsonScepter_Angelina_ModCode/Cards/MissedTrap.cs
+@@ -103,8 +103,9 @@ public sealed class MissedTrap : AngelinaCard
+         base.DynamicVars["EnergyGain"].UpgradeValueBy(1m);
+     }
+ 
+-    public override Task AfterPowerAmountChanged(MegaCrit.Sts2.Core.Models.PowerModel power, decimal amount, MegaCrit.Sts2.Core.Entities.Creatures.Creature? applier, MegaCrit.Sts2.Core.Models.CardModel? cardSource)
++    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, MegaCrit.Sts2.Core.Models.PowerModel power, decimal amount, MegaCrit.Sts2.Core.Entities.Creatures.Creature? applier, MegaCrit.Sts2.Core.Models.CardModel? cardSource)
+     {
++        _ = choiceContext;
+         _ = applier;
+ 
+         // 这里不能再要求 cardSource == this。
+diff --git a/CrimsonScepter_Angelina_ModCode/Cards/Starbeam.cs b/CrimsonScepter_Angelina_ModCode/Cards/Starbeam.cs
+index 1c431c4..f634e91 100644
+--- a/CrimsonScepter_Angelina_ModCode/Cards/Starbeam.cs
++++ b/CrimsonScepter_Angelina_ModCode/Cards/Starbeam.cs
+@@ -104,8 +104,9 @@ public sealed class Starbeam : AngelinaCard
+         base.DynamicVars.CalculationBase.UpgradeValueBy(2m);
+     }
+ 
+-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
++    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+     {
++        _ = choiceContext;
+         _ = applier;
+ 
+         // 和落空陷阱同理：真正让目标掉飞行的是 FlyPower.AfterDamageReceived -> PowerCmd.Decrement(this)，
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/ChainTechniqueTemporaryFocusPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/ChainTechniqueTemporaryFocusPower.cs
+index 3a36b02..9bc277c 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/ChainTechniqueTemporaryFocusPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/ChainTechniqueTemporaryFocusPower.cs
+@@ -47,8 +47,9 @@ public sealed class ChainTechniqueTemporaryFocusPower : AngelinaPower, ITemporar
+         await PowerCmd.Apply<FocusPower>(target, amount, applier, cardSource, silent: true);
+     }
+ 
+-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
++    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+     {
++        _ = choiceContext;
+         if (power != this || amount == base.Amount)
+         {
+             return;
+@@ -63,8 +64,9 @@ public sealed class ChainTechniqueTemporaryFocusPower : AngelinaPower, ITemporar
+         await PowerCmd.Apply<FocusPower>(base.Owner, amount, applier, cardSource, silent: true);
+     }
+ 
+-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
++    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+     {
++        _ = participants;
+         if (side != base.Owner.Side)
+         {
+             return;
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/DeliveryPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/DeliveryPower.cs
+index 57f96d3..d48164c 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/DeliveryPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/DeliveryPower.cs
+@@ -41,7 +41,7 @@ public sealed class DeliveryPower : AngelinaPower
+     /// <summary>
+     /// 所有寄送牌共用同一个图标，不再一张牌一个Power。
+     /// </summary>
+-    public override bool IsInstanced => false;
++    public override PowerInstanceType InstanceType => PowerInstanceType.None;
+ 
+     /// <summary>
+     /// 层数直接显示当前寄送队列中的牌数。
+@@ -77,7 +77,7 @@ public sealed class DeliveryPower : AngelinaPower
+     /// <summary>
+     /// 每回合抽牌前自动结算全部寄送牌。
+     /// </summary>
+-    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
++    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
+     {
+         _ = choiceContext;
+         _ = combatState;
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/EnergyCyclePower.cs b/CrimsonScepter_Angelina_ModCode/Powers/EnergyCyclePower.cs
+index 339070e..9f24e0d 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/EnergyCyclePower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/EnergyCyclePower.cs
+@@ -4,6 +4,7 @@ using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
+ using MegaCrit.Sts2.Core.Commands;
+ using MegaCrit.Sts2.Core.Combat;
+ using MegaCrit.Sts2.Core.Entities.Cards;
++using MegaCrit.Sts2.Core.Entities.Creatures;
+ using MegaCrit.Sts2.Core.Entities.Powers;
+ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+ using MegaCrit.Sts2.Core.HoverTips;
+@@ -83,8 +84,9 @@ public sealed class EnergyCyclePower : AngelinaPower
+     }
+ 
+     // 在自身这一侧回合结束时，清空本回合各牌型的触发计数。
+-    public override Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
++    public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+     {
++        _ = participants;
+         if (side == base.Owner.Side)
+         {
+             GetInternalData<Data>().TriggerCountsByType.Clear();
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/FastChargeModePower.cs b/CrimsonScepter_Angelina_ModCode/Powers/FastChargeModePower.cs
+index beba509..231baa6 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/FastChargeModePower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/FastChargeModePower.cs
+@@ -31,20 +31,22 @@ public sealed class FastChargeModePower : AngelinaPower
+     ];
+ 
+     // 当拥有者给目标施加失衡时，把正向数值翻倍
+-    public override decimal ModifyPowerAmountGiven(PowerModel power, Creature giver, decimal amount, Creature? target, CardModel? cardSource)
++    public override decimal ModifyPowerAmountGivenMultiplicative(PowerModel power, Creature giver, decimal amount, Creature? target, CardModel? cardSource)
+     {
+         if (power is not ImbalancePower || giver != base.Owner || amount <= 0m)
+         {
+-            return amount;
++            return 1m;
+         }
+ 
+         Flash();
+-        return amount * 2m;
++        return 2m;
+     }
+ 
+     // 持续到己方回合结束
+-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
++    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+     {
++        _ = participants;
++
+         if (side == base.Owner.Side)
+         {
+             if (base.Amount <= 1m)
+@@ -53,7 +55,7 @@ public sealed class FastChargeModePower : AngelinaPower
+                 return;
+             }
+ 
+-            await PowerCmd.Apply<FastChargeModePower>(base.Owner, -1m, base.Owner, null);
++            await PowerCmd.Apply<FastChargeModePower>(choiceContext, base.Owner, -1m, base.Owner, null);
+         }
+     }
+ }
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/FlyPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/FlyPower.cs
+index 401cb8a..0df747e 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/FlyPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/FlyPower.cs
+@@ -51,8 +51,9 @@ public sealed class FlyPower : AngelinaPower
+     /// 自己的层数发生变化后，同样检查是否需要清空。
+     /// 玩家持有飞行时，还需要主动刷新敌方意图预览。
+     /// </summary>
+-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
++    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+     {
++        _ = choiceContext;
+         if (power != this)
+         {
+             return;
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/GlitterstreamAngelinaPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/GlitterstreamAngelinaPower.cs
+index 708096c..04c61a6 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/GlitterstreamAngelinaPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/GlitterstreamAngelinaPower.cs
+@@ -3,6 +3,7 @@ using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
+ using MegaCrit.Sts2.Core.Commands;
+ using MegaCrit.Sts2.Core.Combat;
+ using MegaCrit.Sts2.Core.Entities.Cards;
++using MegaCrit.Sts2.Core.Entities.Creatures;
+ using MegaCrit.Sts2.Core.Entities.Powers;
+ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+ using MegaCrit.Sts2.Core.Models;
+@@ -21,7 +22,7 @@ public sealed class GlitterstreamAngelinaPower : AngelinaPower
+ 
+     public override PowerStackType StackType => PowerStackType.Counter;
+ 
+-    public override bool IsInstanced => false;
++    public override PowerInstanceType InstanceType => PowerInstanceType.None;
+ 
+     public override bool ShouldScaleInMultiplayer => false;
+ 
+@@ -56,8 +57,9 @@ public sealed class GlitterstreamAngelinaPower : AngelinaPower
+         return Task.CompletedTask;
+     }
+ 
+-    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
++    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+     {
++        _ = participants;
+         _ = choiceContext;
+         _ = combatState;
+ 
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/GravityBarrierPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/GravityBarrierPower.cs
+index b8f337a..c5d4d9e 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/GravityBarrierPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/GravityBarrierPower.cs
+@@ -55,12 +55,13 @@ public sealed class GravityBarrierPower : AngelinaPower
+         await PowerCmd.Apply<ImbalancePower>(dealer, base.Amount, base.Owner, cardSource);
+     }
+ 
+-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
++    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+     {
++        _ = participants;
+         // 回合结束后移除此效果，使其只在本回合内生效。
+         if (base.Owner.Side != side)
+         {
+             await PowerCmd.Remove(this);
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/GravityModePower.cs b/CrimsonScepter_Angelina_ModCode/Powers/GravityModePower.cs
+index dc54908..b654556 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/GravityModePower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/GravityModePower.cs
+@@ -62,8 +62,9 @@ public sealed class GravityModePower : AngelinaPower
+         await PowerCmd.Apply<ImbalancePower>(target, result.UnblockedDamage, base.Owner, cardSource);
+     }
+ 
+-    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
++    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+     {
++        _ = participants;
+         _ = choiceContext;
+         _ = combatState;
+ 
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/ImbalancePower.cs b/CrimsonScepter_Angelina_ModCode/Powers/ImbalancePower.cs
+index 76e003e..6dd710a 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/ImbalancePower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/ImbalancePower.cs
+@@ -83,8 +83,9 @@ public sealed class ImbalancePower : AngelinaPower
+     /// <summary>
+     /// 层数变化后刷新说明；只有在层数增加时才尝试触发。
+     /// </summary>
+-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
++    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+     {
++        _ = choiceContext;
+         if (power != this)
+         {
+             return;
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/InertiaPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/InertiaPower.cs
+index 7c8e9d6..1926c66 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/InertiaPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/InertiaPower.cs
+@@ -36,7 +36,7 @@ public sealed class InertiaPower : AngelinaPower
+     ];
+ 
+     // 在正常抽牌前，如果已经有失重敌人，则额外抽牌。
+-    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
++    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
+     {
+         if (player != base.Owner.Player || !HasWeightlessEnemy())
+         {
+@@ -48,8 +48,10 @@ public sealed class InertiaPower : AngelinaPower
+     }
+ 
+     // 当任意 Power 数值变化后，尝试监听敌方新增的失重。
+-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
++    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+     {
++        _ = choiceContext;
++
+         if (amount > 0m)
+         {
+             await TryTriggerFromPower(power);
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/MatrixDisplacementPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/MatrixDisplacementPower.cs
+index c899cf8..0ee6de3 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/MatrixDisplacementPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/MatrixDisplacementPower.cs
+@@ -68,8 +68,9 @@ public sealed class MatrixDisplacementPower : AngelinaPower
+         }
+     }
+ 
+-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
++    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+     {
++        _ = participants;
+         if (side != base.Owner.Side)
+         {
+             await PowerCmd.Remove(this);
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/PartTimeJobPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/PartTimeJobPower.cs
+index 139fe55..074abea 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/PartTimeJobPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/PartTimeJobPower.cs
+@@ -4,6 +4,7 @@ using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
+ using MegaCrit.Sts2.Core.Combat;
+ using MegaCrit.Sts2.Core.Commands;
+ using MegaCrit.Sts2.Core.Entities.Cards;
++using MegaCrit.Sts2.Core.Entities.Creatures;
+ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+ using MegaCrit.Sts2.Core.Models.Powers;
+ using MegaCrit.Sts2.Core.Entities.Powers;
+@@ -23,8 +24,9 @@ public sealed class PartTimeJobPower : AngelinaPower
+     public override bool ShouldScaleInMultiplayer => false;
+ 
+     // 回合结束时检查这一回合是否打出过攻击牌，若没有则恢复生命值，然后移除此 Power。
+-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
++    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+     {
++        _ = participants;
+         // 只在自身这一侧的回合结束时触发；缺少玩家或战斗状态时直接跳过。
+         if (side != base.Owner.Side || base.Owner.Player == null || base.CombatState == null)
+         {
+@@ -47,4 +49,4 @@ public sealed class PartTimeJobPower : AngelinaPower
+         // 无论是否恢复，回合结束后都移除此 Power。
+         await PowerCmd.Remove(this);
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/ParticleModePower.cs b/CrimsonScepter_Angelina_ModCode/Powers/ParticleModePower.cs
+index 6dc01b3..11f5351 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/ParticleModePower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/ParticleModePower.cs
+@@ -111,8 +111,9 @@ public sealed class ParticleModePower : AngelinaPower
+     }
+ 
+     // 回合结束时清空“本回合已返回过”的记录。
+-    public override Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
++    public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+     {
++        _ = participants;
+         if (side == base.Owner.Side)
+         {
+             GetInternalData<Data>().ReturnedAttacksThisTurn.Clear();
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/PrecisionAdjustmentPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/PrecisionAdjustmentPower.cs
+index 602fd93..a650f34 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/PrecisionAdjustmentPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/PrecisionAdjustmentPower.cs
+@@ -40,8 +40,9 @@ public sealed class PrecisionAdjustmentPower : AngelinaPower
+         return Task.CompletedTask;
+     }
+ 
+-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
++    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+     {
++        _ = participants;
+         if (side != _triggerSide)
+         {
+             return;
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/QualityVisitorSecretPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/QualityVisitorSecretPower.cs
+index 3c6802c..0e609f4 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/QualityVisitorSecretPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/QualityVisitorSecretPower.cs
+@@ -2,6 +2,7 @@
+ using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
+ using MegaCrit.Sts2.Core.Commands;
+ using MegaCrit.Sts2.Core.Combat;
++using MegaCrit.Sts2.Core.Entities.Creatures;
+ using MegaCrit.Sts2.Core.Entities.Powers;
+ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+ 
+@@ -18,12 +19,13 @@ public sealed class QualityVisitorSecretPower : AngelinaPower
+ 
+     public override bool ShouldScaleInMultiplayer => false;
+ 
+-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
++    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+     {
++        _ = participants;
+         // 彩蛋提示只持续到己方回合结束。
+         if (side == base.Owner.Side)
+         {
+             await PowerCmd.Remove(this);
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/StaggerPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/StaggerPower.cs
+index 1bd4b1b..3c81ee5 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/StaggerPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/StaggerPower.cs
+@@ -57,8 +57,9 @@ public sealed class StaggerPower : AngelinaPower
+         return Task.CompletedTask;
+     }
+ 
+-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
++    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+     {
++        _ = choiceContext;
+         if (power == this)
+         {
+             RefreshDisplay();
+@@ -68,8 +69,9 @@ public sealed class StaggerPower : AngelinaPower
+     }
+ 
+     // 到拥有者自己回合结束时移除
+-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
++    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+     {
++        _ = participants;
+         if (side == base.Owner.Side)
+         {
+             await PowerCmd.Remove(this);
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/TemporaryFlyPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/TemporaryFlyPower.cs
+index c150f51..d578179 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/TemporaryFlyPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/TemporaryFlyPower.cs
+@@ -55,12 +55,14 @@ public sealed class TemporaryFlyPower : AngelinaPower
+             return;
+         }
+ 
+-        await PowerCmd.Apply<FlyPower>(target, amount, applier, cardSource, silent: true);
++        await PowerCmd.Apply<FlyPower>(new ThrowingPlayerChoiceContext(), target, amount, applier, cardSource, silent: true);
+     }
+ 
+     // 自身层数变化时，同步修改飞行层数。
+-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
++    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+     {
++        _ = choiceContext;
++
+         if (power != this || amount == base.Amount)
+         {
+             return;
+@@ -72,13 +74,14 @@ public sealed class TemporaryFlyPower : AngelinaPower
+             return;
+         }
+ 
+-        await PowerCmd.Apply<FlyPower>(base.Owner, amount, applier, cardSource, silent: true);
++        await PowerCmd.Apply<FlyPower>(new ThrowingPlayerChoiceContext(), base.Owner, amount, applier, cardSource, silent: true);
+     }
+ 
+     // 到拥有者回合开始时，移除这层临时飞行，并扣掉等量飞行。
+-    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
++    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+     {
+         _ = choiceContext;
++        _ = participants;
+         _ = combatState;
+ 
+         if (side != base.Owner.Side)
+@@ -92,7 +95,7 @@ public sealed class TemporaryFlyPower : AngelinaPower
+         try
+         {
+             await PowerCmd.Remove(this);
+-            await PowerCmd.Apply<FlyPower>(base.Owner, -amountToRemove, base.Owner, null, silent: true);
++            await PowerCmd.Apply<FlyPower>(new ThrowingPlayerChoiceContext(), base.Owner, -amountToRemove, base.Owner, null, silent: true);
+         }
+         finally
+         {
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/TimeCapsulePower.cs b/CrimsonScepter_Angelina_ModCode/Powers/TimeCapsulePower.cs
+index da0e5a1..7e44ef2 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/TimeCapsulePower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/TimeCapsulePower.cs
+@@ -21,7 +21,7 @@ public sealed class TimeCapsulePower : AngelinaPower
+ 
+     public override PowerStackType StackType => PowerStackType.Counter;
+ 
+-    public override bool IsInstanced => false;
++    public override PowerInstanceType InstanceType => PowerInstanceType.None;
+ 
+     public override int DisplayAmount => GetTrackedCards().Count;
+ 
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/UpdraftPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/UpdraftPower.cs
+index b78d258..413c7b2 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/UpdraftPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/UpdraftPower.cs
+@@ -47,15 +47,18 @@ public sealed class UpdraftPower : AngelinaPower
+         return new Data();
+     }
+ 
+-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
++    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+     {
++        _ = participants;
++        _ = combatState;
++
+         // 仅在自身回合开始时，给予等量临时飞行。
+         if (side != base.Owner.Side)
+         {
+             return;
+         }
+ 
+-        await PowerCmd.Apply<TemporaryFlyPower>(base.Owner, base.Amount, base.Owner, null);
++        await PowerCmd.Apply<TemporaryFlyPower>(new ThrowingPlayerChoiceContext(), base.Owner, base.Amount, base.Owner, null);
+     }
+ 
+     public override Task AfterDamageReceived(
+@@ -90,8 +93,10 @@ public sealed class UpdraftPower : AngelinaPower
+         return Task.CompletedTask;
+     }
+ 
+-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
++    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+     {
++        _ = choiceContext;
++
+         Data data = GetInternalData<Data>();
+         if (!data.PendingAttackGroundedCheck)
+         {
+@@ -126,7 +131,7 @@ public sealed class UpdraftPower : AngelinaPower
+ 
+         // 脱离浮空后，向抽牌堆中加入一张眩晕并闪烁提示。
+         CardModel dazed = base.CombatState.CreateCard<Dazed>(base.Owner.Player);
+-        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(dazed, PileType.Draw, addedByPlayer: true));
++        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(dazed, PileType.Draw, base.Owner.Player));
+         Flash();
+     }
+ 
+diff --git a/CrimsonScepter_Angelina_ModCode/Powers/WeightlessPower.cs b/CrimsonScepter_Angelina_ModCode/Powers/WeightlessPower.cs
+index 414bc74..bb7ef77 100644
+--- a/CrimsonScepter_Angelina_ModCode/Powers/WeightlessPower.cs
++++ b/CrimsonScepter_Angelina_ModCode/Powers/WeightlessPower.cs
+@@ -120,8 +120,9 @@ public sealed class WeightlessPower : AngelinaPower
+     }
+ 
+     // 在拥有者所属阵营的回合开始时，持续时间减 1；归零时移除。
+-    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
++    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+     {
++        _ = participants;
+         _ = choiceContext;
+         _ = combatState;
+ 
+diff --git a/CrimsonScepter_Angelina_ModCode/Relics/CalibrationModule.cs b/CrimsonScepter_Angelina_ModCode/Relics/CalibrationModule.cs
+index b9bc027..20c4c79 100644
+--- a/CrimsonScepter_Angelina_ModCode/Relics/CalibrationModule.cs
++++ b/CrimsonScepter_Angelina_ModCode/Relics/CalibrationModule.cs
+@@ -30,7 +30,7 @@ public sealed class CalibrationModule : AngelinaRelic
+         HoverTipFactory.FromPower<ImbalancePower>()
+     };
+ 
+-    public override decimal ModifyPowerAmountGiven(
++    public override decimal ModifyPowerAmountGivenAdditive(
+         PowerModel power,
+         Creature giver,
+         decimal amount,
+@@ -42,10 +42,10 @@ public sealed class CalibrationModule : AngelinaRelic
+ 
+         if (power is not ImbalancePower || giver != base.Owner.Creature)
+         {
+-            return amount;
++            return 0m;
+         }
+ 
+-        return amount + base.DynamicVars["ImbalancePower"].BaseValue;
++        return base.DynamicVars["ImbalancePower"].BaseValue;
+     }
+ 
+     public override Task AfterModifyingPowerAmountGiven(PowerModel power)
+@@ -57,4 +57,4 @@ public sealed class CalibrationModule : AngelinaRelic
+ 
+         return Task.CompletedTask;
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/CrimsonScepter_Angelina_ModCode/Relics/CrimsonScepter.cs b/CrimsonScepter_Angelina_ModCode/Relics/CrimsonScepter.cs
+index c317eea..fd47545 100644
+--- a/CrimsonScepter_Angelina_ModCode/Relics/CrimsonScepter.cs
++++ b/CrimsonScepter_Angelina_ModCode/Relics/CrimsonScepter.cs
+@@ -75,11 +75,13 @@ public sealed class CrimsonScepter : AngelinaRelic
+     /// 这里只响应本次受击后紧接着发生的浮空相关 Power 变化。
+     /// </summary>
+     public override async Task AfterPowerAmountChanged(
++        PlayerChoiceContext choiceContext,
+         PowerModel power,
+         decimal amount,
+         Creature? applier,
+         CardModel? cardSource)
+     {
++        _ = choiceContext;
+         _ = applier;
+ 
+         if (!CombatManager.Instance.IsInProgress || TemporaryFlyPower.IsResolvingExpiration || amount >= 0m)
+diff --git a/CrimsonScepter_Angelina_ModCode/Relics/PortableStargate.cs b/CrimsonScepter_Angelina_ModCode/Relics/PortableStargate.cs
+index bea912e..de1a1bf 100644
+--- a/CrimsonScepter_Angelina_ModCode/Relics/PortableStargate.cs
++++ b/CrimsonScepter_Angelina_ModCode/Relics/PortableStargate.cs
+@@ -6,6 +6,7 @@ using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
+ using MegaCrit.Sts2.Core.Combat;
+ using MegaCrit.Sts2.Core.Commands;
+ using MegaCrit.Sts2.Core.Entities.Cards;
++using MegaCrit.Sts2.Core.Entities.Creatures;
+ using MegaCrit.Sts2.Core.Entities.Relics;
+ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+ using MegaCrit.Sts2.Core.HoverTips;
+@@ -118,8 +119,9 @@ public sealed class PortableStargate : AngelinaRelic
+         await CardPileCmd.Draw(new ThrowingPlayerChoiceContext(), base.DynamicVars.Cards.IntValue, base.Owner);
+     }
+ 
+-    public override Task AfterSideTurnStart(CombatSide side, CombatState combatState)
++    public override Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+     {
++        _ = participants;
+         _ = combatState;
+ 
+         if (side != base.Owner.Creature.Side)
+diff --git a/CrimsonScepter_Angelina_ModCode/Relics/SecretCrimsonScepter.cs b/CrimsonScepter_Angelina_ModCode/Relics/SecretCrimsonScepter.cs
+index 50a5313..90ad25d 100644
+--- a/CrimsonScepter_Angelina_ModCode/Relics/SecretCrimsonScepter.cs
++++ b/CrimsonScepter_Angelina_ModCode/Relics/SecretCrimsonScepter.cs
+@@ -104,11 +104,13 @@ public sealed class SecretCrimsonScepter : AngelinaRelic
+     /// 这里只响应本次受击后紧接着发生的浮空相关 Power 变化。
+     /// </summary>
+     public override async Task AfterPowerAmountChanged(
++        PlayerChoiceContext choiceContext,
+         PowerModel power,
+         decimal amount,
+         Creature? applier,
+         CardModel? cardSource)
+     {
++        _ = choiceContext;
+         _ = applier;
+ 
+         if (!CombatManager.Instance.IsInProgress || TemporaryFlyPower.IsResolvingExpiration || amount >= 0m)
+@@ -142,8 +144,9 @@ public sealed class SecretCrimsonScepter : AngelinaRelic
+         );
+     }
+ 
+-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
++    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+     {
++        _ = participants;
+         if (side != base.Owner.Creature.Side)
+         {
+             return;
+diff --git a/CrimsonScepter_Angelina_ModCode/Relics/StaffCounterweight.cs b/CrimsonScepter_Angelina_ModCode/Relics/StaffCounterweight.cs
+index d32eed6..2d57fdd 100644
+--- a/CrimsonScepter_Angelina_ModCode/Relics/StaffCounterweight.cs
++++ b/CrimsonScepter_Angelina_ModCode/Relics/StaffCounterweight.cs
+@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Commands;
+ using MegaCrit.Sts2.Core.Commands.Builders;
+ using MegaCrit.Sts2.Core.Entities.Cards;
+ using MegaCrit.Sts2.Core.Entities.Relics;
++using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+ using MegaCrit.Sts2.Core.HoverTips;
+ using MegaCrit.Sts2.Core.Localization.DynamicVars;
+ using MegaCrit.Sts2.Core.Models;
+@@ -32,8 +33,9 @@ public sealed class StaffCounterweight : AngelinaRelic
+         HoverTipFactory.FromPower<FlyPower>()
+     };
+ 
+-    public override async Task AfterAttack(AttackCommand command)
++    public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
+     {
++        _ = choiceContext;
+         if (command.Attacker != base.Owner.Creature ||
+             command.ModelSource is not CardModel cardSource ||
+             cardSource.Type != CardType.Attack)
+@@ -58,4 +60,4 @@ public sealed class StaffCounterweight : AngelinaRelic
+             await PowerCmd.Decrement(flyPower);
+         }
+     }
+-}
+\ No newline at end of file
++}

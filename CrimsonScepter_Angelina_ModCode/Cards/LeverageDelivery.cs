@@ -55,7 +55,7 @@ public sealed class LeverageDelivery : AngelinaCard
 
         if (selectedCard is CardModel cardToSend)
         {
-            deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+            deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
             await CardCmd.Exhaust(choiceContext, cardToSend);
 
             if (deliveryPower != null)

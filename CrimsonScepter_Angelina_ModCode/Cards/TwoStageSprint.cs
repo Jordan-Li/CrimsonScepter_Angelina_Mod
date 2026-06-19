@@ -58,6 +58,7 @@ public sealed class TwoStageSprint : AngelinaCard
         if (GetTimesPlayedThisCombat() >= 2)
         {
             await PowerCmd.Apply<TemporaryFlyPower>(
+                choiceContext,
                 base.Owner.Creature,
                 base.DynamicVars["TemporaryFlyPower"].BaseValue,
                 base.Owner.Creature,

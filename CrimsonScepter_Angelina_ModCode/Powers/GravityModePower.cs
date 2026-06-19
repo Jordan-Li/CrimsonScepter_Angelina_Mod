@@ -59,11 +59,12 @@ public sealed class GravityModePower : AngelinaPower
 
         data.HasTriggeredThisTurn = true;
         Flash();
-        await PowerCmd.Apply<ImbalancePower>(target, result.UnblockedDamage, base.Owner, cardSource);
+        await PowerCmd.Apply<ImbalancePower>(choiceContext, target, result.UnblockedDamage, base.Owner, cardSource);
     }
 
-    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
+    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
+        _ = participants;
         _ = choiceContext;
         _ = combatState;
 

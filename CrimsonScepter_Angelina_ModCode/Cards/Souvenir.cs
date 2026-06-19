@@ -50,7 +50,7 @@ public sealed class Souvenir : AngelinaCard
         }
 
         selectedCard.SetToFreeThisTurn();
-        await CardPileCmd.AddGeneratedCardToCombat(selectedCard, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(selectedCard, PileType.Hand, base.Owner);
     }
 
     protected override void OnUpgrade()

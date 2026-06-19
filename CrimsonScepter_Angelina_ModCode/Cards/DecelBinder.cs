@@ -58,6 +58,7 @@ public sealed class DecelBinder : AngelinaCard
         // 先播放施法动作，再挂上持续 Power。
         await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<DecelBinderPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["DecelBinderPower"].BaseValue,
             base.Owner.Creature,

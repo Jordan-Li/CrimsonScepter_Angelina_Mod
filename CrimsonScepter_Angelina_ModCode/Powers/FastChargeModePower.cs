@@ -31,20 +31,22 @@ public sealed class FastChargeModePower : AngelinaPower
     ];
 
     // 当拥有者给目标施加失衡时，把正向数值翻倍
-    public override decimal ModifyPowerAmountGiven(PowerModel power, Creature giver, decimal amount, Creature? target, CardModel? cardSource)
+    public override decimal ModifyPowerAmountGivenMultiplicative(PowerModel power, Creature giver, decimal amount, Creature? target, CardModel? cardSource)
     {
         if (power is not ImbalancePower || giver != base.Owner || amount <= 0m)
         {
-            return amount;
+            return 1m;
         }
 
         Flash();
-        return amount * 2m;
+        return 2m;
     }
 
     // 持续到己方回合结束
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
+        _ = participants;
+
         if (side == base.Owner.Side)
         {
             if (base.Amount <= 1m)
@@ -53,7 +55,7 @@ public sealed class FastChargeModePower : AngelinaPower
                 return;
             }
 
-            await PowerCmd.Apply<FastChargeModePower>(base.Owner, -1m, base.Owner, null);
+            await PowerCmd.Apply<FastChargeModePower>(choiceContext, base.Owner, -1m, base.Owner, null);
         }
     }
 }

@@ -41,7 +41,7 @@ public sealed class DeliveryPower : AngelinaPower
     /// <summary>
     /// 所有寄送牌共用同一个图标，不再一张牌一个Power。
     /// </summary>
-    public override bool IsInstanced => false;
+    public override PowerInstanceType InstanceType => PowerInstanceType.None;
 
     /// <summary>
     /// 层数直接显示当前寄送队列中的牌数。
@@ -77,7 +77,7 @@ public sealed class DeliveryPower : AngelinaPower
     /// <summary>
     /// 每回合抽牌前自动结算全部寄送牌。
     /// </summary>
-    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
         _ = choiceContext;
         _ = combatState;
@@ -224,7 +224,7 @@ public sealed class DeliveryPower : AngelinaPower
         }
 
         data.QueuedCards.Remove(card);
-        await CardPileCmd.Add(card, PileType.Hand, source: this);
+        await CardPileCmd.Add(card, PileType.Hand, clonedBy: this);
         await RefreshAfterQueueChanged();
 
         return card;
@@ -263,7 +263,7 @@ public sealed class DeliveryPower : AngelinaPower
             }
 
             data.QueuedCards.Remove(card);
-            await CardPileCmd.Add(card, PileType.Hand, source: this);
+            await CardPileCmd.Add(card, PileType.Hand, clonedBy: this);
             deliveredCount++;
         }
 

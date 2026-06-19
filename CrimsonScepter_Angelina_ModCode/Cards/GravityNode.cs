@@ -169,6 +169,7 @@ public sealed class GravityNode : AngelinaCard
 
         // 第一步：先施加失衡
         await PowerCmd.Apply<ImbalancePower>(
+            choiceContext,
             cardPlay.Target,
             base.DynamicVars["ImbalancePower"].BaseValue,
             base.Owner.Creature,
@@ -190,7 +191,7 @@ public sealed class GravityNode : AngelinaCard
                 .WithHitFx("vfx/vfx_flying_slash")
                 .Execute(choiceContext);
 
-            fatalKilledTarget = shouldTriggerFatal && attackCommand.Results.Any(r => r.WasTargetKilled);
+            fatalKilledTarget = shouldTriggerFatal && attackCommand.Results.SelectMany(results => results).Any(r => r.WasTargetKilled);
         }
 
         // 造成失重时，只永久提高这张牌的失衡。
@@ -274,8 +275,9 @@ public sealed class GravityNode : AngelinaCard
         base.DynamicVars["ImbalancePower"].BaseValue = GetDisplayedImbalance();
     }
 
-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
+        _ = choiceContext;
         _ = applier;
 
         if (!_pendingWeightlessCheck || cardSource != this || amount <= 0m)

@@ -75,6 +75,7 @@ public sealed class ScepterAntigravityMode : AngelinaCard
         foreach (Creature enemy in enemies)
         {
             await PowerCmd.Apply<ImbalancePower>(
+                choiceContext,
                 enemy,
                 base.DynamicVars["ImbalancePower"].BaseValue,
                 base.Owner.Creature,
@@ -82,6 +83,7 @@ public sealed class ScepterAntigravityMode : AngelinaCard
             );
 
             await PowerCmd.Apply<TemporaryFlyPower>(
+                choiceContext,
                 enemy,
                 base.DynamicVars["TemporaryFlyPower"].BaseValue,
                 base.Owner.Creature,

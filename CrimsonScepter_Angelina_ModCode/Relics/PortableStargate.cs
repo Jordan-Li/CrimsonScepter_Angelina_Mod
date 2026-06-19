@@ -6,6 +6,7 @@ using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -118,8 +119,9 @@ public sealed class PortableStargate : AngelinaRelic
         await CardPileCmd.Draw(new ThrowingPlayerChoiceContext(), base.DynamicVars.Cards.IntValue, base.Owner);
     }
 
-    public override Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
+        _ = participants;
         _ = combatState;
 
         if (side != base.Owner.Creature.Side)

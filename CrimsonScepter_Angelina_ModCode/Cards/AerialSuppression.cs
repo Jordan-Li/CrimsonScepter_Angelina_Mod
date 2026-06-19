@@ -51,6 +51,7 @@ public sealed class AerialSuppression : AngelinaCard
 
         // 第一步：给予目标飞行。
         await PowerCmd.Apply<FlyPower>(
+            choiceContext,
             cardPlay.Target,
             base.DynamicVars["FlyPower"].BaseValue,
             base.Owner.Creature,
@@ -59,6 +60,7 @@ public sealed class AerialSuppression : AngelinaCard
 
         // 第二步：让目标本回合失去力量。
         await PowerCmd.Apply<PiercingWailPower>(
+            choiceContext,
             cardPlay.Target,
             base.DynamicVars["StrengthLoss"].BaseValue,
             base.Owner.Creature,

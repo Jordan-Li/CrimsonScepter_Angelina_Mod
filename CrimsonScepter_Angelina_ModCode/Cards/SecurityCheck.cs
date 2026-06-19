@@ -42,6 +42,7 @@ public sealed class SecurityCheck : AngelinaCard
         // 打出时获得安全检查能力，用来拦截寄送的状态牌和诅咒牌。
         await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<SecurityCheckPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["SecurityCheckPower"].BaseValue,
             base.Owner.Creature,

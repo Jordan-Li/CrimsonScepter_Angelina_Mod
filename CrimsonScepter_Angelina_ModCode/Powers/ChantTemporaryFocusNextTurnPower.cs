@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models.Powers;
 
@@ -35,7 +36,7 @@ public sealed class ChantTemporaryFocusNextTurnPower : AngelinaPower
         }
 
         Flash();
-        await PowerCmd.Apply<FocusPower>(base.Owner, base.Amount, base.Owner, null);
+        await PowerCmd.Apply<FocusPower>(new ThrowingPlayerChoiceContext(), base.Owner, base.Amount, base.Owner, null);
         await PowerCmd.Remove(this);
     }
 

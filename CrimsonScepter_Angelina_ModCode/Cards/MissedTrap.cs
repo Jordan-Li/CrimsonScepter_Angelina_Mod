@@ -103,8 +103,9 @@ public sealed class MissedTrap : AngelinaCard
         base.DynamicVars["EnergyGain"].UpgradeValueBy(1m);
     }
 
-    public override Task AfterPowerAmountChanged(MegaCrit.Sts2.Core.Models.PowerModel power, decimal amount, MegaCrit.Sts2.Core.Entities.Creatures.Creature? applier, MegaCrit.Sts2.Core.Models.CardModel? cardSource)
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, MegaCrit.Sts2.Core.Models.PowerModel power, decimal amount, MegaCrit.Sts2.Core.Entities.Creatures.Creature? applier, MegaCrit.Sts2.Core.Models.CardModel? cardSource)
     {
+        _ = choiceContext;
         _ = applier;
 
         // 这里不能再要求 cardSource == this。

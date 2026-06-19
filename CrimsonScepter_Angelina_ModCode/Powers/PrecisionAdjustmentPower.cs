@@ -40,15 +40,16 @@ public sealed class PrecisionAdjustmentPower : AngelinaPower
         return Task.CompletedTask;
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
+        _ = participants;
         if (side != _triggerSide)
         {
             return;
         }
 
         Flash();
-        await PowerCmd.Apply<ImbalancePower>(base.Owner, -base.Amount, base.Owner, null, silent: true);
+        await PowerCmd.Apply<ImbalancePower>(choiceContext, base.Owner, -base.Amount, base.Owner, null, silent: true);
         await PowerCmd.Remove(this);
     }
 }

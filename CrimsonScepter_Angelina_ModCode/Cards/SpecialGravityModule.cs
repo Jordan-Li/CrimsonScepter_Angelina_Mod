@@ -60,6 +60,7 @@ public sealed class SpecialGravityModule : AngelinaCard
     {
         await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<SpecialGravityModulePower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["SpecialGravityModulePower"].BaseValue,
             base.Owner.Creature,

@@ -55,7 +55,7 @@ public sealed class GlitterstreamAngelina : AngelinaCard
             if (selectedCard is not null)
             {
                 DeliveryPower? deliveryPower = base.Owner.Creature.GetPower<DeliveryPower>();
-                deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+                deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
 
                 await CardCmd.Exhaust(choiceContext, selectedCard);
 
@@ -66,7 +66,7 @@ public sealed class GlitterstreamAngelina : AngelinaCard
             }
         }
 
-        await PowerCmd.Apply<GlitterstreamAngelinaPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+        await PowerCmd.Apply<GlitterstreamAngelinaPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

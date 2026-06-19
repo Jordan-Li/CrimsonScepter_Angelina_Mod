@@ -47,11 +47,11 @@ public sealed class Updraft : AngelinaCard
 
             if (AirborneHelper.IsAirborne(creature))
             {
-                await PowerCmd.Apply<FlyPower>(creature, 1m, base.Owner.Creature, this);
+                await PowerCmd.Apply<FlyPower>(choiceContext, creature, 1m, base.Owner.Creature, this);
             }
             else
             {
-                await PowerCmd.Apply<ImbalancePower>(creature, base.DynamicVars["ImbalancePower"].BaseValue, base.Owner.Creature, this);
+                await PowerCmd.Apply<ImbalancePower>(choiceContext, creature, base.DynamicVars["ImbalancePower"].BaseValue, base.Owner.Creature, this);
             }
         }
     }

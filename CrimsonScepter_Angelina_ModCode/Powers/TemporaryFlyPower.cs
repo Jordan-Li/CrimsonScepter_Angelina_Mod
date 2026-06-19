@@ -55,12 +55,14 @@ public sealed class TemporaryFlyPower : AngelinaPower
             return;
         }
 
-        await PowerCmd.Apply<FlyPower>(target, amount, applier, cardSource, silent: true);
+        await PowerCmd.Apply<FlyPower>(new ThrowingPlayerChoiceContext(), target, amount, applier, cardSource, silent: true);
     }
 
     // 自身层数变化时，同步修改飞行层数。
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
+        _ = choiceContext;
+
         if (power != this || amount == base.Amount)
         {
             return;
@@ -72,13 +74,14 @@ public sealed class TemporaryFlyPower : AngelinaPower
             return;
         }
 
-        await PowerCmd.Apply<FlyPower>(base.Owner, amount, applier, cardSource, silent: true);
+        await PowerCmd.Apply<FlyPower>(new ThrowingPlayerChoiceContext(), base.Owner, amount, applier, cardSource, silent: true);
     }
 
     // 到拥有者回合开始时，移除这层临时飞行，并扣掉等量飞行。
-    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
+    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         _ = choiceContext;
+        _ = participants;
         _ = combatState;
 
         if (side != base.Owner.Side)
@@ -92,7 +95,7 @@ public sealed class TemporaryFlyPower : AngelinaPower
         try
         {
             await PowerCmd.Remove(this);
-            await PowerCmd.Apply<FlyPower>(base.Owner, -amountToRemove, base.Owner, null, silent: true);
+            await PowerCmd.Apply<FlyPower>(new ThrowingPlayerChoiceContext(), base.Owner, -amountToRemove, base.Owner, null, silent: true);
         }
         finally
         {

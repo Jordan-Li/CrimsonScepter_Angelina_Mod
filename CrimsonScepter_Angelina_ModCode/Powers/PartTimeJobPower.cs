@@ -4,6 +4,7 @@ using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -23,8 +24,9 @@ public sealed class PartTimeJobPower : AngelinaPower
     public override bool ShouldScaleInMultiplayer => false;
 
     // 回合结束时检查这一回合是否打出过攻击牌，若没有则恢复生命值，然后移除此 Power。
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
+        _ = participants;
         // 只在自身这一侧的回合结束时触发；缺少玩家或战斗状态时直接跳过。
         if (side != base.Owner.Side || base.Owner.Player == null || base.CombatState == null)
         {

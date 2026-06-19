@@ -68,9 +68,9 @@ public sealed class BubbleWrap : AngelinaCard
             await CardPileCmd.AddGeneratedCardToCombat(
                 copy,
                 PileType.Exhaust,
-                addedByPlayer: true));
+                base.Owner));
 
-        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
 
         if (deliveryPower != null)
         {

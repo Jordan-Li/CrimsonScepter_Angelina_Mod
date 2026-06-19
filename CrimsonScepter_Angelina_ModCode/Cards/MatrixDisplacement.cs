@@ -49,7 +49,7 @@ public sealed class MatrixDisplacement : AngelinaCard
 
         decimal damage = SpellHelper.ModifySpellValue(base.Owner.Creature, base.DynamicVars.Damage.BaseValue);
         await SpellHelper.Damage(choiceContext, base.Owner.Creature, cardPlay.Target, damage, this);
-        await PowerCmd.Apply<MatrixDisplacementPower>(cardPlay.Target, 1m, base.Owner.Creature, this);
+        await PowerCmd.Apply<MatrixDisplacementPower>(choiceContext, cardPlay.Target, 1m, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

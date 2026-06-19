@@ -24,7 +24,7 @@ public sealed class AncientExpress : AngelinaRelic
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        CombatState? combatState = base.Owner.Creature.CombatState;
+        ICombatState? combatState = base.Owner.Creature.CombatState;
         if (player != base.Owner || combatState == null || combatState.RoundNumber != 1)
         {
             return;
@@ -45,7 +45,7 @@ public sealed class AncientExpress : AngelinaRelic
         CardPileAddResult addResult = await CardPileCmd.AddGeneratedCardToCombat(
             generatedCard,
             PileType.Exhaust,
-            addedByPlayer: true
+            base.Owner
         );
 
         if (!addResult.success)
@@ -57,6 +57,7 @@ public sealed class AncientExpress : AngelinaRelic
         deliveredCard.Pile?.InvokeCardAddFinished();
 
         DeliveryPower? deliveryPower = await PowerCmd.Apply<DeliveryPower>(
+            choiceContext,
             base.Owner.Creature,
             1m,
             base.Owner.Creature,

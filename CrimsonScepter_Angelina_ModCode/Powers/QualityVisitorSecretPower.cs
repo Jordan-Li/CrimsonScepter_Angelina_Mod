@@ -2,6 +2,7 @@
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
@@ -18,8 +19,9 @@ public sealed class QualityVisitorSecretPower : AngelinaPower
 
     public override bool ShouldScaleInMultiplayer => false;
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
+        _ = participants;
         // 彩蛋提示只持续到己方回合结束。
         if (side == base.Owner.Side)
         {

@@ -42,6 +42,7 @@ public sealed class SupplyPackage : DeliveredCardModel
         ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
 
         await PowerCmd.Apply<ImbalancePower>(
+            choiceContext,
             cardPlay.Target,
             base.DynamicVars["ImbalancePower"].BaseValue,
             base.Owner.Creature,

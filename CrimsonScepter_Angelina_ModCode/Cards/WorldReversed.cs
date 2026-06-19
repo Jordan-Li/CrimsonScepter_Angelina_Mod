@@ -70,7 +70,7 @@ public sealed class WorldReversed : AngelinaCard
         }
 
         deliveryPower = base.Owner.Creature.GetPower<DeliveryPower>();
-        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
         if (deliveryPower == null)
         {
             return;

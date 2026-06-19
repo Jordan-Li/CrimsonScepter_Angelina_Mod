@@ -3,6 +3,7 @@ using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -21,7 +22,7 @@ public sealed class GlitterstreamAngelinaPower : AngelinaPower
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override bool IsInstanced => false;
+    public override PowerInstanceType InstanceType => PowerInstanceType.None;
 
     public override bool ShouldScaleInMultiplayer => false;
 
@@ -56,8 +57,9 @@ public sealed class GlitterstreamAngelinaPower : AngelinaPower
         return Task.CompletedTask;
     }
 
-    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
+    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
+        _ = participants;
         _ = choiceContext;
         _ = combatState;
 

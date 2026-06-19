@@ -48,6 +48,7 @@ public sealed class Inertia : AngelinaCard
         // 先播放施法动作，再挂上对应的持续 Power。
         await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<InertiaPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["InertiaPower"].BaseValue,
             base.Owner.Creature,

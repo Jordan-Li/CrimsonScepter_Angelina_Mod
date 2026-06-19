@@ -44,6 +44,7 @@ public sealed class QualityVisitor : AngelinaCard
     {
         // 打出时获得质素访客能力，在接下来若干回合开始时给属性。
         await PowerCmd.Apply<QualityVisitorPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["QualityVisitorPower"].BaseValue,
             base.Owner.Creature,

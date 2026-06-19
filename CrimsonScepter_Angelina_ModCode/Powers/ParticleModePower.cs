@@ -111,8 +111,9 @@ public sealed class ParticleModePower : AngelinaPower
     }
 
     // 回合结束时清空“本回合已返回过”的记录。
-    public override Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
+        _ = participants;
         if (side == base.Owner.Side)
         {
             GetInternalData<Data>().ReturnedAttacksThisTurn.Clear();

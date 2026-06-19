@@ -105,9 +105,9 @@ public sealed class ExtremeBeam : DeliveredCardModel
         return Task.CompletedTask;
     }
 
-    protected override PileType GetResultPileType()
+    protected override PileType GetResultPileTypeForCardPlay()
     {
-        PileType resultPileType = base.GetResultPileType();
+        PileType resultPileType = base.GetResultPileTypeForCardPlay();
         if (!IsUpgraded || resultPileType != PileType.Discard)
         {
             return resultPileType;

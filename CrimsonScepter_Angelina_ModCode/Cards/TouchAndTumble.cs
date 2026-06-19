@@ -86,7 +86,7 @@ public sealed class TouchAndTumble : AngelinaCard
             return;
         }
 
-        await PowerCmd.Apply<WeightlessPower>(cardPlay.Target, WeightlessDuration, base.Owner.Creature, this);
+        await PowerCmd.Apply<WeightlessPower>(choiceContext, cardPlay.Target, WeightlessDuration, base.Owner.Creature, this);
 
         // 第三步：结算“失去当前失衡一半的生命值”，并直接用伤害结果判断是否被这次生命损失打死。
         var damageResults = await CreatureCmd.Damage(

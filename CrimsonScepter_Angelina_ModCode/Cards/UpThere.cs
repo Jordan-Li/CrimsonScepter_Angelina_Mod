@@ -97,6 +97,7 @@ public sealed class UpThere : AngelinaCard
         foreach (Creature enemy in groundedEnemies)
         {
             await PowerCmd.Apply<ImbalancePower>(
+                choiceContext,
                 enemy,
                 base.DynamicVars["ImbalancePower"].BaseValue,
                 base.Owner.Creature,

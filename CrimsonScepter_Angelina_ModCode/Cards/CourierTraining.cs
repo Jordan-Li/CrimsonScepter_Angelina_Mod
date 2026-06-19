@@ -59,6 +59,7 @@ public sealed class CourierTraining : AngelinaCard
         // 先播放施法动作，再挂上对应的持续 Power。
         await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<CourierTrainingPower>(
+            choiceContext,
             base.Owner.Creature,
             base.DynamicVars["CourierTrainingPower"].BaseValue,
             base.Owner.Creature,

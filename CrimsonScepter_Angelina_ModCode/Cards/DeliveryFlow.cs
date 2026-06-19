@@ -79,7 +79,7 @@ public sealed class DeliveryFlow : AngelinaCard
         }
 
         DeliveryPower? deliveryPower = base.Owner.Creature.GetPower<DeliveryPower>();
-        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
 
         // 先把牌移到 Exhaust，再加入寄送队列
         if (deliveryPower != null)

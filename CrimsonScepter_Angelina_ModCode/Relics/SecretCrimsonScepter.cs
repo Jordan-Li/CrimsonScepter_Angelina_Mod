@@ -104,11 +104,13 @@ public sealed class SecretCrimsonScepter : AngelinaRelic
     /// 这里只响应本次受击后紧接着发生的浮空相关 Power 变化。
     /// </summary>
     public override async Task AfterPowerAmountChanged(
+        PlayerChoiceContext choiceContext,
         PowerModel power,
         decimal amount,
         Creature? applier,
         CardModel? cardSource)
     {
+        _ = choiceContext;
         _ = applier;
 
         if (!CombatManager.Instance.IsInProgress || TemporaryFlyPower.IsResolvingExpiration || amount >= 0m)
@@ -135,6 +137,7 @@ public sealed class SecretCrimsonScepter : AngelinaRelic
 
         Flash([target]);
         await PowerCmd.Apply<ImbalancePower>(
+            choiceContext,
             target,
             base.DynamicVars["ImbalancePower"].BaseValue,
             base.Owner.Creature,
@@ -142,8 +145,9 @@ public sealed class SecretCrimsonScepter : AngelinaRelic
         );
     }
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
+        _ = participants;
         if (side != base.Owner.Creature.Side)
         {
             return;
@@ -160,6 +164,7 @@ public sealed class SecretCrimsonScepter : AngelinaRelic
 
         Flash();
         await PowerCmd.Apply<TemporaryFlyPower>(
+            new ThrowingPlayerChoiceContext(),
             creatures,
             base.DynamicVars["TemporaryFlyPower"].BaseValue,
             base.Owner.Creature,

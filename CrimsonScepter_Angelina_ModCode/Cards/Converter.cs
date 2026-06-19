@@ -67,11 +67,11 @@ public sealed class Converter : AngelinaCard
         decimal amount = base.DynamicVars["StrengthPower"].BaseValue;
 
         // 第一步：失去力量和敏捷
-        await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, -amount, base.Owner.Creature, this);
-        await PowerCmd.Apply<DexterityPower>(base.Owner.Creature, -amount, base.Owner.Creature, this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, base.Owner.Creature, -amount, base.Owner.Creature, this);
+        await PowerCmd.Apply<DexterityPower>(choiceContext, base.Owner.Creature, -amount, base.Owner.Creature, this);
 
         // 第二步：获得集中
-        await PowerCmd.Apply<FocusPower>(base.Owner.Creature, amount, base.Owner.Creature, this);
+        await PowerCmd.Apply<FocusPower>(choiceContext, base.Owner.Creature, amount, base.Owner.Creature, this);
 
         // 第三步：生成一张定位器
         if (base.CombatState == null)
@@ -90,11 +90,11 @@ public sealed class Converter : AngelinaCard
             await CardPileCmd.AddGeneratedCardToCombat(
                 locator,
                 PileType.Exhaust,
-                addedByPlayer: true));
+                base.Owner));
 
         // 第五步：加入新版单图标寄送队列
         DeliveryPower? deliveryPower = base.Owner.Creature.GetPower<DeliveryPower>();
-        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
 
         if (deliveryPower != null)
         {

@@ -59,11 +59,11 @@ public sealed class LittleTrick : AngelinaCard
             await CardPileCmd.AddGeneratedCardToCombat(
                 copy,
                 PileType.Exhaust,
-                addedByPlayer: true));
+                base.Owner));
 
         // 第四步：加入寄送队列
         DeliveryPower? deliveryPower = base.Owner.Creature.GetPower<DeliveryPower>();
-        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
 
         if (deliveryPower != null)
         {

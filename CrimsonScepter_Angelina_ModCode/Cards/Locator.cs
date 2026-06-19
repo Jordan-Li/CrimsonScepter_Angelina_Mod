@@ -65,11 +65,11 @@ public sealed class Locator : AngelinaCard
         decimal amount = base.DynamicVars["StrengthPower"].BaseValue;
 
         // 第一步：失去集中
-        await PowerCmd.Apply<FocusPower>(base.Owner.Creature, -amount, base.Owner.Creature, this);
+        await PowerCmd.Apply<FocusPower>(choiceContext, base.Owner.Creature, -amount, base.Owner.Creature, this);
 
         // 第二步：获得力量和敏捷
-        await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, amount, base.Owner.Creature, this);
-        await PowerCmd.Apply<DexterityPower>(base.Owner.Creature, amount, base.Owner.Creature, this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, base.Owner.Creature, amount, base.Owner.Creature, this);
+        await PowerCmd.Apply<DexterityPower>(choiceContext, base.Owner.Creature, amount, base.Owner.Creature, this);
 
         // 第三步：生成一张转换器加入抽牌堆
         if (base.CombatState == null)
@@ -87,7 +87,7 @@ public sealed class Locator : AngelinaCard
             await CardPileCmd.AddGeneratedCardToCombat(
                 converter,
                 PileType.Draw,
-                addedByPlayer: true,
+                base.Owner,
                 CardPilePosition.Random));
 
         await Cmd.Wait(0.5f);

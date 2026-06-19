@@ -51,8 +51,9 @@ public sealed class FlyPower : AngelinaPower
     /// 自己的层数发生变化后，同样检查是否需要清空。
     /// 玩家持有飞行时，还需要主动刷新敌方意图预览。
     /// </summary>
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
+        _ = choiceContext;
         if (power != this)
         {
             return;
@@ -126,7 +127,7 @@ public sealed class FlyPower : AngelinaPower
             return;
         }
 
-        CombatState? combatState = owner.CombatState;
+        ICombatState? combatState = owner.CombatState;
         if (combatState == null)
         {
             return;

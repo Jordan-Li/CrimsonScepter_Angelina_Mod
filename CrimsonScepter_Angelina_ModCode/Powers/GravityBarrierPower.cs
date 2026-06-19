@@ -52,11 +52,12 @@ public sealed class GravityBarrierPower : AngelinaPower
 
         // 触发结界反制，对伤害来源施加失衡。
         Flash();
-        await PowerCmd.Apply<ImbalancePower>(dealer, base.Amount, base.Owner, cardSource);
+        await PowerCmd.Apply<ImbalancePower>(choiceContext, dealer, base.Amount, base.Owner, cardSource);
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
+        _ = participants;
         // 回合结束后移除此效果，使其只在本回合内生效。
         if (base.Owner.Side != side)
         {

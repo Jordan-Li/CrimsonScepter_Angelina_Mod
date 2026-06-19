@@ -30,7 +30,7 @@ public sealed class CalibrationModule : AngelinaRelic
         HoverTipFactory.FromPower<ImbalancePower>()
     };
 
-    public override decimal ModifyPowerAmountGiven(
+    public override decimal ModifyPowerAmountGivenAdditive(
         PowerModel power,
         Creature giver,
         decimal amount,
@@ -42,10 +42,10 @@ public sealed class CalibrationModule : AngelinaRelic
 
         if (power is not ImbalancePower || giver != base.Owner.Creature)
         {
-            return amount;
+            return 0m;
         }
 
-        return amount + base.DynamicVars["ImbalancePower"].BaseValue;
+        return base.DynamicVars["ImbalancePower"].BaseValue;
     }
 
     public override Task AfterModifyingPowerAmountGiven(PowerModel power)

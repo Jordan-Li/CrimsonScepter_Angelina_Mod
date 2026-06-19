@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Models;
@@ -69,7 +70,7 @@ public sealed class QualityVisitorPower : AngelinaPower
         }
 
         Flash();
-        await PowerCmd.Apply<QualityVisitorSecretPower>(base.Owner, 1m, base.Owner, card);
+        await PowerCmd.Apply<QualityVisitorSecretPower>(new ThrowingPlayerChoiceContext(), base.Owner, 1m, base.Owner, card);
     }
 
     public override async Task AfterEnergyReset(Player player)
@@ -81,9 +82,9 @@ public sealed class QualityVisitorPower : AngelinaPower
         }
 
         Flash();
-        await PowerCmd.Apply<StrengthPower>(base.Owner, 1m, base.Owner, null);
-        await PowerCmd.Apply<DexterityPower>(base.Owner, 1m, base.Owner, null);
-        await PowerCmd.Apply<FocusPower>(base.Owner, 1m, base.Owner, null);
+        await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), base.Owner, 1m, base.Owner, null);
+        await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), base.Owner, 1m, base.Owner, null);
+        await PowerCmd.Apply<FocusPower>(new ThrowingPlayerChoiceContext(), base.Owner, 1m, base.Owner, null);
         await PowerCmd.Decrement(this);
     }
 }

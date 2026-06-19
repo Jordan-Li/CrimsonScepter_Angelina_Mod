@@ -65,6 +65,7 @@ public sealed class EarlyDelivery : AngelinaCard
         foreach (Creature enemy in base.CombatState?.HittableEnemies ?? Enumerable.Empty<Creature>())
         {
             await PowerCmd.Apply<ImbalancePower>(
+                choiceContext,
                 enemy,
                 base.DynamicVars["ImbalancePower"].BaseValue,
                 base.Owner.Creature,

@@ -81,7 +81,7 @@ public sealed class ByTheWay : AngelinaCard
         pendingSelfDelivery = false;
 
         DeliveryPower? deliveryPower = base.Owner.Creature.GetPower<DeliveryPower>();
-        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(new ThrowingPlayerChoiceContext(), base.Owner.Creature, 1m, base.Owner.Creature, this);
 
         if (deliveryPower != null)
         {

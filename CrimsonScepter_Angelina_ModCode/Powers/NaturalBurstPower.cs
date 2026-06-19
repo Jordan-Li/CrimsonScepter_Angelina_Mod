@@ -66,6 +66,6 @@ public sealed class NaturalBurstPower : AngelinaPower
 
         // 对所有敌方施加等同于本 Power 层数的中毒。
         Flash();
-        await PowerCmd.Apply<PoisonPower>(enemies, base.Amount, base.Owner, cardSource);
+        await PowerCmd.Apply<PoisonPower>(new ThrowingPlayerChoiceContext(), enemies, base.Amount, base.Owner, cardSource);
     }
 }

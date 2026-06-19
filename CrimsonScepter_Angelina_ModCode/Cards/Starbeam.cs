@@ -104,8 +104,9 @@ public sealed class Starbeam : AngelinaCard
         base.DynamicVars.CalculationBase.UpgradeValueBy(2m);
     }
 
-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
+        _ = choiceContext;
         _ = applier;
 
         // 和落空陷阱同理：真正让目标掉飞行的是 FlyPower.AfterDamageReceived -> PowerCmd.Decrement(this)，

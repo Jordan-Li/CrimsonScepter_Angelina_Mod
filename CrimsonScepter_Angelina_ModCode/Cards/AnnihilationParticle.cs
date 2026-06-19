@@ -106,6 +106,7 @@ public sealed class AnnihilationParticle : AngelinaCard
         if (!base.Owner.Creature.HasPower<AnnihilationParticleNoCardRewardPower>())
         {
             await PowerCmd.Apply<AnnihilationParticleNoCardRewardPower>(
+                choiceContext,
                 base.Owner.Creature,
                 1m,
                 base.Owner.Creature,

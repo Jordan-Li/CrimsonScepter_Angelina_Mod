@@ -50,11 +50,11 @@ public sealed class EmergencySpell : AngelinaCard
     // 打出时，先加入眩晕，再获得能量并抽牌。
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        CombatState combatState = base.CombatState ?? throw new InvalidOperationException("CombatState is null during EmergencySpell.OnPlay.");
+        ICombatState combatState = base.CombatState ?? throw new InvalidOperationException("CombatState is null during EmergencySpell.OnPlay.");
 
         // 第一步：向弃牌堆中加入1张眩晕。
         CardModel dazed = combatState.CreateCard<Dazed>(base.Owner);
-        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(dazed, PileType.Discard, addedByPlayer: true));
+        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(dazed, PileType.Discard, base.Owner));
 
         // 第二步：获得能量。
         await PlayerCmd.GainEnergy(base.DynamicVars.Energy.BaseValue, base.Owner);

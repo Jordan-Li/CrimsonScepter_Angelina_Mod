@@ -36,7 +36,7 @@ public sealed class InertiaPower : AngelinaPower
     ];
 
     // 在正常抽牌前，如果已经有失重敌人，则额外抽牌。
-    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
         if (player != base.Owner.Player || !HasWeightlessEnemy())
         {
@@ -48,8 +48,10 @@ public sealed class InertiaPower : AngelinaPower
     }
 
     // 当任意 Power 数值变化后，尝试监听敌方新增的失重。
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
+        _ = choiceContext;
+
         if (amount > 0m)
         {
             await TryTriggerFromPower(power);

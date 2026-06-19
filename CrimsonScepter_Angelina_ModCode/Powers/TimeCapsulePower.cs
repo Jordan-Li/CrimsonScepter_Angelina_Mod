@@ -21,7 +21,7 @@ public sealed class TimeCapsulePower : AngelinaPower
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override bool IsInstanced => false;
+    public override PowerInstanceType InstanceType => PowerInstanceType.None;
 
     public override int DisplayAmount => GetTrackedCards().Count;
 

@@ -3,6 +3,7 @@ using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
 namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Powers;
 
@@ -29,6 +30,6 @@ public sealed class CourierTrainingPower : AngelinaPower
 
         // 播放闪光提示，然后施加飞行。
         Flash();
-        await PowerCmd.Apply<FlyPower>(base.Owner, base.Amount, base.Owner, null);
+        await PowerCmd.Apply<FlyPower>(new ThrowingPlayerChoiceContext(), base.Owner, base.Amount, base.Owner, null);
     }
 }

@@ -54,10 +54,10 @@ public sealed class TimeCapsule : AngelinaCard
         }
 
         DeliveryPower? deliveryPower = base.Owner.Creature.GetPower<DeliveryPower>();
-        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
 
         TimeCapsulePower? timeCapsulePower = base.Owner.Creature.GetPower<TimeCapsulePower>();
-        timeCapsulePower ??= await PowerCmd.Apply<TimeCapsulePower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+        timeCapsulePower ??= await PowerCmd.Apply<TimeCapsulePower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
 
         foreach (CardModel selectedCard in selectedCards)
         {

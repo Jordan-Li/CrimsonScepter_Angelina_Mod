@@ -47,6 +47,6 @@ public sealed class DecelBinderPower : AngelinaPower
 
         // 对本次攻击目标施加等同于当前层数的停顿。
         Flash();
-        await PowerCmd.Apply<StaggerPower>(target, base.Amount, base.Owner, cardPlay.Card);
+        await PowerCmd.Apply<StaggerPower>(context, target, base.Amount, base.Owner, cardPlay.Card);
     }
 }

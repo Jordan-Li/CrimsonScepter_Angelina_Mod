@@ -68,8 +68,9 @@ public sealed class MatrixDisplacementPower : AngelinaPower
         }
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
+        _ = participants;
         if (side != base.Owner.Side)
         {
             await PowerCmd.Remove(this);
@@ -97,7 +98,7 @@ public sealed class MatrixDisplacementPower : AngelinaPower
         }
 
         DeliveryPower? deliveryPower = dealer.GetPower<DeliveryPower>();
-        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(dealer, 1m, dealer, null);
+        deliveryPower ??= await PowerCmd.Apply<DeliveryPower>(choiceContext, dealer, 1m, dealer, null);
 
         await CardCmd.Exhaust(choiceContext, selectedCard);
         if (deliveryPower != null)

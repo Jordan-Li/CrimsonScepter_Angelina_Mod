@@ -51,7 +51,7 @@ public sealed class MessengerCode : AngelinaCard
     {
         // 先播放施法动作，再挂上持续 Power。
         await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
-        await PowerCmd.Apply<MessengerCodePower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+        await PowerCmd.Apply<MessengerCodePower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
     }
 
     // 升级后为这张能力牌添加固有。

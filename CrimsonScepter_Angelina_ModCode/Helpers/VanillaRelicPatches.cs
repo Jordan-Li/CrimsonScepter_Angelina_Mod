@@ -17,7 +17,7 @@ namespace CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Helpers;
 /// <summary>
 /// 兼容原版特定遗物对安洁莉娜的特殊处理：
 /// 1. Touch of Orobas 会把绯红权杖升级为秘杖·绯红权杖。
-/// 2. Archaic Tooth 会把起始卡“反重力”替换成“秘杖·反重力模式”。
+/// 2. Archaic Tooth 会把起始卡“反重力”替换成“特限重力模块”。
 /// </summary>
 [HarmonyPatch(typeof(TouchOfOrobas), nameof(TouchOfOrobas.GetUpgradedStarterRelic))]
 internal static class AngelinaTouchOfOrobasUpgradePatch
@@ -78,7 +78,7 @@ internal static class AngelinaArchaicToothSetupPatch
         var runState = owner.RunState
             ?? throw new System.InvalidOperationException("Owner should have a run state when transformed by Archaic Tooth.");
 
-        CardModel ancientCard = runState.CreateCard<ScepterAntigravityMode>(owner);
+        CardModel ancientCard = runState.CreateCard<SpecialGravityModule>(owner);
 
         if (starterCard.IsUpgraded)
         {

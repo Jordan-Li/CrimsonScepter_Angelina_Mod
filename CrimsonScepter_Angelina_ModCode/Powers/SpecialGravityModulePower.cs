@@ -41,7 +41,7 @@ public sealed class SpecialGravityModulePower : AngelinaPower
             if (target != null && target.Side != base.Owner.Side && !AirborneHelper.IsAirborne(target))
             {
                 appliedFlyThisTime = true;
-                await PowerCmd.Apply<FlyPower>(target, base.Amount, base.Owner, cardPlay.Card);
+                await PowerCmd.Apply<FlyPower>(context, target, base.Amount, base.Owner, cardPlay.Card);
             }
         }
 

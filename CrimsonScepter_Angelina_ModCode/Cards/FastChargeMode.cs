@@ -37,7 +37,7 @@ public sealed class FastChargeMode : AngelinaCard
     // 打出时，获得本回合生效的“快速充能模式”。
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<FastChargeModePower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+        await PowerCmd.Apply<FastChargeModePower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
     }
 
     // 升级后减1费。

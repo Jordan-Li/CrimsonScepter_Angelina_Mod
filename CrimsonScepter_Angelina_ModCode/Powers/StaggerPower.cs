@@ -57,8 +57,9 @@ public sealed class StaggerPower : AngelinaPower
         return Task.CompletedTask;
     }
 
-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
+        _ = choiceContext;
         if (power == this)
         {
             RefreshDisplay();
@@ -68,8 +69,9 @@ public sealed class StaggerPower : AngelinaPower
     }
 
     // 到拥有者自己回合结束时移除
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
+        _ = participants;
         if (side == base.Owner.Side)
         {
             await PowerCmd.Remove(this);

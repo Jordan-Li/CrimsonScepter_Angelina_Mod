@@ -59,6 +59,7 @@ public sealed class HorizonLine : AngelinaCard
 
         // 对战场上的所有单位统一施加飞行。
         await PowerCmd.Apply<FlyPower>(
+            choiceContext,
             combatState.Creatures,
             base.DynamicVars["FlyPower"].BaseValue,
             base.Owner.Creature,

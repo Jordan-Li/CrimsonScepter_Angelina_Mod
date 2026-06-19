@@ -50,13 +50,14 @@ public sealed class BalancedStrike : AngelinaCard
             .WithHitFx("vfx/vfx_flying_slash")
             .Execute(choiceContext);
 
-        if (attackCommand.Results.Any(result => result.Receiver == cardPlay.Target && result.WasTargetKilled))
+        if (attackCommand.Results.SelectMany(results => results).Any(result => result.Receiver == cardPlay.Target && result.WasTargetKilled))
         {
             return;
         }
 
         // 第二步：再给目标施加失衡。
         await PowerCmd.Apply<ImbalancePower>(
+            choiceContext,
             cardPlay.Target,
             base.DynamicVars["ImbalancePower"].BaseValue,
             base.Owner.Creature,
