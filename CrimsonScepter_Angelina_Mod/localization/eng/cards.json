@@ -236,6 +236,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-EXTREME_BEAM.title": "Extreme Beam",
   "CRIMSONSCEPTER_ANGELINA_MOD-EXTREME_BEAM.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage to all enemies. For this combat, double this card's damage and increase its play cost by {Energy:energyIcons()}. {IfUpgraded:show:Return this card to your hand.|}\n[gold]Delivered[/gold]: Reset this card to its initial state.",
 
+  "CRIMSONSCEPTER_ANGELINA_MOD-STELLAR_RESONANCE.title": "Stellar Resonance",
+  "CRIMSONSCEPTER_ANGELINA_MOD-STELLAR_RESONANCE.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage. For each enchanted card in all piles, deal {ExtraDamage:diff()} additional [gold]spell[/gold] damage.",
+
   "CRIMSONSCEPTER_ANGELINA_MOD-ANNIHILATION_PARTICLE.title": "Annihilation Particle",
   "CRIMSONSCEPTER_ANGELINA_MOD-ANNIHILATION_PARTICLE.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage to all enemies. If any target is [gold]Fatally[/gold] killed, this combat grants no card rewards."
 }
