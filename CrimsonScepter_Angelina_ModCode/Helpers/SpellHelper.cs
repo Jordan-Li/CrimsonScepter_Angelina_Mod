@@ -38,7 +38,8 @@ public static class SpellHelper
         Creature? source,
         Creature? target,
         decimal amount,
-        CardModel? cardSource)
+        CardModel? cardSource,
+        CardPlay? cardPlay = null)
     {
         if (target == null || amount <= 0m)
         {
@@ -51,7 +52,8 @@ public static class SpellHelper
             amount,
             SpellProps,
             source,
-            cardSource
+            cardSource,
+            cardPlay
         )).FirstOrDefault();
     }
 
@@ -60,7 +62,8 @@ public static class SpellHelper
         Creature? source,
         IEnumerable<Creature> targets,
         decimal amount,
-        CardModel? cardSource)
+        CardModel? cardSource,
+        CardPlay? cardPlay = null)
     {
         if (amount <= 0m)
         {
@@ -73,7 +76,8 @@ public static class SpellHelper
             amount,
             SpellProps,
             source,
-            cardSource
+            cardSource,
+            cardPlay
         );
     }
     

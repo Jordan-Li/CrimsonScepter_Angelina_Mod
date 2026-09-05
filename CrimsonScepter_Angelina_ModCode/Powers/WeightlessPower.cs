@@ -96,12 +96,13 @@ public sealed class WeightlessPower : AngelinaPower
     }
 
     // 失重状态下，目标受到的伤害翻倍。
-    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
         _ = amount;
         _ = props;
         _ = dealer;
         _ = cardSource;
+        _ = cardPlay;
 
         if (target != base.Owner)
         {

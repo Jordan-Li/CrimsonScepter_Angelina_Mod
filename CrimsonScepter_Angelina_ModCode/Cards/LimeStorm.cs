@@ -70,7 +70,8 @@ public sealed class LimeStorm : AngelinaCard
             base.DynamicVars["SplashDamage"].BaseValue,
             ValueProp.Move,
             base.Owner.Creature,
-            this
+            this,
+            cardPlay
         );
     }
 

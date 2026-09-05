@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CrimsonScepter_Angelina_Mod.CrimsonScepter_Angelina_ModCode.Abstracts;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -73,8 +74,13 @@ public sealed class FlyPower : AngelinaPower
         decimal amount,
         ValueProp props,
         Creature? dealer,
-        CardModel? cardSource)
+        CardModel? cardSource,
+        CardPlay? cardPlay)
     {
+        _ = amount;
+        _ = dealer;
+        _ = cardSource;
+        _ = cardPlay;
         return target == base.Owner && base.Amount > 0 && IsPoweredAttack(props)
             ? base.DynamicVars[DamageDecreaseKey].BaseValue / 100m
             : 1m;

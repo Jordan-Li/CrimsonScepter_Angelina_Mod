@@ -186,7 +186,7 @@ public sealed class GravityNode : AngelinaCard
         if (cardPlay.Target.IsAlive)
         {
             var attackCommand = await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_flying_slash")
                 .Execute(choiceContext);

@@ -51,7 +51,7 @@ public sealed class FishingForScales : AngelinaCard
         ArgumentNullException.ThrowIfNull(base.CombatState, nameof(base.CombatState));
 
         AttackCommand attackCommand = DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this);
+            .FromCard(this, cardPlay);
 
         if (IsUpgraded)
         {

@@ -46,6 +46,7 @@ public sealed class SpellCalculatedDamageVar(ValueProp props) : CalculatedDamage
                 previewDamage,
                 Props,
                 card,
+                null,
                 ModifyDamageHookType.All,
                 previewMode,
                 out IEnumerable<AbstractModel> _);

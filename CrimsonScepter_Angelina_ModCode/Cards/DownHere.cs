@@ -104,7 +104,7 @@ public sealed class DownHere : AngelinaCard
 
         // 第二步：无论前面的条件是否满足，都对选中的目标造成一次伤害。
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
     }

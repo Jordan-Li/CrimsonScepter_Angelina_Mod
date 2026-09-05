@@ -45,7 +45,7 @@ public sealed class BalancedStrike : AngelinaCard
 
         // 第一步：先对目标造成一次普通攻击伤害。
         var attackCommand = await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_flying_slash")
             .Execute(choiceContext);

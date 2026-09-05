@@ -28,7 +28,7 @@ public sealed class PoorReception : DeliveredCardModel
 
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
             .WithHitCount(4)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

@@ -49,7 +49,7 @@ public sealed class PackagePreview : AngelinaCard
 
         // 第一步：先对目标造成伤害
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this)                             // 说明这次伤害来自这张牌
+            .FromCard(this, cardPlay)                   // 说明这次伤害来自这张牌
             .Targeting(cardPlay.Target)                 // 指定攻击目标
             .WithHitFx("vfx/vfx_flying_slash")          // 命中特效
             .Execute(choiceContext);                    // 真正执行

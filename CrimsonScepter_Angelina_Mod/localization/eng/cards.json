@@ -240,5 +240,9 @@
   "CRIMSONSCEPTER_ANGELINA_MOD-STELLAR_RESONANCE.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage. For each enchanted card in all piles, deal {ExtraDamage:diff()} additional [gold]spell[/gold] damage.",
 
   "CRIMSONSCEPTER_ANGELINA_MOD-ANNIHILATION_PARTICLE.title": "Annihilation Particle",
-  "CRIMSONSCEPTER_ANGELINA_MOD-ANNIHILATION_PARTICLE.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage to all enemies. If any target is [gold]Fatally[/gold] killed, this combat grants no card rewards."
+  "CRIMSONSCEPTER_ANGELINA_MOD-ANNIHILATION_PARTICLE.description": "Deal {CalculatedDamage:diff()} [gold]spell[/gold] damage to all enemies. If any target is [gold]Fatally[/gold] killed, this combat grants no card rewards.",
+
+  "CRIMSONSCEPTER_ANGELINA_MOD-TAG_RELAY.title": "Tag Relay!",
+  "CRIMSONSCEPTER_ANGELINA_MOD-TAG_RELAY.description": "[gold]Send[/gold] this card to an ally, then [gold]send[/gold] up to 2 cards to them.",
+  "TAG_RELAY.selectPrompt": "Choose up to 2 cards to send to your ally"
 }

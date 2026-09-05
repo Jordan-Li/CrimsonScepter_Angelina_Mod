@@ -39,8 +39,13 @@ public sealed class ParticleModePower : AngelinaPower
         decimal amount,
         ValueProp props,
         Creature? dealer,
-        CardModel? cardSource)
+        CardModel? cardSource,
+        CardPlay? cardPlay)
     {
+        _ = target;
+        _ = amount;
+        _ = props;
+        _ = cardPlay;
         if (dealer != base.Owner)
         {
             return 1m;

@@ -74,7 +74,7 @@ public sealed class MissedTrap : AngelinaCard
             PrepareGroundedCheck(cardPlay.Target, grantedEnergy);
 
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

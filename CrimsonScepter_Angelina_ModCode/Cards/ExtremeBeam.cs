@@ -105,15 +105,15 @@ public sealed class ExtremeBeam : DeliveredCardModel
         return Task.CompletedTask;
     }
 
-    protected override PileType GetResultPileTypeForCardPlay()
+    protected override (PileType, CardPilePosition) GetResultPileTypeAndPositionForCardPlay()
     {
-        PileType resultPileType = base.GetResultPileTypeForCardPlay();
-        if (!IsUpgraded || resultPileType != PileType.Discard)
+        (PileType pileType, CardPilePosition pilePosition) = base.GetResultPileTypeAndPositionForCardPlay();
+        if (!IsUpgraded || pileType != PileType.Discard)
         {
-            return resultPileType;
+            return (pileType, pilePosition);
         }
 
-        return PileType.Hand;
+        return (PileType.Hand, pilePosition);
     }
 
     protected override void OnUpgrade()

@@ -35,8 +35,13 @@ public sealed class StaggerPower : AngelinaPower
     ];
 
     // 迟滞会提高目标承受的伤害倍率
-    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
+        _ = amount;
+        _ = props;
+        _ = dealer;
+        _ = cardSource;
+        _ = cardPlay;
         if (target != base.Owner)
         {
             return 1m;

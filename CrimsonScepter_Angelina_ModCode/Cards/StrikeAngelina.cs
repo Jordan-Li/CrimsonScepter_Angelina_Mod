@@ -45,7 +45,7 @@ public sealed class StrikeAngelina : AngelinaCard
 
         // 执行攻击指令，并附带基础斩击特效。
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_flying_slash")
             .Execute(choiceContext);

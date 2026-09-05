@@ -172,7 +172,9 @@ internal static class AngelinaRestSiteSelectionReticlePatch
 
         foreach (Node2D childSpineNode in instance.GetChildren().OfType<Node2D>().Where(static node => node.GetClass() == "SpineSprite"))
         {
-            MegaTrackEntry? track = new MegaSprite(childSpineNode).GetAnimationState().SetAnimation(animationName);
+            MegaAnimationState animationState = new MegaSprite(childSpineNode).GetAnimationState();
+            animationState.SetAnimation(animationName);
+            using MegaTrackEntry? track = animationState.GetCurrent(0);
             track?.SetTrackTime(track.GetAnimationEnd() * Rng.Chaotic.NextFloat());
         }
     }

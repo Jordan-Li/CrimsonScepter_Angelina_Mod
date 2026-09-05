@@ -73,7 +73,7 @@ public sealed class ImComingDown : AngelinaCard
         for (int i = 0; i < lostFly; i++)
         {
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .TargetingAllOpponents(combatState)
                 .Execute(choiceContext);
         }

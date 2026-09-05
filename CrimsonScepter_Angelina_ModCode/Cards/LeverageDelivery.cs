@@ -77,7 +77,7 @@ public sealed class LeverageDelivery : AngelinaCard
 
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
             .WithHitCount(hitCount)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .TargetingAllOpponents(base.CombatState)
             .WithHitFx("vfx/vfx_flying_slash")
             .Execute(choiceContext);

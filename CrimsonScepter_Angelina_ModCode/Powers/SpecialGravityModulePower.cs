@@ -62,6 +62,6 @@ public sealed class SpecialGravityModulePower : AngelinaPower
 
         // 每打出一张牌，都对浮空敌人造成固定伤害。
         Flash();
-        await CreatureCmd.Damage(context, airborneEnemies, FlyingDamage, ValueProp.Unpowered, base.Owner, cardPlay.Card);
+        await CreatureCmd.Damage(context, airborneEnemies, FlyingDamage, ValueProp.Unpowered, base.Owner, cardPlay.Card, cardPlay);
     }
 }
